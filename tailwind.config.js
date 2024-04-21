@@ -4,6 +4,11 @@ module.exports = {
     content: ["./src/**/*.{js,jsx,ts,tsx,vue}"],
   },
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "yellow-ds": "#F4EEE3",
+        "color-icons": "9F7C34",
+      },
+    },
   },
 };

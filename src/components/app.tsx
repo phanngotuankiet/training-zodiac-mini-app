@@ -6,6 +6,8 @@ import HomePage from "../pages";
 import About from "../pages/about";
 import Form from "../pages/form";
 import User from "../pages/user";
+import Footer from "./layout/footer/footer";
+import Introduction from "./layout/introduction/intro";
 
 const MyApp = () => {
   return (
@@ -21,6 +23,7 @@ const MyApp = () => {
             </AnimationRoutes>
           </ZMPRouter>
         </SnackbarProvider>
+        <Footer />
       </App>
     </RecoilRoot>
   );
