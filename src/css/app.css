@@ -12,3 +12,15 @@
 .zaui-list-item {
   cursor: pointer;
 }
+@font-face {
+  font-family: ‘Seiston’;
+  src: url(‘./SVN-Seiston/SVN-Seiston.otf’) format(‘truetype’),
+    url(‘./SVN-Seiston/STYLEno.1\ Fonts.url’) format(‘truetype’);
+  font-weight: normal;
+  font-style: normal;
+}
+.svn-seiston {
+  font-family: ‘Seiston’, sans-serif;
+  color: #f9f6ed;
+  font-size: 36px;
+}
