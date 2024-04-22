@@ -2,19 +2,21 @@
   "app": {
     "title": "Cung Hoàng Đạo",
     "headerTitle": "Cung Hoàng Đạo",
-    "headerColor": "#1843EF",
+    "headerColor": "#240e62",
     "textColor": "white",
     "textAlign": "left",
-    "statusBarColor": "#1843EF",
+    "statusBarColor": "#1843ef",
     "leftButton": "back",
     "statusBar": "normal",
     "actionBarHidden": false,
     "hideAndroidBottomNavigationBar": false,
-    "hideIOSSafeAreaBottom": false
+    "hideIOSSafeAreaBottom": false,
+    "selfControlLoading": false
   },
   "debug": false,
   "pages": [],
   "listCSS": [],
   "listSyncJS": [],
-  "listAsyncJS": []
+  "listAsyncJS": [],
+  "template": {}
 }

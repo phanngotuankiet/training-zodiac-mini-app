@@ -10,25 +10,7 @@ const HomePage: React.FunctionComponent = () => {
   const navigate = useNavigate();
   return (
     <Page className="page">
-      <div className="section-container">
-        <UserCard user={user.userInfo} />
-      </div>
-      <div className="section-container">
-        <List>
-          <List.Item
-            onClick={() => navigate("/about")}
-            suffix={<Icon icon="zi-arrow-right" />}
-          >
-            <div>About</div>
-          </List.Item>
-          <List.Item
-            onClick={() => navigate("/user")}
-            suffix={<Icon icon="zi-arrow-right" />}
-          >
-            <div>User</div>
-          </List.Item>
-        </List>
-      </div>
+      <div className="section-container">Home Page</div>
     </Page>
   );
 };
