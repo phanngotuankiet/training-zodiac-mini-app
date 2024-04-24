@@ -28,6 +28,10 @@ const MyApp = () => {
                 path="/"
                 element={<HoroscopeByDay></HoroscopeByDay>}
               ></Route>
+              <Route
+                path="/information"
+                element={<DiscoverHoroscope></DiscoverHoroscope>}
+              ></Route>
               <Route path="/home" element={<HomePage></HomePage>}></Route>
               <Route path="/about" element={<About></About>}></Route>
               <Route path="/form" element={<Form></Form>}></Route>
