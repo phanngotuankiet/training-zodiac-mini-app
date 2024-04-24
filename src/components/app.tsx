@@ -15,6 +15,7 @@ import User from "../pages/user";
 import Footer from "./layout/footer/footer";
 import Introduction from "./layout/introduction/intro";
 import DiscoverHoroscope from "./layout/discover-horo/discover-horo";
+import HoroscopeByDay from "./layout/discover-horo/horo-by-day";
 
 const MyApp = () => {
   return (
@@ -25,7 +26,7 @@ const MyApp = () => {
             <AnimationRoutes>
               <Route
                 path="/"
-                element={<DiscoverHoroscope></DiscoverHoroscope>}
+                element={<HoroscopeByDay></HoroscopeByDay>}
               ></Route>
               <Route path="/home" element={<HomePage></HomePage>}></Route>
               <Route path="/about" element={<About></About>}></Route>

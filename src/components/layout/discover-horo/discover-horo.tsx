@@ -1,13 +1,9 @@
 import React from "react";
-import CapricornSVG from "../by-time/svg-components/CapricornSVG";
-import LuckyColorText from "../by-time/svg-components/LuckyColorText";
-import LuckyNumberText from "../by-time/svg-components/LuckyNumbertext";
-import TextTop from "./svg-components/TextTop";
+
 import Top from "./svg-components/Top";
 
 import { BottomNavigation, Header, Page } from "zmp-ui";
 import Footer from "../footer/footer";
-import LeoSVG from "../../../zodiac-SVGs/Leo-SVG";
 
 interface MyComponentProps {
   // Add any props you need here
