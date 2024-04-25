@@ -1,0 +1,13 @@
+query ZodiacQuery {
+  zodiac {
+    name_en
+    name_vi
+    strengths
+  }
+}
+
+query Product {
+  zodiac {
+    name_en
+  }
+}

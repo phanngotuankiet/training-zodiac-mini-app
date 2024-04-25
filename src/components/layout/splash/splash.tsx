@@ -10,6 +10,7 @@ const Splash = () => {
       navigate("/information");
     });
   };
+
   return (
     <Page className="bg-[#240E62]">
       <div>
