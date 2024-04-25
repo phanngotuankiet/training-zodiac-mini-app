@@ -2,8 +2,7 @@ import React from "react";
 
 import Top from "./svg-components/Top";
 
-import { BottomNavigation, Header, Page } from "zmp-ui";
-import Footer from "../footer/footer";
+import { Page } from "zmp-ui";
 
 interface MyComponentProps {
   // Add any props you need here
@@ -46,15 +45,11 @@ const arrowIcon = (
 );
 
 const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
-  // đoạn text này sẽ lấy dữ liệu từ api
-  const horoInfo =
-    "Ma Kết có phần hơi nóng vội và hay bồn chồn trong ngày Mặt Trăng bán vuông góc sao Kim.\n - Sự nghiệp: Sao Kim ủng hộ bạn cho thấy sự may mắn sẽ tìm đến nếu như bạn chịu nhẫn nhịn và kiên trì. Những bạn đang đi học nên tập trung hơn cho thi cử, đừng nghe bạn bè nói linh tinh.\n - Tình cảm: Bạn trở nên tử tế và nhân ái hơn đối với những người xung quanh nhưng lại nổi nóng với chính người thân của mình, bạn cần xem lại kiểu ứng xử này nhé.\n - Sức khỏe: Nếu bạn gặp vấn đề với tư thế ngồi, đứng của mình, hãy tham khảo một số bài tập cho lưng.";
-
   return (
     <Page>
       <div className="w-full h-full bg-[#f4eee3] overflow-x-scroll scrollbar-hide">
         {/* top */}
-        <div className="mx-auto w-fit">
+        <div className="mx-auto w-fit mt-4">
           <Top />
         </div>
 
@@ -100,7 +95,6 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </Page>
   );
 };

@@ -1,21 +1,16 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import {
-  App,
-  ZMPRouter,
-  AnimationRoutes,
-  SnackbarProvider,
-  Header,
-} from "zmp-ui";
+import { App, ZMPRouter, AnimationRoutes, SnackbarProvider } from "zmp-ui";
 import { RecoilRoot } from "recoil";
 import HomePage from "../pages";
 import About from "../pages/about";
 import Form from "../pages/form";
 import User from "../pages/user";
-import Footer from "./layout/footer/footer";
-import Introduction from "./layout/introduction/intro";
 import DiscoverHoroscope from "./layout/discover-horo/discover-horo";
+import DiscoverToday from "./layout/discover-today/discoverToday";
 import HoroscopeByDay from "./layout/discover-horo/horo-by-day";
+import OpeningPageText from "./layout/by-time/svg-components/OpeningPageText";
+import ByBirthdate from "./layout/by-birthdate/byBirthdate";
 
 const MyApp = () => {
   return (
@@ -24,10 +19,7 @@ const MyApp = () => {
         <SnackbarProvider>
           <ZMPRouter>
             <AnimationRoutes>
-              <Route
-                path="/"
-                element={<HoroscopeByDay></HoroscopeByDay>}
-              ></Route>
+              <Route path="/" element={<ByBirthdate></ByBirthdate>}></Route>
               <Route
                 path="/information"
                 element={<DiscoverHoroscope></DiscoverHoroscope>}

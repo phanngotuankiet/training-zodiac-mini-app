@@ -1,12 +1,8 @@
 import React from "react";
 import CapricornSVG from "../../../zodiac-SVGs/Capricorn-SVG";
-import LuckyColorText from "../by-time/svg-components/LuckyColorText";
-import LuckyNumberText from "../by-time/svg-components/LuckyNumbertext";
-import TextTop from "./svg-components/TextTop";
 import Top from "./svg-components/Top";
 
-import { BottomNavigation, Header, Page } from "zmp-ui";
-import Footer from "../footer/footer";
+import { Page } from "zmp-ui";
 import LeoSVG from "../../../zodiac-SVGs/Leo-SVG";
 import CancerSVG from "../../../zodiac-SVGs/Cancer-SVG";
 import SagittariusSVG from "../../../zodiac-SVGs/Sagittarius-SVG";
@@ -18,46 +14,11 @@ import ScorpioSVG from "../../../zodiac-SVGs/Scorpio-SVG";
 import TaurusSVG from "../../../zodiac-SVGs/Taurus-SVG";
 import VirgoSVG from "../../../zodiac-SVGs/Virgo-SVG";
 import AquariusSVG from "../../../zodiac-SVGs/Aquarius-SVG";
+import { Icon } from "zmp-ui";
 
 interface MyComponentProps {
   // Add any props you need here
 }
-
-const arrowAtButton = (
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M12.0903 17.5H3.06752L7.38411 12.3201L7.65085 12L7.38411 11.6799L3.06752 6.5H12.0903L17.3106 12L12.0903 17.5Z"
-      stroke="#9F7C34"
-    />
-    <path
-      d="M14 6L16.3051 6L22 12L16.3051 18H14L19.5 12L14 6Z"
-      fill="#9F7C34"
-    />
-  </svg>
-);
-
-const arrowIcon = (
-  <p>
-    <svg
-      width="19"
-      height="8"
-      viewBox="0 0 19 8"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M18.3536 4.35355C18.5488 4.15829 18.5488 3.84171 18.3536 3.64645L15.1716 0.464466C14.9763 0.269204 14.6597 0.269204 14.4645 0.464466C14.2692 0.659728 14.2692 0.976311 14.4645 1.17157L17.2929 4L14.4645 6.82843C14.2692 7.02369 14.2692 7.34027 14.4645 7.53553C14.6597 7.7308 14.9763 7.7308 15.1716 7.53553L18.3536 4.35355ZM0 4.5H18V3.5H0V4.5Z"
-        fill="#9F7C34"
-      />
-    </svg>
-  </p>
-);
 
 const ContainerForEachSign = ({ zodiacSVG, zodiacName, key }) => (
   <div
@@ -85,19 +46,6 @@ const ZodiacSVGs = {
   TAURUS: { svg: <TaurusSVG />, name: "Kim Ngưu" },
   VIRGO: { svg: <VirgoSVG />, name: "Xử Nữ" },
   AQUARIUS: { svg: <AquariusSVG />, name: "Bảo Bình" },
-
-  // CANCER: { svg: <CapricornSVG />, name: "Cự Giải" },
-  // SAGITTARIUS: { svg: <CapricornSVG />, name: "Nhân Mã" },
-  // ARIES: { svg: <CapricornSVG />, name: "Bạch Dương" },
-  // CAPRICORN: { svg: <CapricornSVG />, name: "Ma Kết" },
-  // GEMINI: { svg: <CapricornSVG />, name: "Song Tử" },
-  // LEO: { svg: <CapricornSVG />, name: "Sư Tử" },
-  // LIBRA: { svg: <CapricornSVG />, name: "Thiên Bình" },
-  // PISCES: { svg: <CapricornSVG />, name: "Song Ngư" },
-  // SCORPIO: { svg: <CapricornSVG />, name: "Bọ Cạp" },
-  // TAURUS: { svg: <CapricornSVG />, name: "Kim Ngưu" },
-  // VIRGO: { svg: <CapricornSVG />, name: "Xử Nữ" },
-  // AQUARIUS: { svg: <CapricornSVG />, name: "Bảo Bình" },
 };
 
 const HoroscopeByDay: React.FC<MyComponentProps> = () => {
@@ -109,6 +57,14 @@ const HoroscopeByDay: React.FC<MyComponentProps> = () => {
   return (
     <Page>
       <div className="w-full h-full bg-[#f4eee3] overflow-x-scroll scrollbar-hide">
+        <div
+          className="flex bg-[#F1E6D3] items-center h-9 mb-5"
+          style={{ boxShadow: "0 1px 0 0 rgba(0, 0, 0, 0.3)" }}
+        >
+          <Icon className="px-2" icon="zi-chevron-left" size={32} />
+          <p className="text-[16px] ml-2 font-medium">Xem tử vi hàng ngày</p>
+        </div>
+
         {/* top */}
         <div className="mx-auto w-fit">
           <Top />
