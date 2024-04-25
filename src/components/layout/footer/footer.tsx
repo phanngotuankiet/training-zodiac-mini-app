@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
+import { BottomNavigation, Icon } from "zmp-ui";
 
-const Footer = () => {
+const Footer = (props) => {
+  const [activeTab, setActiveTab] = useState("chat");
+  const { title } = props;
   return (
     <div>
-      <div className="flex justify-center text-center color bg-[#F4EEE3] drop-shadow-md static ">
-        <div className="h-14 w-16 flex justify-center text-center mr-20 pt-0.5">
+      <div className="flex justify-center text-center color bg-[#F4EEE3] drop-shadow-2xl fixed left-0 bottom-0 z-999  h-auto w-[100%]">
+        <div className="h-14 w-16 flex justify-center text-center mr-20 pt-0.5 cursor-pointer">
           <svg
             width="72"
             height="54"
@@ -152,7 +155,7 @@ const Footer = () => {
             </defs>
           </svg>
         </div>
-        <div className="h-14 w-16 flex justify-center text-center pt-0.5">
+        <div className="h-14 w-16 flex justify-center text-center pt-0.5 cursor-pointer">
           <svg
             width="69"
             height="54"
@@ -186,7 +189,7 @@ const Footer = () => {
             />
           </svg>
         </div>
-        <div className="h-14 w-16 flex justify-center text-center  ml-20 pt-0.5">
+        <div className="h-14 w-16 flex justify-center text-center  ml-20 pt-0.5 cursor-pointer hover:text-[#9F7C35]">
           <svg
             width="68"
             height="56"

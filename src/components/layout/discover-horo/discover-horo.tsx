@@ -3,6 +3,7 @@ import React from "react";
 import Top from "./svg-components/Top";
 
 import { Page } from "zmp-ui";
+import Footer from "../footer/footer";
 
 interface MyComponentProps {
   // Add any props you need here
@@ -94,6 +95,7 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
             <span>{arrowIcon}</span>
           </div>
         </div>
+        <Footer />
       </div>
     </Page>
   );

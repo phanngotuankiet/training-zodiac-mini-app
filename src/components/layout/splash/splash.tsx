@@ -7,7 +7,7 @@ const Splash = () => {
   const navigate = useNavigate();
   const handleHome = () => {
     startTransition(() => {
-      navigate("/home");
+      navigate("/information");
     });
   };
   return (

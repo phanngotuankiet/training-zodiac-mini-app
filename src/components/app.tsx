@@ -27,7 +27,7 @@ const MyApp = () => {
               ></Route>
               <Route
                 path="/information"
-                element={<DiscoverHoroscope></DiscoverHoroscope>}
+                element={<HoroscopeByDay></HoroscopeByDay>}
               ></Route>
               <Route path="/home" element={<HomePage></HomePage>}></Route>
               <Route path="/about" element={<About></About>}></Route>

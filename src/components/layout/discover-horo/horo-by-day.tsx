@@ -15,6 +15,7 @@ import TaurusSVG from "../../../zodiac-SVGs/Taurus-SVG";
 import VirgoSVG from "../../../zodiac-SVGs/Virgo-SVG";
 import AquariusSVG from "../../../zodiac-SVGs/Aquarius-SVG";
 import { Icon } from "zmp-ui";
+import Footer from "../footer/footer";
 
 interface MyComponentProps {
   // Add any props you need here
@@ -92,6 +93,7 @@ const HoroscopeByDay: React.FC<MyComponentProps> = () => {
             />
           ))}
         </div>
+        <Footer />
       </div>
     </Page>
   );
