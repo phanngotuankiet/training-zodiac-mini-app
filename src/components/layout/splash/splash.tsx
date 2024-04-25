@@ -1,9 +1,9 @@
 import React, { startTransition } from "react";
 import { Header, Page, useNavigate } from "zmp-ui";
-import "./intro.css";
+import "./splash.css";
 import OpacityGalaxy from "./OpacityGalaxy";
 import ZodiacCercleSVG from "./ZodiacCercleSVG";
-const Introduction = () => {
+const Splash = () => {
   const navigate = useNavigate();
   const handleHome = () => {
     startTransition(() => {
@@ -25,10 +25,10 @@ const Introduction = () => {
           <OpacityGalaxy />
         </div>
         <div className="mt-10">
-          <div className="svn-seiston flex justify-center text-center text-4xl">
+          <div className="svn-seiston flex justify-center text-center text-4xl text-[#F9F6ED]">
             Cung Hoàng Đạo
           </div>
-          <div className="svn-seiston flex justify-center text-center text-4xl">
+          <div className="svn-seiston flex justify-center text-center text-4xl text-[#F9F6ED]">
             Hằng Ngày
           </div>
         </div>
@@ -36,4 +36,4 @@ const Introduction = () => {
     </Page>
   );
 };
-export default Introduction;
+export default Splash;

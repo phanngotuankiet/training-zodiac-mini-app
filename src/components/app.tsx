@@ -11,6 +11,7 @@ import DiscoverToday from "./layout/discover-today/discoverToday";
 import HoroscopeByDay from "./layout/discover-horo/horo-by-day";
 import OpeningPageText from "./layout/by-time/svg-components/OpeningPageText";
 import ByBirthdate from "./layout/by-birthdate/byBirthdate";
+import Splash from "./layout/splash/splash";
 
 const MyApp = () => {
   return (
@@ -19,7 +20,11 @@ const MyApp = () => {
         <SnackbarProvider>
           <ZMPRouter>
             <AnimationRoutes>
-              <Route path="/" element={<ByBirthdate></ByBirthdate>}></Route>
+              <Route path="/" element={<Splash></Splash>}></Route>
+              <Route
+                path="/horo"
+                element={<HoroscopeByDay></HoroscopeByDay>}
+              ></Route>
               <Route
                 path="/information"
                 element={<DiscoverHoroscope></DiscoverHoroscope>}
