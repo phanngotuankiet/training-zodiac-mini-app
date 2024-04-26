@@ -1,9 +1,10 @@
-import React from "react";
+import React, { startTransition } from "react";
 
 import Top from "./svg-components/Top";
 
 import { Page } from "zmp-ui";
 import Footer from "../footer/footer";
+import { useNavigate } from "react-router";
 
 interface MyComponentProps {
   // Add any props you need here
@@ -46,6 +47,17 @@ const arrowIcon = (
 );
 
 const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
+  const navigate = useNavigate();
+  const handleHoroByDay = () => {
+    startTransition(() => {
+      navigate("/horobyday");
+    });
+  };
+  const handleSearchHoro = () => {
+    startTransition(() => {
+      navigate("/discovery");
+    });
+  };
   return (
     <Page>
       <div className="w-full h-full bg-[#f4eee3] overflow-x-scroll scrollbar-hide">
@@ -63,7 +75,10 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
         {/* buttons */}
         <div className="-translate-y-16 flex-col -space-y-4">
           <div className="p-3">
-            <button className="flex justify-between -space-x-10 svn-seiston border-2 border-[#9f7c35] rounded-lg w-full p-10 text-[18px]">
+            <button
+              className="flex justify-between -space-x-10 svn-seiston border-2 border-[#9f7c35] rounded-lg w-full p-10 text-[18px]"
+              onClick={handleHoroByDay}
+            >
               <span className="ml-8">Xem tử vi hàng ngày</span>{" "}
               <div className="translate-x-4">{arrowAtButton}</div>
             </button>
@@ -85,7 +100,10 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
         </div>
 
         <div className="flex-col space-y-4 -translate-y-14">
-          <div className="flex items-center tracking-wider space-x-2 svn-seiston text-[#9f7c35] w-fit mx-auto">
+          <div
+            className="flex items-center tracking-wider space-x-2 svn-seiston text-[#9f7c35] w-fit mx-auto"
+            onClick={handleSearchHoro}
+          >
             <span>Tra cứu tử vi qua ngày sinh</span>
             <span>{arrowIcon}</span>
           </div>

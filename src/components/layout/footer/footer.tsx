@@ -1,13 +1,45 @@
-import React, { useState } from "react";
-import { BottomNavigation, Icon } from "zmp-ui";
+import React, { startTransition, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { BottomNavigation, Icon, useNavigate } from "zmp-ui";
 
-const Footer = (props) => {
-  const [activeTab, setActiveTab] = useState("chat");
-  const { title } = props;
+const Footer = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [activeIcon, setActiveIcon] = useState<
+    "discovery" | "horo" | "information" | null
+  >(null);
+
+  // Kiểm tra và cập nhật activeIcon dựa trên pathname khi đường dẫn thay đổi
+  useEffect(() => {
+    const path = location.pathname;
+    if (path.includes("/discovery")) {
+      setActiveIcon("discovery");
+    } else if (path.includes("/horo")) {
+      setActiveIcon("horo");
+    } else if (path.includes("/information")) {
+      setActiveIcon("information");
+    } else {
+      setActiveIcon(null);
+    }
+  }, [location.pathname]);
+
+  const handleIconClick = (
+    iconName: "discovery" | "horo" | "information",
+    path: string
+  ) => {
+    setActiveIcon(iconName); // Cập nhật trạng thái icon trước khi chuyển trang
+    navigate(path);
+  };
+
   return (
     <div>
-      <div className="flex justify-center text-center color bg-[#F4EEE3] drop-shadow-2xl fixed left-0 bottom-0 z-999  h-auto w-[100%]">
-        <div className="h-14 w-16 flex justify-center text-center mr-20 pt-0.5 cursor-pointer">
+      <div className="flex justify-center text-center color bg-[#F4EEE3] drop-shadow-2xl fixed left-0 bottom-0 z-999  h-auto w-[100%] ">
+        <div
+          className={`h-14 w-16 flex justify-center text-center mr-20 pt-0.5 cursor-pointer ${
+            activeIcon === "discovery" ? "text-[#9F7C34]" : "text-[#AAAAAA]"
+          }`}
+          onClick={() => handleIconClick("discovery", "/discovery")}
+        >
           <svg
             width="72"
             height="54"
@@ -155,7 +187,12 @@ const Footer = (props) => {
             </defs>
           </svg>
         </div>
-        <div className="h-14 w-16 flex justify-center text-center pt-0.5 cursor-pointer">
+        <div
+          className={`h-14 w-16 flex justify-center text-center pt-0.5 cursor-pointer ${
+            activeIcon === "horo" ? "text-[#9F7C34]" : "text-[#AAAAAA]"
+          }`}
+          onClick={() => handleIconClick("horo", "/horo")}
+        >
           <svg
             width="69"
             height="54"
@@ -189,7 +226,12 @@ const Footer = (props) => {
             />
           </svg>
         </div>
-        <div className="h-14 w-16 flex justify-center text-center  ml-20 pt-0.5 cursor-pointer hover:text-[#9F7C35]">
+        <div
+          className={`h-14 w-16 flex justify-center text-center ml-20 pt-0.5 cursor-pointer ${
+            activeIcon === "information" ? "text-[#9F7C34]" : "text-[#AAAAAA]"
+          }`}
+          onClick={() => handleIconClick("information", "/information")}
+        >
           <svg
             width="68"
             height="56"
