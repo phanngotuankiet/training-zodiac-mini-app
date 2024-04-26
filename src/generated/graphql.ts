@@ -2815,17 +2815,17 @@ export const ZodiacQueryDocument = gql`
  * });
  */
 export function useZodiacQueryQuery(baseOptions?: Apollo.QueryHookOptions<ZodiacQueryQuery, ZodiacQueryQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ZodiacQueryQuery, ZodiacQueryQueryVariables>(ZodiacQueryDocument, options);
-      }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<ZodiacQueryQuery, ZodiacQueryQueryVariables>(ZodiacQueryDocument, options);
+}
 export function useZodiacQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ZodiacQueryQuery, ZodiacQueryQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ZodiacQueryQuery, ZodiacQueryQueryVariables>(ZodiacQueryDocument, options);
-        }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<ZodiacQueryQuery, ZodiacQueryQueryVariables>(ZodiacQueryDocument, options);
+}
 export function useZodiacQuerySuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ZodiacQueryQuery, ZodiacQueryQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<ZodiacQueryQuery, ZodiacQueryQueryVariables>(ZodiacQueryDocument, options);
-        }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<ZodiacQueryQuery, ZodiacQueryQueryVariables>(ZodiacQueryDocument, options);
+}
 export type ZodiacQueryQueryHookResult = ReturnType<typeof useZodiacQueryQuery>;
 export type ZodiacQueryLazyQueryHookResult = ReturnType<typeof useZodiacQueryLazyQuery>;
 export type ZodiacQuerySuspenseQueryHookResult = ReturnType<typeof useZodiacQuerySuspenseQuery>;
@@ -2854,17 +2854,17 @@ export const ProductDocument = gql`
  * });
  */
 export function useProductQuery(baseOptions?: Apollo.QueryHookOptions<ProductQuery, ProductQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ProductQuery, ProductQueryVariables>(ProductDocument, options);
-      }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<ProductQuery, ProductQueryVariables>(ProductDocument, options);
+}
 export function useProductLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProductQuery, ProductQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ProductQuery, ProductQueryVariables>(ProductDocument, options);
-        }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<ProductQuery, ProductQueryVariables>(ProductDocument, options);
+}
 export function useProductSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ProductQuery, ProductQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<ProductQuery, ProductQueryVariables>(ProductDocument, options);
-        }
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<ProductQuery, ProductQueryVariables>(ProductDocument, options);
+}
 export type ProductQueryHookResult = ReturnType<typeof useProductQuery>;
 export type ProductLazyQueryHookResult = ReturnType<typeof useProductLazyQuery>;
 export type ProductSuspenseQueryHookResult = ReturnType<typeof useProductSuspenseQuery>;

@@ -5,10 +5,21 @@ import LuckyNumberText from "./svg-components/LuckyNumbertext";
 import TextTop from "./svg-components/TextTop";
 import Top from "./svg-components/Top";
 import { Page, Icon } from "zmp-ui";
-import Footer from "../footer/footer";
+import CancerSVG from "../../../zodiac-SVGs/Cancer-SVG";
+import SagittariusSVG from "../../../zodiac-SVGs/Sagittarius-SVG";
+import AriesSVG from "../../../zodiac-SVGs/Aries-SVG";
+import GeminiSVG from "../../../zodiac-SVGs/Gemini-SVG";
+import LeoSVG from "../../../zodiac-SVGs/Leo-SVG";
+import LibraSVG from "../../../zodiac-SVGs/Libra-SVG";
+import PiscesSVG from "../../../zodiac-SVGs/Pisces-SVG";
+import ScorpioSVG from "../../../zodiac-SVGs/Scorpio-SVG";
+import TaurusSVG from "../../../zodiac-SVGs/Taurus-SVG";
+import VirgoSVG from "../../../zodiac-SVGs/Virgo-SVG";
+import AquariusSVG from "../../../zodiac-SVGs/Aquarius-SVG";
 
 interface MyComponentProps {
   // Add any props you need here
+  // add zodiac props passed in
 }
 
 const arrowIcon = (
@@ -28,6 +39,33 @@ const arrowIcon = (
   </p>
 );
 
+const ContainerForEachSign = ({ zodiacSVG, zodiacName }) => (
+  <div
+    className="flex flex-col justify-center h-[110px] w-[100px] rounded-lg border border-[#9f7c35] bg-[#f4eee3]"
+  >
+    <div className="flex justify-center text-center">{zodiacSVG}</div>
+    <div className="flex justify-center poppins text-center mt-1 text-[#9f7c35]">
+      {zodiacName}
+    </div>
+  </div>
+);
+
+const ZodiacSVGs = {
+  // sau này uncomment cái đoạn đã được comment này và xoá cái ở dưới
+  CANCER: { svg: <CancerSVG />, name: "Cự Giải" },
+  SAGITTARIUS: { svg: <SagittariusSVG />, name: "Nhân Mã" },
+  ARIES: { svg: <AriesSVG />, name: "Bạch Dương" },
+  CAPRICORN: { svg: <CapricornSVG />, name: "Ma Kết" },
+  GEMINI: { svg: <GeminiSVG />, name: "Song Tử" },
+  LEO: { svg: <LeoSVG />, name: "Sư Tử" },
+  LIBRA: { svg: <LibraSVG />, name: "Thiên Bình" },
+  PISCES: { svg: <PiscesSVG />, name: "Song Ngư" },
+  SCORPIO: { svg: <ScorpioSVG />, name: "Bọ Cạp" },
+  TAURUS: { svg: <TaurusSVG />, name: "Kim Ngưu" },
+  VIRGO: { svg: <VirgoSVG />, name: "Xử Nữ" },
+  AQUARIUS: { svg: <AquariusSVG />, name: "Bảo Bình" },
+};
+
 const DiscoverToday: React.FC<MyComponentProps> = () => {
   // this text get data from api, can be passed as props
   const fullText = `Ma Kết có phần hơi nóng vội và hay bồn chồn trong ngày Mặt Trăng bán vuông góc sao Kim.\n- Sự nghiệp: Sao Kim ủng hộ bạn cho thấy sự may mắn sẽ tìm đến nếu như bạn chịu nhẫn nhịn và kiên trì. Những bạn đang đi học nên tập trung hơn cho thi cử, đừng nghe bạn bè nói linh tinh.\n- Tình cảm: Bạn trở nên tử tế và nhân ái hơn đối với những người xung quanh nhưng lại nổi nóng với chính người thân của mình, bạn cần xem lại kiểu ứng xử này nhé.\n- Sức khỏe: Nếu bạn gặp vấn đề với tư thế ngồi, đứng của mình, hãy tham khảo một số bài tập cho lưng.`;
@@ -35,7 +73,7 @@ const DiscoverToday: React.FC<MyComponentProps> = () => {
   const paragraphs = fullText.split("\n").map((line, index) => (
     <p
       key={index}
-      className="poppins leading-6 tracking-wider text-black font-normal text-[16px] w-fit mt-[17px]"
+      className="poppins leading-6 tracking-wide text-black font-normal text-[16px] w-fit mt-[17px]"
     >
       {line}
     </p>
@@ -87,19 +125,18 @@ const DiscoverToday: React.FC<MyComponentProps> = () => {
         </div>
 
         <div className="w-fit mx-auto -translate-y-64">
-          <CapricornSVG />
+          <ContainerForEachSign zodiacName={"Sư Tử"}
+            zodiacSVG={<LeoSVG />} />
         </div>
 
         <div className="w-[363px] mx-auto -translate-y-[266px] p-4">
-          {/* {horoInfo} */}
           {paragraphs}
         </div>
 
-        <div className="flex items-center pl-6 font-medium -translate-y-[266px] text-[#9f7c35] text-[16px] leading-loose space-x-3">
+        <div className="flex items-center poppins pl-6 font-medium -translate-y-[266px] text-[#9f7c35] text-[16px] leading-loose space-x-3">
           <p>Xem thêm về Ma Kết</p> {arrowIcon}
         </div>
       </div>
-      <Footer />
     </Page>
   );
 };

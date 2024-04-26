@@ -22,3 +22,12 @@
 .svn-seiston {
   font-family: "Seiston", sans-serif;
 }
+
+@font-face {
+  font-family: "Poppins-vn";
+  src: url("./DesignerVN-Poppins/DesignerVN-Poppins-Regular.ttf") format("truetype");
+}
+
+.poppins {
+  font-family: 'Poppins-vn', sans-serif;
+}

@@ -35,9 +35,8 @@ const Footer = () => {
     <div>
       <div className="flex justify-center text-center color bg-[#F4EEE3] drop-shadow-2xl fixed left-0 bottom-0 z-999  h-auto w-[100%] ">
         <div
-          className={`h-14 w-16 flex justify-center text-center mr-20 pt-0.5 cursor-pointer ${
-            activeIcon === "discovery" ? "text-[#9F7C34]" : "text-[#AAAAAA]"
-          }`}
+          className={`h-14 w-16 flex justify-center text-center mr-20 pt-0.5 cursor-pointer ${activeIcon === "discovery" ? "text-[#9F7C34]" : "text-[#AAAAAA]"
+            }`}
           onClick={() => handleIconClick("discovery", "/discovery")}
         >
           <svg
@@ -188,9 +187,8 @@ const Footer = () => {
           </svg>
         </div>
         <div
-          className={`h-14 w-16 flex justify-center text-center pt-0.5 cursor-pointer ${
-            activeIcon === "horo" ? "text-[#9F7C34]" : "text-[#AAAAAA]"
-          }`}
+          className={`h-14 w-16 flex justify-center text-center pt-0.5 cursor-pointer ${activeIcon === "horo" ? "text-[#9F7C34]" : "text-[#AAAAAA]"
+            }`}
           onClick={() => handleIconClick("horo", "/horo")}
         >
           <svg
@@ -227,9 +225,8 @@ const Footer = () => {
           </svg>
         </div>
         <div
-          className={`h-14 w-16 flex justify-center text-center ml-20 pt-0.5 cursor-pointer ${
-            activeIcon === "information" ? "text-[#9F7C34]" : "text-[#AAAAAA]"
-          }`}
+          className={`h-14 w-16 flex justify-center text-center ml-20 pt-0.5 cursor-pointer ${activeIcon === "information" ? "text-[#9F7C34]" : "text-[#AAAAAA]"
+            }`}
           onClick={() => handleIconClick("information", "/information")}
         >
           <svg
