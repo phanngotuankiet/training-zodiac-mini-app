@@ -11,8 +11,8 @@ interface HoroscopeDetails {
   zodiacId: String;
 }
 
-function normalizeData(data: any, key: number): HoroscopeDetails {
-  switch (key) {
+function normalizeData(data: any, keyDayWeekMonth: number): HoroscopeDetails {
+  switch (keyDayWeekMonth) {
     case 0:
       return {
         name: data?.users[0]?.zodiac?.name_vi || " ",

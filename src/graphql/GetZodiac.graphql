@@ -1,13 +1,77 @@
-query ZodiacQuery {
-  zodiac {
+query QueryZodiac($date: date!, $id: Int!) {
+  zodiac(where: { zodiac_id: { _eq: $id } }) {
     name_en
     name_vi
-    strengths
+    daily_horoscopes(where: { _and: { date: { _eq: $date } } }) {
+      created_at
+      daily_career
+      daily_finance
+      daily_health
+      daily_horoscope_id
+      daily_love
+      daily_lucky_colors
+      daily_lucky_message
+      daily_lucky_numbers
+      date
+      deleted_at
+      horoscope_content
+      updated_at
+      zodiac_id
+    }
   }
 }
 
-query Product {
-  zodiac {
+query QueryZodiacWeekly($date: date!, $id: Int!) {
+  zodiac(where: { zodiac_id: { _eq: $id } }) {
     name_en
+    name_vi
+    weekly_horoscopes(
+      where: {
+        _and: {
+          week_start_date: { _lte: $date }
+          week_end_date: { _gte: $date }
+        }
+      }
+    ) {
+      created_at
+      deleted_at
+      horoscope_content
+      updated_at
+      week_end_date
+      week_start_date
+      weekly_career
+      weekly_finance
+      weekly_health
+      weekly_horoscope_id
+      weekly_love
+      weekly_lucky_colors
+      weekly_lucky_message
+      weekly_lucky_numbers
+      zodiac_id
+    }
+  }
+}
+
+query QueryZodiacMonthly($date: Int!, $id: Int!) {
+  zodiac(where: { zodiac_id: { _eq: $id } }) {
+    name_en
+    name_vi
+    monthly_horoscopes(where: { _and: { month: { _eq: $date } } }) {
+      created_at
+      deleted_at
+      horoscope_content
+      month
+      monthly_career
+      monthly_finance
+      monthly_health
+      monthly_horoscope_id
+      monthly_love
+      monthly_lucky_message
+      monthly_lucky_colors
+      monthly_lucky_numbers
+      updated_at
+      year
+      zodiac_id
+    }
   }
 }

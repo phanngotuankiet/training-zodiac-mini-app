@@ -38,10 +38,13 @@ const MyApp = () => {
                   element={<ByBirthdate></ByBirthdate>}
                 ></Route>
                 <Route
-                  path="/horobyday"
+                  path="/horobyday/:id"
                   element={<HoroscopeByDay></HoroscopeByDay>}
                 ></Route>
-                <Route path="/form" element={<Form></Form>}></Route>
+                <Route
+                  path="/horobyday/:id/:key"
+                  element={<DiscoverToday></DiscoverToday>}
+                ></Route>
                 <Route path="/user" element={<User></User>}></Route>
               </AnimationRoutes>
             </ZMPRouter>

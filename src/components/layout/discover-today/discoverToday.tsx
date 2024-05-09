@@ -16,6 +16,13 @@ import ScorpioSVG from "../../../zodiac-SVGs/Scorpio-SVG";
 import TaurusSVG from "../../../zodiac-SVGs/Taurus-SVG";
 import VirgoSVG from "../../../zodiac-SVGs/Virgo-SVG";
 import AquariusSVG from "../../../zodiac-SVGs/Aquarius-SVG";
+import {
+  useQueryZodiacQuery,
+  useQueryZodiacWeeklyQuery,
+  useQueryZodiacMonthlyQuery,
+} from "../../../generated/graphql";
+import normalizeData from "./data-horoscope";
+import { useParams } from "react-router-dom";
 
 interface MyComponentProps {
   // Add any props you need here
@@ -40,9 +47,7 @@ const arrowIcon = (
 );
 
 const ContainerForEachSign = ({ zodiacSVG, zodiacName }) => (
-  <div
-    className="flex flex-col justify-center h-[110px] w-[100px] rounded-lg border border-[#9f7c35] bg-[#f4eee3]"
-  >
+  <div className="flex flex-col justify-center h-[110px] w-[100px] rounded-lg border border-[#9f7c35] bg-[#f4eee3]">
     <div className="flex justify-center text-center">{zodiacSVG}</div>
     <div className="flex justify-center poppins text-center mt-1 text-[#9f7c35]">
       {zodiacName}
@@ -51,24 +56,50 @@ const ContainerForEachSign = ({ zodiacSVG, zodiacName }) => (
 );
 
 const ZodiacSVGs = {
-  // sau này uncomment cái đoạn đã được comment này và xoá cái ở dưới
-  CANCER: { svg: <CancerSVG />, name: "Cự Giải" },
-  SAGITTARIUS: { svg: <SagittariusSVG />, name: "Nhân Mã" },
-  ARIES: { svg: <AriesSVG />, name: "Bạch Dương" },
-  CAPRICORN: { svg: <CapricornSVG />, name: "Ma Kết" },
-  GEMINI: { svg: <GeminiSVG />, name: "Song Tử" },
-  LEO: { svg: <LeoSVG />, name: "Sư Tử" },
-  LIBRA: { svg: <LibraSVG />, name: "Thiên Bình" },
-  PISCES: { svg: <PiscesSVG />, name: "Song Ngư" },
-  SCORPIO: { svg: <ScorpioSVG />, name: "Bọ Cạp" },
-  TAURUS: { svg: <TaurusSVG />, name: "Kim Ngưu" },
-  VIRGO: { svg: <VirgoSVG />, name: "Xử Nữ" },
-  AQUARIUS: { svg: <AquariusSVG />, name: "Bảo Bình" },
+  1: <AriesSVG />,
+  2: <TaurusSVG />,
+  3: <GeminiSVG />,
+  4: <CancerSVG />,
+  5: <LeoSVG />,
+  6: <VirgoSVG />,
+  7: <LibraSVG />,
+  8: <ScorpioSVG />,
+  9: <SagittariusSVG />,
+  10: <CapricornSVG />,
+  11: <AquariusSVG />,
+  12: <PiscesSVG />,
 };
 
 const DiscoverToday: React.FC<MyComponentProps> = () => {
-  // this text get data from api, can be passed as props
-  const fullText = `Ma Kết có phần hơi nóng vội và hay bồn chồn trong ngày Mặt Trăng bán vuông góc sao Kim.\n- Sự nghiệp: Sao Kim ủng hộ bạn cho thấy sự may mắn sẽ tìm đến nếu như bạn chịu nhẫn nhịn và kiên trì. Những bạn đang đi học nên tập trung hơn cho thi cử, đừng nghe bạn bè nói linh tinh.\n- Tình cảm: Bạn trở nên tử tế và nhân ái hơn đối với những người xung quanh nhưng lại nổi nóng với chính người thân của mình, bạn cần xem lại kiểu ứng xử này nhé.\n- Sức khỏe: Nếu bạn gặp vấn đề với tư thế ngồi, đứng của mình, hãy tham khảo một số bài tập cho lưng.`;
+  const { id, key } = useParams();
+  const keyNumber = key ? parseInt(key, 10) : 1;
+  const date = new Date().toISOString().split("T")[0];
+  const currentMonth = new Date().getMonth() + 1;
+
+  let dataZodiac;
+  if (id === "daily") {
+    const { data: dataZodiacDaily } = useQueryZodiacQuery({
+      variables: { date, id: keyNumber },
+      fetchPolicy: "no-cache",
+    });
+    dataZodiac = normalizeData(dataZodiacDaily, id);
+    console.log("123daily");
+  } else if (id === "weekly") {
+    const { data: dataZodiacWeekly } = useQueryZodiacWeeklyQuery({
+      variables: { date, id: keyNumber },
+      fetchPolicy: "no-cache",
+    });
+    dataZodiac = normalizeData(dataZodiacWeekly, id);
+    console.log("123weekly", dataZodiac);
+  } else if (id === "monthly") {
+    const { data: dataZodiacMonth } = useQueryZodiacMonthlyQuery({
+      variables: { date: currentMonth, id: keyNumber },
+      fetchPolicy: "no-cache",
+    });
+    dataZodiac = normalizeData(dataZodiacMonth, id);
+  }
+
+  const fullText = `${dataZodiac.content}\n- Sự nghiệp: ${dataZodiac.career}\n- Tình cảm: ${dataZodiac.love}\n- Sức khỏe: ${dataZodiac.health}\n- Tài chính: ${dataZodiac.finance}`;
 
   const paragraphs = fullText.split("\n").map((line, index) => (
     <p
@@ -107,26 +138,28 @@ const DiscoverToday: React.FC<MyComponentProps> = () => {
             <p className="w-64 h-[1px] bg-[#AAAAAA] mx-auto mt-2"></p>
           </div>
 
-          <TextTop TodayMessage={"Tin nhắn này được truyền từ API vào"} />
+          <TextTop TodayMessage={dataZodiac?.message} />
         </div>
 
         <div className="flex justify-center -translate-y-[266px] -space-x-10">
           <div className="w-1/2">
             <div className="mx-auto w-fit">
-              <LuckyNumberText LuckyNumber={"30, 35"} />
+              <LuckyNumberText LuckyNumber={dataZodiac.number || " "} />
             </div>
           </div>
 
           <div className="w-1/2">
             <div className="mx-auto w-fit">
-              <LuckyColorText LuckyColor={["#950000", "#000694", "#9f7c35"]} />
+              <LuckyColorText LuckyColor={dataZodiac.color || "transparent"} />
             </div>
           </div>
         </div>
 
         <div className="w-fit mx-auto -translate-y-64">
-          <ContainerForEachSign zodiacName={"Sư Tử"}
-            zodiacSVG={<LeoSVG />} />
+          <ContainerForEachSign
+            zodiacName={dataZodiac.name || " "}
+            zodiacSVG={ZodiacSVGs[dataZodiac.zodiacId || 1]}
+          />
         </div>
 
         <div className="w-[363px] mx-auto -translate-y-[266px] p-4">
@@ -134,7 +167,7 @@ const DiscoverToday: React.FC<MyComponentProps> = () => {
         </div>
 
         <div className="flex items-center poppins pl-6 font-medium -translate-y-[266px] text-[#9f7c35] text-[16px] leading-loose space-x-3">
-          <p>Xem thêm về Ma Kết</p> {arrowIcon}
+          {/* <p>Xem thêm về Ma Kết</p> {arrowIcon} */}
         </div>
       </div>
     </Page>

@@ -19,6 +19,14 @@ export type Scalars = {
   timestamp: { input: any; output: any; }
 };
 
+export type AuthOutput = {
+  __typename?: 'AuthOutput';
+  fullName: Scalars['String']['output'];
+  token: Scalars['String']['output'];
+  userId: Scalars['String']['output'];
+  zodiacId?: Maybe<Scalars['String']['output']>;
+};
+
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export type Int_Comparison_Exp = {
   _eq?: InputMaybe<Scalars['Int']['input']>;
@@ -518,6 +526,18 @@ export type Date_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['date']['input']>>;
 };
 
+export type InfoInput = {
+  birthday: Scalars['date']['input'];
+  idUser: Scalars['String']['input'];
+};
+
+export type InfoOutput = {
+  __typename?: 'infoOutput';
+  birthdate: Scalars['date']['output'];
+  user_id: Scalars['String']['output'];
+  zodiac_id: Scalars['String']['output'];
+};
+
 /** columns and relationships of "monthly_horoscope" */
 export type Monthly_Horoscope = {
   __typename?: 'monthly_horoscope';
@@ -994,6 +1014,8 @@ export type Monthly_Horoscope_Variance_Order_By = {
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
+  actionLogin?: Maybe<AuthOutput>;
+  actionUpdateBirthday?: Maybe<InfoOutput>;
   /** delete data from the table: "daily_horoscope" */
   delete_daily_horoscope?: Maybe<Daily_Horoscope_Mutation_Response>;
   /** delete single row from the table: "daily_horoscope" */
@@ -1054,6 +1076,18 @@ export type Mutation_Root = {
   update_zodiac?: Maybe<Zodiac_Mutation_Response>;
   /** update single row of the table: "zodiac" */
   update_zodiac_by_pk?: Maybe<Zodiac>;
+};
+
+
+/** mutation root */
+export type Mutation_RootActionLoginArgs = {
+  token: Scalars['String']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootActionUpdateBirthdayArgs = {
+  arg1: InfoInput;
 };
 
 
@@ -2857,15 +2891,29 @@ export type QueryWeeklyHoroscopeQueryQueryVariables = Exact<{
 
 export type QueryWeeklyHoroscopeQueryQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', zodiac_id?: number | null, zodiac?: { __typename?: 'zodiac', name_en?: string | null, name_vi?: string | null, weekly_horoscopes: Array<{ __typename?: 'weekly_horoscope', created_at?: any | null, deleted_at?: any | null, horoscope_content?: string | null, updated_at?: any | null, week_end_date?: any | null, week_start_date?: any | null, weekly_career?: string | null, weekly_finance?: string | null, weekly_health?: string | null, weekly_horoscope_id: number, weekly_love?: string | null, weekly_lucky_colors?: string | null, weekly_lucky_message?: string | null, weekly_lucky_numbers?: string | null }> } | null }> };
 
-export type ZodiacQueryQueryVariables = Exact<{ [key: string]: never; }>;
+export type QueryZodiacQueryVariables = Exact<{
+  date: Scalars['date']['input'];
+  id: Scalars['Int']['input'];
+}>;
 
 
-export type ZodiacQueryQuery = { __typename?: 'query_root', zodiac: Array<{ __typename?: 'zodiac', name_en?: string | null, name_vi?: string | null, strengths?: string | null }> };
+export type QueryZodiacQuery = { __typename?: 'query_root', zodiac: Array<{ __typename?: 'zodiac', name_en?: string | null, name_vi?: string | null, daily_horoscopes: Array<{ __typename?: 'daily_horoscope', created_at?: any | null, daily_career?: string | null, daily_finance?: string | null, daily_health?: string | null, daily_horoscope_id: number, daily_love?: string | null, daily_lucky_colors?: string | null, daily_lucky_message?: string | null, daily_lucky_numbers?: string | null, date?: any | null, deleted_at?: any | null, horoscope_content?: string | null, updated_at?: any | null, zodiac_id?: number | null }> }> };
 
-export type ProductQueryVariables = Exact<{ [key: string]: never; }>;
+export type QueryZodiacWeeklyQueryVariables = Exact<{
+  date: Scalars['date']['input'];
+  id: Scalars['Int']['input'];
+}>;
 
 
-export type ProductQuery = { __typename?: 'query_root', zodiac: Array<{ __typename?: 'zodiac', name_en?: string | null }> };
+export type QueryZodiacWeeklyQuery = { __typename?: 'query_root', zodiac: Array<{ __typename?: 'zodiac', name_en?: string | null, name_vi?: string | null, weekly_horoscopes: Array<{ __typename?: 'weekly_horoscope', created_at?: any | null, deleted_at?: any | null, horoscope_content?: string | null, updated_at?: any | null, week_end_date?: any | null, week_start_date?: any | null, weekly_career?: string | null, weekly_finance?: string | null, weekly_health?: string | null, weekly_horoscope_id: number, weekly_love?: string | null, weekly_lucky_colors?: string | null, weekly_lucky_message?: string | null, weekly_lucky_numbers?: string | null, zodiac_id?: number | null }> }> };
+
+export type QueryZodiacMonthlyQueryVariables = Exact<{
+  date: Scalars['Int']['input'];
+  id: Scalars['Int']['input'];
+}>;
+
+
+export type QueryZodiacMonthlyQuery = { __typename?: 'query_root', zodiac: Array<{ __typename?: 'zodiac', name_en?: string | null, name_vi?: string | null, monthly_horoscopes: Array<{ __typename?: 'monthly_horoscope', created_at?: any | null, deleted_at?: any | null, horoscope_content?: string | null, month?: number | null, monthly_career?: string | null, monthly_finance?: string | null, monthly_health?: string | null, monthly_horoscope_id: number, monthly_love?: string | null, monthly_lucky_message?: string | null, monthly_lucky_colors?: string | null, monthly_lucky_numbers?: string | null, updated_at?: any | null, year?: number | null, zodiac_id?: number | null }> }> };
 
 
 export const QueryDailyHoroscopeDocument = gql`
@@ -3049,83 +3097,181 @@ export type QueryWeeklyHoroscopeQueryQueryHookResult = ReturnType<typeof useQuer
 export type QueryWeeklyHoroscopeQueryLazyQueryHookResult = ReturnType<typeof useQueryWeeklyHoroscopeQueryLazyQuery>;
 export type QueryWeeklyHoroscopeQuerySuspenseQueryHookResult = ReturnType<typeof useQueryWeeklyHoroscopeQuerySuspenseQuery>;
 export type QueryWeeklyHoroscopeQueryQueryResult = Apollo.QueryResult<QueryWeeklyHoroscopeQueryQuery, QueryWeeklyHoroscopeQueryQueryVariables>;
-export const ZodiacQueryDocument = gql`
-    query ZodiacQuery {
-  zodiac {
+export const QueryZodiacDocument = gql`
+    query QueryZodiac($date: date!, $id: Int!) {
+  zodiac(where: {zodiac_id: {_eq: $id}}) {
     name_en
     name_vi
-    strengths
+    daily_horoscopes(where: {_and: {date: {_eq: $date}}}) {
+      created_at
+      daily_career
+      daily_finance
+      daily_health
+      daily_horoscope_id
+      daily_love
+      daily_lucky_colors
+      daily_lucky_message
+      daily_lucky_numbers
+      date
+      deleted_at
+      horoscope_content
+      updated_at
+      zodiac_id
+    }
   }
 }
     `;
 
 /**
- * __useZodiacQueryQuery__
+ * __useQueryZodiacQuery__
  *
- * To run a query within a React component, call `useZodiacQueryQuery` and pass it any options that fit your needs.
- * When your component renders, `useZodiacQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useQueryZodiacQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQueryZodiacQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useZodiacQueryQuery({
+ * const { data, loading, error } = useQueryZodiacQuery({
  *   variables: {
+ *      date: // value for 'date'
+ *      id: // value for 'id'
  *   },
  * });
  */
-export function useZodiacQueryQuery(baseOptions?: Apollo.QueryHookOptions<ZodiacQueryQuery, ZodiacQueryQueryVariables>) {
+export function useQueryZodiacQuery(baseOptions: Apollo.QueryHookOptions<QueryZodiacQuery, QueryZodiacQueryVariables> & ({ variables: QueryZodiacQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ZodiacQueryQuery, ZodiacQueryQueryVariables>(ZodiacQueryDocument, options);
+        return Apollo.useQuery<QueryZodiacQuery, QueryZodiacQueryVariables>(QueryZodiacDocument, options);
       }
-export function useZodiacQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ZodiacQueryQuery, ZodiacQueryQueryVariables>) {
+export function useQueryZodiacLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QueryZodiacQuery, QueryZodiacQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ZodiacQueryQuery, ZodiacQueryQueryVariables>(ZodiacQueryDocument, options);
+          return Apollo.useLazyQuery<QueryZodiacQuery, QueryZodiacQueryVariables>(QueryZodiacDocument, options);
         }
-export function useZodiacQuerySuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ZodiacQueryQuery, ZodiacQueryQueryVariables>) {
+export function useQueryZodiacSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<QueryZodiacQuery, QueryZodiacQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<ZodiacQueryQuery, ZodiacQueryQueryVariables>(ZodiacQueryDocument, options);
+          return Apollo.useSuspenseQuery<QueryZodiacQuery, QueryZodiacQueryVariables>(QueryZodiacDocument, options);
         }
-export type ZodiacQueryQueryHookResult = ReturnType<typeof useZodiacQueryQuery>;
-export type ZodiacQueryLazyQueryHookResult = ReturnType<typeof useZodiacQueryLazyQuery>;
-export type ZodiacQuerySuspenseQueryHookResult = ReturnType<typeof useZodiacQuerySuspenseQuery>;
-export type ZodiacQueryQueryResult = Apollo.QueryResult<ZodiacQueryQuery, ZodiacQueryQueryVariables>;
-export const ProductDocument = gql`
-    query Product {
-  zodiac {
+export type QueryZodiacQueryHookResult = ReturnType<typeof useQueryZodiacQuery>;
+export type QueryZodiacLazyQueryHookResult = ReturnType<typeof useQueryZodiacLazyQuery>;
+export type QueryZodiacSuspenseQueryHookResult = ReturnType<typeof useQueryZodiacSuspenseQuery>;
+export type QueryZodiacQueryResult = Apollo.QueryResult<QueryZodiacQuery, QueryZodiacQueryVariables>;
+export const QueryZodiacWeeklyDocument = gql`
+    query QueryZodiacWeekly($date: date!, $id: Int!) {
+  zodiac(where: {zodiac_id: {_eq: $id}}) {
     name_en
+    name_vi
+    weekly_horoscopes(
+      where: {_and: {week_start_date: {_lte: $date}, week_end_date: {_gte: $date}}}
+    ) {
+      created_at
+      deleted_at
+      horoscope_content
+      updated_at
+      week_end_date
+      week_start_date
+      weekly_career
+      weekly_finance
+      weekly_health
+      weekly_horoscope_id
+      weekly_love
+      weekly_lucky_colors
+      weekly_lucky_message
+      weekly_lucky_numbers
+      zodiac_id
+    }
   }
 }
     `;
 
 /**
- * __useProductQuery__
+ * __useQueryZodiacWeeklyQuery__
  *
- * To run a query within a React component, call `useProductQuery` and pass it any options that fit your needs.
- * When your component renders, `useProductQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useQueryZodiacWeeklyQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQueryZodiacWeeklyQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useProductQuery({
+ * const { data, loading, error } = useQueryZodiacWeeklyQuery({
  *   variables: {
+ *      date: // value for 'date'
+ *      id: // value for 'id'
  *   },
  * });
  */
-export function useProductQuery(baseOptions?: Apollo.QueryHookOptions<ProductQuery, ProductQueryVariables>) {
+export function useQueryZodiacWeeklyQuery(baseOptions: Apollo.QueryHookOptions<QueryZodiacWeeklyQuery, QueryZodiacWeeklyQueryVariables> & ({ variables: QueryZodiacWeeklyQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ProductQuery, ProductQueryVariables>(ProductDocument, options);
+        return Apollo.useQuery<QueryZodiacWeeklyQuery, QueryZodiacWeeklyQueryVariables>(QueryZodiacWeeklyDocument, options);
       }
-export function useProductLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProductQuery, ProductQueryVariables>) {
+export function useQueryZodiacWeeklyLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QueryZodiacWeeklyQuery, QueryZodiacWeeklyQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ProductQuery, ProductQueryVariables>(ProductDocument, options);
+          return Apollo.useLazyQuery<QueryZodiacWeeklyQuery, QueryZodiacWeeklyQueryVariables>(QueryZodiacWeeklyDocument, options);
         }
-export function useProductSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ProductQuery, ProductQueryVariables>) {
+export function useQueryZodiacWeeklySuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<QueryZodiacWeeklyQuery, QueryZodiacWeeklyQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<ProductQuery, ProductQueryVariables>(ProductDocument, options);
+          return Apollo.useSuspenseQuery<QueryZodiacWeeklyQuery, QueryZodiacWeeklyQueryVariables>(QueryZodiacWeeklyDocument, options);
         }
-export type ProductQueryHookResult = ReturnType<typeof useProductQuery>;
-export type ProductLazyQueryHookResult = ReturnType<typeof useProductLazyQuery>;
-export type ProductSuspenseQueryHookResult = ReturnType<typeof useProductSuspenseQuery>;
-export type ProductQueryResult = Apollo.QueryResult<ProductQuery, ProductQueryVariables>;
+export type QueryZodiacWeeklyQueryHookResult = ReturnType<typeof useQueryZodiacWeeklyQuery>;
+export type QueryZodiacWeeklyLazyQueryHookResult = ReturnType<typeof useQueryZodiacWeeklyLazyQuery>;
+export type QueryZodiacWeeklySuspenseQueryHookResult = ReturnType<typeof useQueryZodiacWeeklySuspenseQuery>;
+export type QueryZodiacWeeklyQueryResult = Apollo.QueryResult<QueryZodiacWeeklyQuery, QueryZodiacWeeklyQueryVariables>;
+export const QueryZodiacMonthlyDocument = gql`
+    query QueryZodiacMonthly($date: Int!, $id: Int!) {
+  zodiac(where: {zodiac_id: {_eq: $id}}) {
+    name_en
+    name_vi
+    monthly_horoscopes(where: {_and: {month: {_eq: $date}}}) {
+      created_at
+      deleted_at
+      horoscope_content
+      month
+      monthly_career
+      monthly_finance
+      monthly_health
+      monthly_horoscope_id
+      monthly_love
+      monthly_lucky_message
+      monthly_lucky_colors
+      monthly_lucky_numbers
+      updated_at
+      year
+      zodiac_id
+    }
+  }
+}
+    `;
+
+/**
+ * __useQueryZodiacMonthlyQuery__
+ *
+ * To run a query within a React component, call `useQueryZodiacMonthlyQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQueryZodiacMonthlyQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQueryZodiacMonthlyQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useQueryZodiacMonthlyQuery(baseOptions: Apollo.QueryHookOptions<QueryZodiacMonthlyQuery, QueryZodiacMonthlyQueryVariables> & ({ variables: QueryZodiacMonthlyQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QueryZodiacMonthlyQuery, QueryZodiacMonthlyQueryVariables>(QueryZodiacMonthlyDocument, options);
+      }
+export function useQueryZodiacMonthlyLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QueryZodiacMonthlyQuery, QueryZodiacMonthlyQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QueryZodiacMonthlyQuery, QueryZodiacMonthlyQueryVariables>(QueryZodiacMonthlyDocument, options);
+        }
+export function useQueryZodiacMonthlySuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<QueryZodiacMonthlyQuery, QueryZodiacMonthlyQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<QueryZodiacMonthlyQuery, QueryZodiacMonthlyQueryVariables>(QueryZodiacMonthlyDocument, options);
+        }
+export type QueryZodiacMonthlyQueryHookResult = ReturnType<typeof useQueryZodiacMonthlyQuery>;
+export type QueryZodiacMonthlyLazyQueryHookResult = ReturnType<typeof useQueryZodiacMonthlyLazyQuery>;
+export type QueryZodiacMonthlySuspenseQueryHookResult = ReturnType<typeof useQueryZodiacMonthlySuspenseQuery>;
+export type QueryZodiacMonthlyQueryResult = Apollo.QueryResult<QueryZodiacMonthlyQuery, QueryZodiacMonthlyQueryVariables>;

@@ -1,4 +1,5 @@
 import React, { startTransition } from "react";
+import { useParams } from "react-router-dom";
 
 import Top from "./svg-components/Top";
 
@@ -50,7 +51,17 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
   const navigate = useNavigate();
   const handleHoroByDay = () => {
     startTransition(() => {
-      navigate("/horobyday");
+      navigate("/horobyday/daily");
+    });
+  };
+  const handleHoroByWeekly = () => {
+    startTransition(() => {
+      navigate("/horobyday/weekly");
+    });
+  };
+  const handleHoroByMonthly = () => {
+    startTransition(() => {
+      navigate("/horobyday/monthly");
     });
   };
   const handleSearchHoro = () => {
@@ -85,14 +96,20 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
           </div>
 
           <div className="p-3">
-            <button className="flex justify-between -space-x-10 svn-seiston border-2 border-[#9f7c35] rounded-lg w-full p-10 text-[18px]">
+            <button
+              className="flex justify-between -space-x-10 svn-seiston border-2 border-[#9f7c35] rounded-lg w-full p-10 text-[18px]"
+              onClick={handleHoroByWeekly}
+            >
               <span className="ml-8">Xem tử vi hàng tuần</span>{" "}
               <div className="translate-x-4">{arrowAtButton}</div>
             </button>
           </div>
 
           <div className="p-3">
-            <button className="flex justify-between -space-x-10 svn-seiston border-2 border-[#9f7c35] rounded-lg w-full p-10 text-[18px]">
+            <button
+              className="flex justify-between -space-x-10 svn-seiston border-2 border-[#9f7c35] rounded-lg w-full p-10 text-[18px]"
+              onClick={handleHoroByMonthly}
+            >
               <span className="ml-8">Xem tử vi hàng tháng</span>{" "}
               <div className="translate-x-4">{arrowAtButton}</div>
             </button>

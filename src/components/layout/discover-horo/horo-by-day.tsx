@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import CapricornSVG from "../../../zodiac-SVGs/Capricorn-SVG";
 import Top from "./svg-components/Top";
 
@@ -16,6 +17,8 @@ import VirgoSVG from "../../../zodiac-SVGs/Virgo-SVG";
 import AquariusSVG from "../../../zodiac-SVGs/Aquarius-SVG";
 import { Icon } from "zmp-ui";
 import Footer from "../footer/footer";
+
+import { useParams } from "react-router-dom";
 
 interface MyComponentProps {
   // Add any props you need here
@@ -35,18 +38,18 @@ const ContainerForEachSign = ({ zodiacSVG, zodiacName, key }) => (
 
 const ZodiacSVGs = {
   // sau này uncomment cái đoạn đã được comment này và xoá cái ở dưới
-  CANCER: { svg: <CancerSVG />, name: "Cự Giải" },
-  SAGITTARIUS: { svg: <SagittariusSVG />, name: "Nhân Mã" },
-  ARIES: { svg: <AriesSVG />, name: "Bạch Dương" },
-  CAPRICORN: { svg: <CapricornSVG />, name: "Ma Kết" },
-  GEMINI: { svg: <GeminiSVG />, name: "Song Tử" },
-  LEO: { svg: <LeoSVG />, name: "Sư Tử" },
-  LIBRA: { svg: <LibraSVG />, name: "Thiên Bình" },
-  PISCES: { svg: <PiscesSVG />, name: "Song Ngư" },
-  SCORPIO: { svg: <ScorpioSVG />, name: "Bọ Cạp" },
-  TAURUS: { svg: <TaurusSVG />, name: "Kim Ngưu" },
-  VIRGO: { svg: <VirgoSVG />, name: "Xử Nữ" },
-  AQUARIUS: { svg: <AquariusSVG />, name: "Bảo Bình" },
+  1: { svg: <AriesSVG />, name: "Bạch Dương" },
+  2: { svg: <TaurusSVG />, name: "Kim Ngưu" },
+  3: { svg: <GeminiSVG />, name: "Song Tử" },
+  4: { svg: <CancerSVG />, name: "Cự Giải" },
+  5: { svg: <LeoSVG />, name: "Sư Tử" },
+  6: { svg: <VirgoSVG />, name: "Xử Nữ" },
+  7: { svg: <LibraSVG />, name: "Thiên Bình" },
+  8: { svg: <ScorpioSVG />, name: "Bọ Cạp" },
+  9: { svg: <SagittariusSVG />, name: "Nhân Mã" },
+  10: { svg: <CapricornSVG />, name: "Ma Kết" },
+  11: { svg: <AquariusSVG />, name: "Bảo Bình" },
+  12: { svg: <PiscesSVG />, name: "Song Ngư" },
 };
 
 const HoroscopeByDay: React.FC<MyComponentProps> = () => {
@@ -55,6 +58,8 @@ const HoroscopeByDay: React.FC<MyComponentProps> = () => {
     currentDate.getMonth() + 1
   } - ${currentDate.getFullYear()}`;
 
+  const { id } = useParams();
+  console.log("hello", id);
   return (
     <Page>
       <div className="w-full h-full bg-[#f4eee3] overflow-x-scroll scrollbar-hide">
@@ -85,12 +90,27 @@ const HoroscopeByDay: React.FC<MyComponentProps> = () => {
 
         {/* chọn cung để xem tử vi hàng ngày */}
         <div className="grid grid-cols-3 gap-3 w-fit mx-auto -translate-y-16">
-          {Object.entries(ZodiacSVGs).map(([key, zodiacSVG]) => (
+          {/* {Object.entries(ZodiacSVGs).map(([key, zodiacSVG]) => (
             <ContainerForEachSign
               zodiacName={zodiacSVG.name}
               key={key}
               zodiacSVG={zodiacSVG.svg}
             />
+          ))} */}
+          {Object.entries(ZodiacSVGs).map(([key, zodiacSVG]) => (
+            <div key={key}>
+              <Link
+                to={{
+                  pathname: `${key}`,
+                }}
+              >
+                <ContainerForEachSign
+                  zodiacName={zodiacSVG.name}
+                  key={key}
+                  zodiacSVG={zodiacSVG.svg}
+                />
+              </Link>
+            </div>
           ))}
         </div>
         <Footer />
