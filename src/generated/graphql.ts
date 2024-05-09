@@ -15,8 +15,6 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
-  _int4: { input: any; output: any; }
-  _varchar: { input: any; output: any; }
   date: { input: any; output: any; }
   timestamp: { input: any; output: any; }
 };
@@ -32,6 +30,20 @@ export type Int_Comparison_Exp = {
   _lte?: InputMaybe<Scalars['Int']['input']>;
   _neq?: InputMaybe<Scalars['Int']['input']>;
   _nin?: InputMaybe<Array<Scalars['Int']['input']>>;
+};
+
+export type MyOutput = {
+  __typename?: 'MyOutput';
+  description?: Maybe<Scalars['String']['output']>;
+  end_date?: Maybe<Scalars['String']['output']>;
+  large_image_url?: Maybe<Scalars['String']['output']>;
+  name_en?: Maybe<Scalars['String']['output']>;
+  name_vi?: Maybe<Scalars['String']['output']>;
+  small_image_url?: Maybe<Scalars['String']['output']>;
+  start_date?: Maybe<Scalars['String']['output']>;
+  strengths?: Maybe<Scalars['String']['output']>;
+  weaknesses?: Maybe<Scalars['String']['output']>;
+  zodiac_id?: Maybe<Scalars['Int']['output']>;
 };
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
@@ -67,32 +79,6 @@ export type String_Comparison_Exp = {
   _similar?: InputMaybe<Scalars['String']['input']>;
 };
 
-/** Boolean expression to compare columns of type "_int4". All fields are combined with logical 'AND'. */
-export type _Int4_Comparison_Exp = {
-  _eq?: InputMaybe<Scalars['_int4']['input']>;
-  _gt?: InputMaybe<Scalars['_int4']['input']>;
-  _gte?: InputMaybe<Scalars['_int4']['input']>;
-  _in?: InputMaybe<Array<Scalars['_int4']['input']>>;
-  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
-  _lt?: InputMaybe<Scalars['_int4']['input']>;
-  _lte?: InputMaybe<Scalars['_int4']['input']>;
-  _neq?: InputMaybe<Scalars['_int4']['input']>;
-  _nin?: InputMaybe<Array<Scalars['_int4']['input']>>;
-};
-
-/** Boolean expression to compare columns of type "_varchar". All fields are combined with logical 'AND'. */
-export type _Varchar_Comparison_Exp = {
-  _eq?: InputMaybe<Scalars['_varchar']['input']>;
-  _gt?: InputMaybe<Scalars['_varchar']['input']>;
-  _gte?: InputMaybe<Scalars['_varchar']['input']>;
-  _in?: InputMaybe<Array<Scalars['_varchar']['input']>>;
-  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
-  _lt?: InputMaybe<Scalars['_varchar']['input']>;
-  _lte?: InputMaybe<Scalars['_varchar']['input']>;
-  _neq?: InputMaybe<Scalars['_varchar']['input']>;
-  _nin?: InputMaybe<Array<Scalars['_varchar']['input']>>;
-};
-
 /** columns and relationships of "daily_horoscope" */
 export type Daily_Horoscope = {
   __typename?: 'daily_horoscope';
@@ -102,8 +88,9 @@ export type Daily_Horoscope = {
   daily_health?: Maybe<Scalars['String']['output']>;
   daily_horoscope_id: Scalars['Int']['output'];
   daily_love?: Maybe<Scalars['String']['output']>;
-  daily_lucky_colors?: Maybe<Scalars['_varchar']['output']>;
-  daily_lucky_numbers?: Maybe<Scalars['_int4']['output']>;
+  daily_lucky_colors?: Maybe<Scalars['String']['output']>;
+  daily_lucky_message?: Maybe<Scalars['String']['output']>;
+  daily_lucky_numbers?: Maybe<Scalars['String']['output']>;
   date?: Maybe<Scalars['date']['output']>;
   deleted_at?: Maybe<Scalars['timestamp']['output']>;
   horoscope_content?: Maybe<Scalars['String']['output']>;
@@ -189,8 +176,9 @@ export type Daily_Horoscope_Bool_Exp = {
   daily_health?: InputMaybe<String_Comparison_Exp>;
   daily_horoscope_id?: InputMaybe<Int_Comparison_Exp>;
   daily_love?: InputMaybe<String_Comparison_Exp>;
-  daily_lucky_colors?: InputMaybe<_Varchar_Comparison_Exp>;
-  daily_lucky_numbers?: InputMaybe<_Int4_Comparison_Exp>;
+  daily_lucky_colors?: InputMaybe<String_Comparison_Exp>;
+  daily_lucky_message?: InputMaybe<String_Comparison_Exp>;
+  daily_lucky_numbers?: InputMaybe<String_Comparison_Exp>;
   date?: InputMaybe<Date_Comparison_Exp>;
   deleted_at?: InputMaybe<Timestamp_Comparison_Exp>;
   horoscope_content?: InputMaybe<String_Comparison_Exp>;
@@ -219,8 +207,9 @@ export type Daily_Horoscope_Insert_Input = {
   daily_health?: InputMaybe<Scalars['String']['input']>;
   daily_horoscope_id?: InputMaybe<Scalars['Int']['input']>;
   daily_love?: InputMaybe<Scalars['String']['input']>;
-  daily_lucky_colors?: InputMaybe<Scalars['_varchar']['input']>;
-  daily_lucky_numbers?: InputMaybe<Scalars['_int4']['input']>;
+  daily_lucky_colors?: InputMaybe<Scalars['String']['input']>;
+  daily_lucky_message?: InputMaybe<Scalars['String']['input']>;
+  daily_lucky_numbers?: InputMaybe<Scalars['String']['input']>;
   date?: InputMaybe<Scalars['date']['input']>;
   deleted_at?: InputMaybe<Scalars['timestamp']['input']>;
   horoscope_content?: InputMaybe<Scalars['String']['input']>;
@@ -238,6 +227,9 @@ export type Daily_Horoscope_Max_Fields = {
   daily_health?: Maybe<Scalars['String']['output']>;
   daily_horoscope_id?: Maybe<Scalars['Int']['output']>;
   daily_love?: Maybe<Scalars['String']['output']>;
+  daily_lucky_colors?: Maybe<Scalars['String']['output']>;
+  daily_lucky_message?: Maybe<Scalars['String']['output']>;
+  daily_lucky_numbers?: Maybe<Scalars['String']['output']>;
   date?: Maybe<Scalars['date']['output']>;
   deleted_at?: Maybe<Scalars['timestamp']['output']>;
   horoscope_content?: Maybe<Scalars['String']['output']>;
@@ -253,6 +245,9 @@ export type Daily_Horoscope_Max_Order_By = {
   daily_health?: InputMaybe<Order_By>;
   daily_horoscope_id?: InputMaybe<Order_By>;
   daily_love?: InputMaybe<Order_By>;
+  daily_lucky_colors?: InputMaybe<Order_By>;
+  daily_lucky_message?: InputMaybe<Order_By>;
+  daily_lucky_numbers?: InputMaybe<Order_By>;
   date?: InputMaybe<Order_By>;
   deleted_at?: InputMaybe<Order_By>;
   horoscope_content?: InputMaybe<Order_By>;
@@ -269,6 +264,9 @@ export type Daily_Horoscope_Min_Fields = {
   daily_health?: Maybe<Scalars['String']['output']>;
   daily_horoscope_id?: Maybe<Scalars['Int']['output']>;
   daily_love?: Maybe<Scalars['String']['output']>;
+  daily_lucky_colors?: Maybe<Scalars['String']['output']>;
+  daily_lucky_message?: Maybe<Scalars['String']['output']>;
+  daily_lucky_numbers?: Maybe<Scalars['String']['output']>;
   date?: Maybe<Scalars['date']['output']>;
   deleted_at?: Maybe<Scalars['timestamp']['output']>;
   horoscope_content?: Maybe<Scalars['String']['output']>;
@@ -284,6 +282,9 @@ export type Daily_Horoscope_Min_Order_By = {
   daily_health?: InputMaybe<Order_By>;
   daily_horoscope_id?: InputMaybe<Order_By>;
   daily_love?: InputMaybe<Order_By>;
+  daily_lucky_colors?: InputMaybe<Order_By>;
+  daily_lucky_message?: InputMaybe<Order_By>;
+  daily_lucky_numbers?: InputMaybe<Order_By>;
   date?: InputMaybe<Order_By>;
   deleted_at?: InputMaybe<Order_By>;
   horoscope_content?: InputMaybe<Order_By>;
@@ -316,6 +317,7 @@ export type Daily_Horoscope_Order_By = {
   daily_horoscope_id?: InputMaybe<Order_By>;
   daily_love?: InputMaybe<Order_By>;
   daily_lucky_colors?: InputMaybe<Order_By>;
+  daily_lucky_message?: InputMaybe<Order_By>;
   daily_lucky_numbers?: InputMaybe<Order_By>;
   date?: InputMaybe<Order_By>;
   deleted_at?: InputMaybe<Order_By>;
@@ -347,6 +349,8 @@ export enum Daily_Horoscope_Select_Column {
   /** column name */
   DailyLuckyColors = 'daily_lucky_colors',
   /** column name */
+  DailyLuckyMessage = 'daily_lucky_message',
+  /** column name */
   DailyLuckyNumbers = 'daily_lucky_numbers',
   /** column name */
   Date = 'date',
@@ -368,8 +372,9 @@ export type Daily_Horoscope_Set_Input = {
   daily_health?: InputMaybe<Scalars['String']['input']>;
   daily_horoscope_id?: InputMaybe<Scalars['Int']['input']>;
   daily_love?: InputMaybe<Scalars['String']['input']>;
-  daily_lucky_colors?: InputMaybe<Scalars['_varchar']['input']>;
-  daily_lucky_numbers?: InputMaybe<Scalars['_int4']['input']>;
+  daily_lucky_colors?: InputMaybe<Scalars['String']['input']>;
+  daily_lucky_message?: InputMaybe<Scalars['String']['input']>;
+  daily_lucky_numbers?: InputMaybe<Scalars['String']['input']>;
   date?: InputMaybe<Scalars['date']['input']>;
   deleted_at?: InputMaybe<Scalars['timestamp']['input']>;
   horoscope_content?: InputMaybe<Scalars['String']['input']>;
@@ -445,6 +450,8 @@ export enum Daily_Horoscope_Update_Column {
   DailyLove = 'daily_love',
   /** column name */
   DailyLuckyColors = 'daily_lucky_colors',
+  /** column name */
+  DailyLuckyMessage = 'daily_lucky_message',
   /** column name */
   DailyLuckyNumbers = 'daily_lucky_numbers',
   /** column name */
@@ -523,8 +530,9 @@ export type Monthly_Horoscope = {
   monthly_health?: Maybe<Scalars['String']['output']>;
   monthly_horoscope_id: Scalars['Int']['output'];
   monthly_love?: Maybe<Scalars['String']['output']>;
-  monthly_lucky_colors?: Maybe<Scalars['_varchar']['output']>;
-  monthly_lucky_numbers?: Maybe<Scalars['_int4']['output']>;
+  monthly_lucky_colors?: Maybe<Scalars['String']['output']>;
+  monthly_lucky_message?: Maybe<Scalars['String']['output']>;
+  monthly_lucky_numbers?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamp']['output']>;
   year?: Maybe<Scalars['Int']['output']>;
   /** An object relationship */
@@ -615,8 +623,9 @@ export type Monthly_Horoscope_Bool_Exp = {
   monthly_health?: InputMaybe<String_Comparison_Exp>;
   monthly_horoscope_id?: InputMaybe<Int_Comparison_Exp>;
   monthly_love?: InputMaybe<String_Comparison_Exp>;
-  monthly_lucky_colors?: InputMaybe<_Varchar_Comparison_Exp>;
-  monthly_lucky_numbers?: InputMaybe<_Int4_Comparison_Exp>;
+  monthly_lucky_colors?: InputMaybe<String_Comparison_Exp>;
+  monthly_lucky_message?: InputMaybe<String_Comparison_Exp>;
+  monthly_lucky_numbers?: InputMaybe<String_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamp_Comparison_Exp>;
   year?: InputMaybe<Int_Comparison_Exp>;
   zodiac?: InputMaybe<Zodiac_Bool_Exp>;
@@ -648,8 +657,9 @@ export type Monthly_Horoscope_Insert_Input = {
   monthly_health?: InputMaybe<Scalars['String']['input']>;
   monthly_horoscope_id?: InputMaybe<Scalars['Int']['input']>;
   monthly_love?: InputMaybe<Scalars['String']['input']>;
-  monthly_lucky_colors?: InputMaybe<Scalars['_varchar']['input']>;
-  monthly_lucky_numbers?: InputMaybe<Scalars['_int4']['input']>;
+  monthly_lucky_colors?: InputMaybe<Scalars['String']['input']>;
+  monthly_lucky_message?: InputMaybe<Scalars['String']['input']>;
+  monthly_lucky_numbers?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamp']['input']>;
   year?: InputMaybe<Scalars['Int']['input']>;
   zodiac?: InputMaybe<Zodiac_Obj_Rel_Insert_Input>;
@@ -668,6 +678,9 @@ export type Monthly_Horoscope_Max_Fields = {
   monthly_health?: Maybe<Scalars['String']['output']>;
   monthly_horoscope_id?: Maybe<Scalars['Int']['output']>;
   monthly_love?: Maybe<Scalars['String']['output']>;
+  monthly_lucky_colors?: Maybe<Scalars['String']['output']>;
+  monthly_lucky_message?: Maybe<Scalars['String']['output']>;
+  monthly_lucky_numbers?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamp']['output']>;
   year?: Maybe<Scalars['Int']['output']>;
   zodiac_id?: Maybe<Scalars['Int']['output']>;
@@ -684,6 +697,9 @@ export type Monthly_Horoscope_Max_Order_By = {
   monthly_health?: InputMaybe<Order_By>;
   monthly_horoscope_id?: InputMaybe<Order_By>;
   monthly_love?: InputMaybe<Order_By>;
+  monthly_lucky_colors?: InputMaybe<Order_By>;
+  monthly_lucky_message?: InputMaybe<Order_By>;
+  monthly_lucky_numbers?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   year?: InputMaybe<Order_By>;
   zodiac_id?: InputMaybe<Order_By>;
@@ -701,6 +717,9 @@ export type Monthly_Horoscope_Min_Fields = {
   monthly_health?: Maybe<Scalars['String']['output']>;
   monthly_horoscope_id?: Maybe<Scalars['Int']['output']>;
   monthly_love?: Maybe<Scalars['String']['output']>;
+  monthly_lucky_colors?: Maybe<Scalars['String']['output']>;
+  monthly_lucky_message?: Maybe<Scalars['String']['output']>;
+  monthly_lucky_numbers?: Maybe<Scalars['String']['output']>;
   updated_at?: Maybe<Scalars['timestamp']['output']>;
   year?: Maybe<Scalars['Int']['output']>;
   zodiac_id?: Maybe<Scalars['Int']['output']>;
@@ -717,6 +736,9 @@ export type Monthly_Horoscope_Min_Order_By = {
   monthly_health?: InputMaybe<Order_By>;
   monthly_horoscope_id?: InputMaybe<Order_By>;
   monthly_love?: InputMaybe<Order_By>;
+  monthly_lucky_colors?: InputMaybe<Order_By>;
+  monthly_lucky_message?: InputMaybe<Order_By>;
+  monthly_lucky_numbers?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   year?: InputMaybe<Order_By>;
   zodiac_id?: InputMaybe<Order_By>;
@@ -750,6 +772,7 @@ export type Monthly_Horoscope_Order_By = {
   monthly_horoscope_id?: InputMaybe<Order_By>;
   monthly_love?: InputMaybe<Order_By>;
   monthly_lucky_colors?: InputMaybe<Order_By>;
+  monthly_lucky_message?: InputMaybe<Order_By>;
   monthly_lucky_numbers?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
   year?: InputMaybe<Order_By>;
@@ -785,6 +808,8 @@ export enum Monthly_Horoscope_Select_Column {
   /** column name */
   MonthlyLuckyColors = 'monthly_lucky_colors',
   /** column name */
+  MonthlyLuckyMessage = 'monthly_lucky_message',
+  /** column name */
   MonthlyLuckyNumbers = 'monthly_lucky_numbers',
   /** column name */
   UpdatedAt = 'updated_at',
@@ -805,8 +830,9 @@ export type Monthly_Horoscope_Set_Input = {
   monthly_health?: InputMaybe<Scalars['String']['input']>;
   monthly_horoscope_id?: InputMaybe<Scalars['Int']['input']>;
   monthly_love?: InputMaybe<Scalars['String']['input']>;
-  monthly_lucky_colors?: InputMaybe<Scalars['_varchar']['input']>;
-  monthly_lucky_numbers?: InputMaybe<Scalars['_int4']['input']>;
+  monthly_lucky_colors?: InputMaybe<Scalars['String']['input']>;
+  monthly_lucky_message?: InputMaybe<Scalars['String']['input']>;
+  monthly_lucky_numbers?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamp']['input']>;
   year?: InputMaybe<Scalars['Int']['input']>;
   zodiac_id?: InputMaybe<Scalars['Int']['input']>;
@@ -902,6 +928,8 @@ export enum Monthly_Horoscope_Update_Column {
   MonthlyLove = 'monthly_love',
   /** column name */
   MonthlyLuckyColors = 'monthly_lucky_colors',
+  /** column name */
+  MonthlyLuckyMessage = 'monthly_lucky_message',
   /** column name */
   MonthlyLuckyNumbers = 'monthly_lucky_numbers',
   /** column name */
@@ -1262,6 +1290,7 @@ export type Query_Root = {
   daily_horoscope_aggregate: Daily_Horoscope_Aggregate;
   /** fetch data from the table: "daily_horoscope" using primary key columns */
   daily_horoscope_by_pk?: Maybe<Daily_Horoscope>;
+  getZodiacByBirthDay?: Maybe<MyOutput>;
   /** fetch data from the table: "monthly_horoscope" */
   monthly_horoscope: Array<Monthly_Horoscope>;
   /** fetch aggregated fields from the table: "monthly_horoscope" */
@@ -1309,6 +1338,11 @@ export type Query_RootDaily_Horoscope_AggregateArgs = {
 
 export type Query_RootDaily_Horoscope_By_PkArgs = {
   daily_horoscope_id: Scalars['Int']['input'];
+};
+
+
+export type Query_RootGetZodiacByBirthDayArgs = {
+  date: Scalars['String']['input'];
 };
 
 
@@ -1953,8 +1987,9 @@ export type Weekly_Horoscope = {
   weekly_health?: Maybe<Scalars['String']['output']>;
   weekly_horoscope_id: Scalars['Int']['output'];
   weekly_love?: Maybe<Scalars['String']['output']>;
-  weekly_lucky_colors?: Maybe<Scalars['_varchar']['output']>;
-  weekly_lucky_numbers?: Maybe<Scalars['_int4']['output']>;
+  weekly_lucky_colors?: Maybe<Scalars['String']['output']>;
+  weekly_lucky_message?: Maybe<Scalars['String']['output']>;
+  weekly_lucky_numbers?: Maybe<Scalars['String']['output']>;
   /** An object relationship */
   zodiac?: Maybe<Zodiac>;
   zodiac_id?: Maybe<Scalars['Int']['output']>;
@@ -2041,8 +2076,9 @@ export type Weekly_Horoscope_Bool_Exp = {
   weekly_health?: InputMaybe<String_Comparison_Exp>;
   weekly_horoscope_id?: InputMaybe<Int_Comparison_Exp>;
   weekly_love?: InputMaybe<String_Comparison_Exp>;
-  weekly_lucky_colors?: InputMaybe<_Varchar_Comparison_Exp>;
-  weekly_lucky_numbers?: InputMaybe<_Int4_Comparison_Exp>;
+  weekly_lucky_colors?: InputMaybe<String_Comparison_Exp>;
+  weekly_lucky_message?: InputMaybe<String_Comparison_Exp>;
+  weekly_lucky_numbers?: InputMaybe<String_Comparison_Exp>;
   zodiac?: InputMaybe<Zodiac_Bool_Exp>;
   zodiac_id?: InputMaybe<Int_Comparison_Exp>;
 };
@@ -2072,8 +2108,9 @@ export type Weekly_Horoscope_Insert_Input = {
   weekly_health?: InputMaybe<Scalars['String']['input']>;
   weekly_horoscope_id?: InputMaybe<Scalars['Int']['input']>;
   weekly_love?: InputMaybe<Scalars['String']['input']>;
-  weekly_lucky_colors?: InputMaybe<Scalars['_varchar']['input']>;
-  weekly_lucky_numbers?: InputMaybe<Scalars['_int4']['input']>;
+  weekly_lucky_colors?: InputMaybe<Scalars['String']['input']>;
+  weekly_lucky_message?: InputMaybe<Scalars['String']['input']>;
+  weekly_lucky_numbers?: InputMaybe<Scalars['String']['input']>;
   zodiac?: InputMaybe<Zodiac_Obj_Rel_Insert_Input>;
   zodiac_id?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -2092,6 +2129,9 @@ export type Weekly_Horoscope_Max_Fields = {
   weekly_health?: Maybe<Scalars['String']['output']>;
   weekly_horoscope_id?: Maybe<Scalars['Int']['output']>;
   weekly_love?: Maybe<Scalars['String']['output']>;
+  weekly_lucky_colors?: Maybe<Scalars['String']['output']>;
+  weekly_lucky_message?: Maybe<Scalars['String']['output']>;
+  weekly_lucky_numbers?: Maybe<Scalars['String']['output']>;
   zodiac_id?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -2108,6 +2148,9 @@ export type Weekly_Horoscope_Max_Order_By = {
   weekly_health?: InputMaybe<Order_By>;
   weekly_horoscope_id?: InputMaybe<Order_By>;
   weekly_love?: InputMaybe<Order_By>;
+  weekly_lucky_colors?: InputMaybe<Order_By>;
+  weekly_lucky_message?: InputMaybe<Order_By>;
+  weekly_lucky_numbers?: InputMaybe<Order_By>;
   zodiac_id?: InputMaybe<Order_By>;
 };
 
@@ -2125,6 +2168,9 @@ export type Weekly_Horoscope_Min_Fields = {
   weekly_health?: Maybe<Scalars['String']['output']>;
   weekly_horoscope_id?: Maybe<Scalars['Int']['output']>;
   weekly_love?: Maybe<Scalars['String']['output']>;
+  weekly_lucky_colors?: Maybe<Scalars['String']['output']>;
+  weekly_lucky_message?: Maybe<Scalars['String']['output']>;
+  weekly_lucky_numbers?: Maybe<Scalars['String']['output']>;
   zodiac_id?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -2141,6 +2187,9 @@ export type Weekly_Horoscope_Min_Order_By = {
   weekly_health?: InputMaybe<Order_By>;
   weekly_horoscope_id?: InputMaybe<Order_By>;
   weekly_love?: InputMaybe<Order_By>;
+  weekly_lucky_colors?: InputMaybe<Order_By>;
+  weekly_lucky_message?: InputMaybe<Order_By>;
+  weekly_lucky_numbers?: InputMaybe<Order_By>;
   zodiac_id?: InputMaybe<Order_By>;
 };
 
@@ -2174,6 +2223,7 @@ export type Weekly_Horoscope_Order_By = {
   weekly_horoscope_id?: InputMaybe<Order_By>;
   weekly_love?: InputMaybe<Order_By>;
   weekly_lucky_colors?: InputMaybe<Order_By>;
+  weekly_lucky_message?: InputMaybe<Order_By>;
   weekly_lucky_numbers?: InputMaybe<Order_By>;
   zodiac?: InputMaybe<Zodiac_Order_By>;
   zodiac_id?: InputMaybe<Order_By>;
@@ -2211,6 +2261,8 @@ export enum Weekly_Horoscope_Select_Column {
   /** column name */
   WeeklyLuckyColors = 'weekly_lucky_colors',
   /** column name */
+  WeeklyLuckyMessage = 'weekly_lucky_message',
+  /** column name */
   WeeklyLuckyNumbers = 'weekly_lucky_numbers',
   /** column name */
   ZodiacId = 'zodiac_id'
@@ -2229,8 +2281,9 @@ export type Weekly_Horoscope_Set_Input = {
   weekly_health?: InputMaybe<Scalars['String']['input']>;
   weekly_horoscope_id?: InputMaybe<Scalars['Int']['input']>;
   weekly_love?: InputMaybe<Scalars['String']['input']>;
-  weekly_lucky_colors?: InputMaybe<Scalars['_varchar']['input']>;
-  weekly_lucky_numbers?: InputMaybe<Scalars['_int4']['input']>;
+  weekly_lucky_colors?: InputMaybe<Scalars['String']['input']>;
+  weekly_lucky_message?: InputMaybe<Scalars['String']['input']>;
+  weekly_lucky_numbers?: InputMaybe<Scalars['String']['input']>;
   zodiac_id?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -2312,6 +2365,8 @@ export enum Weekly_Horoscope_Update_Column {
   WeeklyLove = 'weekly_love',
   /** column name */
   WeeklyLuckyColors = 'weekly_lucky_colors',
+  /** column name */
+  WeeklyLuckyMessage = 'weekly_lucky_message',
   /** column name */
   WeeklyLuckyNumbers = 'weekly_lucky_numbers',
   /** column name */
@@ -2778,6 +2833,30 @@ export type Zodiac_Variance_Fields = {
   zodiac_id?: Maybe<Scalars['Float']['output']>;
 };
 
+export type QueryDailyHoroscopeQueryVariables = Exact<{
+  date: Scalars['date']['input'];
+  userId: Scalars['Int']['input'];
+}>;
+
+
+export type QueryDailyHoroscopeQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', zodiac_id?: number | null, zodiac?: { __typename?: 'zodiac', name_en?: string | null, name_vi?: string | null, daily_horoscopes: Array<{ __typename?: 'daily_horoscope', daily_career?: string | null, daily_finance?: string | null, daily_health?: string | null, daily_horoscope_id: number, daily_love?: string | null, daily_lucky_colors?: string | null, daily_lucky_message?: string | null, daily_lucky_numbers?: string | null, date?: any | null, horoscope_content?: string | null }> } | null }> };
+
+export type QueryMonthHoroscopeQueryVariables = Exact<{
+  date: Scalars['Int']['input'];
+  userId: Scalars['Int']['input'];
+}>;
+
+
+export type QueryMonthHoroscopeQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', zodiac_id?: number | null, zodiac?: { __typename?: 'zodiac', name_en?: string | null, name_vi?: string | null, monthly_horoscopes: Array<{ __typename?: 'monthly_horoscope', created_at?: any | null, deleted_at?: any | null, horoscope_content?: string | null, month?: number | null, monthly_career?: string | null, monthly_finance?: string | null, monthly_health?: string | null, monthly_horoscope_id: number, monthly_love?: string | null, monthly_lucky_message?: string | null, monthly_lucky_colors?: string | null, monthly_lucky_numbers?: string | null, updated_at?: any | null, year?: number | null }> } | null }> };
+
+export type QueryWeeklyHoroscopeQueryQueryVariables = Exact<{
+  date: Scalars['date']['input'];
+  userId: Scalars['Int']['input'];
+}>;
+
+
+export type QueryWeeklyHoroscopeQueryQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', zodiac_id?: number | null, zodiac?: { __typename?: 'zodiac', name_en?: string | null, name_vi?: string | null, weekly_horoscopes: Array<{ __typename?: 'weekly_horoscope', created_at?: any | null, deleted_at?: any | null, horoscope_content?: string | null, updated_at?: any | null, week_end_date?: any | null, week_start_date?: any | null, weekly_career?: string | null, weekly_finance?: string | null, weekly_health?: string | null, weekly_horoscope_id: number, weekly_love?: string | null, weekly_lucky_colors?: string | null, weekly_lucky_message?: string | null, weekly_lucky_numbers?: string | null }> } | null }> };
+
 export type ZodiacQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -2789,6 +2868,187 @@ export type ProductQueryVariables = Exact<{ [key: string]: never; }>;
 export type ProductQuery = { __typename?: 'query_root', zodiac: Array<{ __typename?: 'zodiac', name_en?: string | null }> };
 
 
+export const QueryDailyHoroscopeDocument = gql`
+    query QueryDailyHoroscope($date: date!, $userId: Int!) {
+  users(where: {_and: {user_id: {_eq: $userId}}}) {
+    zodiac_id
+    zodiac {
+      name_en
+      name_vi
+      daily_horoscopes(where: {_and: {date: {_eq: $date}}}) {
+        daily_career
+        daily_finance
+        daily_health
+        daily_horoscope_id
+        daily_love
+        daily_lucky_colors
+        daily_lucky_message
+        daily_lucky_numbers
+        date
+        horoscope_content
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useQueryDailyHoroscopeQuery__
+ *
+ * To run a query within a React component, call `useQueryDailyHoroscopeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQueryDailyHoroscopeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQueryDailyHoroscopeQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useQueryDailyHoroscopeQuery(baseOptions: Apollo.QueryHookOptions<QueryDailyHoroscopeQuery, QueryDailyHoroscopeQueryVariables> & ({ variables: QueryDailyHoroscopeQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QueryDailyHoroscopeQuery, QueryDailyHoroscopeQueryVariables>(QueryDailyHoroscopeDocument, options);
+      }
+export function useQueryDailyHoroscopeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QueryDailyHoroscopeQuery, QueryDailyHoroscopeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QueryDailyHoroscopeQuery, QueryDailyHoroscopeQueryVariables>(QueryDailyHoroscopeDocument, options);
+        }
+export function useQueryDailyHoroscopeSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<QueryDailyHoroscopeQuery, QueryDailyHoroscopeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<QueryDailyHoroscopeQuery, QueryDailyHoroscopeQueryVariables>(QueryDailyHoroscopeDocument, options);
+        }
+export type QueryDailyHoroscopeQueryHookResult = ReturnType<typeof useQueryDailyHoroscopeQuery>;
+export type QueryDailyHoroscopeLazyQueryHookResult = ReturnType<typeof useQueryDailyHoroscopeLazyQuery>;
+export type QueryDailyHoroscopeSuspenseQueryHookResult = ReturnType<typeof useQueryDailyHoroscopeSuspenseQuery>;
+export type QueryDailyHoroscopeQueryResult = Apollo.QueryResult<QueryDailyHoroscopeQuery, QueryDailyHoroscopeQueryVariables>;
+export const QueryMonthHoroscopeDocument = gql`
+    query QueryMonthHoroscope($date: Int!, $userId: Int!) {
+  users(where: {_and: {user_id: {_eq: $userId}}}) {
+    zodiac_id
+    zodiac {
+      name_en
+      name_vi
+      monthly_horoscopes(where: {_and: {month: {_eq: $date}}}) {
+        created_at
+        deleted_at
+        horoscope_content
+        month
+        monthly_career
+        monthly_finance
+        monthly_health
+        monthly_horoscope_id
+        monthly_love
+        monthly_lucky_message
+        monthly_lucky_colors
+        monthly_lucky_numbers
+        updated_at
+        year
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useQueryMonthHoroscopeQuery__
+ *
+ * To run a query within a React component, call `useQueryMonthHoroscopeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQueryMonthHoroscopeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQueryMonthHoroscopeQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useQueryMonthHoroscopeQuery(baseOptions: Apollo.QueryHookOptions<QueryMonthHoroscopeQuery, QueryMonthHoroscopeQueryVariables> & ({ variables: QueryMonthHoroscopeQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QueryMonthHoroscopeQuery, QueryMonthHoroscopeQueryVariables>(QueryMonthHoroscopeDocument, options);
+      }
+export function useQueryMonthHoroscopeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QueryMonthHoroscopeQuery, QueryMonthHoroscopeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QueryMonthHoroscopeQuery, QueryMonthHoroscopeQueryVariables>(QueryMonthHoroscopeDocument, options);
+        }
+export function useQueryMonthHoroscopeSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<QueryMonthHoroscopeQuery, QueryMonthHoroscopeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<QueryMonthHoroscopeQuery, QueryMonthHoroscopeQueryVariables>(QueryMonthHoroscopeDocument, options);
+        }
+export type QueryMonthHoroscopeQueryHookResult = ReturnType<typeof useQueryMonthHoroscopeQuery>;
+export type QueryMonthHoroscopeLazyQueryHookResult = ReturnType<typeof useQueryMonthHoroscopeLazyQuery>;
+export type QueryMonthHoroscopeSuspenseQueryHookResult = ReturnType<typeof useQueryMonthHoroscopeSuspenseQuery>;
+export type QueryMonthHoroscopeQueryResult = Apollo.QueryResult<QueryMonthHoroscopeQuery, QueryMonthHoroscopeQueryVariables>;
+export const QueryWeeklyHoroscopeQueryDocument = gql`
+    query QueryWeeklyHoroscopeQuery($date: date!, $userId: Int!) {
+  users(where: {_and: {user_id: {_eq: $userId}}}) {
+    zodiac_id
+    zodiac {
+      name_en
+      name_vi
+      weekly_horoscopes(
+        where: {_and: {week_start_date: {_lte: $date}, week_end_date: {_gte: $date}}}
+      ) {
+        created_at
+        deleted_at
+        horoscope_content
+        updated_at
+        week_end_date
+        week_start_date
+        weekly_career
+        weekly_finance
+        weekly_health
+        weekly_horoscope_id
+        weekly_love
+        weekly_lucky_colors
+        weekly_lucky_message
+        weekly_lucky_numbers
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useQueryWeeklyHoroscopeQueryQuery__
+ *
+ * To run a query within a React component, call `useQueryWeeklyHoroscopeQueryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQueryWeeklyHoroscopeQueryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQueryWeeklyHoroscopeQueryQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *      userId: // value for 'userId'
+ *   },
+ * });
+ */
+export function useQueryWeeklyHoroscopeQueryQuery(baseOptions: Apollo.QueryHookOptions<QueryWeeklyHoroscopeQueryQuery, QueryWeeklyHoroscopeQueryQueryVariables> & ({ variables: QueryWeeklyHoroscopeQueryQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QueryWeeklyHoroscopeQueryQuery, QueryWeeklyHoroscopeQueryQueryVariables>(QueryWeeklyHoroscopeQueryDocument, options);
+      }
+export function useQueryWeeklyHoroscopeQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QueryWeeklyHoroscopeQueryQuery, QueryWeeklyHoroscopeQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QueryWeeklyHoroscopeQueryQuery, QueryWeeklyHoroscopeQueryQueryVariables>(QueryWeeklyHoroscopeQueryDocument, options);
+        }
+export function useQueryWeeklyHoroscopeQuerySuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<QueryWeeklyHoroscopeQueryQuery, QueryWeeklyHoroscopeQueryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<QueryWeeklyHoroscopeQueryQuery, QueryWeeklyHoroscopeQueryQueryVariables>(QueryWeeklyHoroscopeQueryDocument, options);
+        }
+export type QueryWeeklyHoroscopeQueryQueryHookResult = ReturnType<typeof useQueryWeeklyHoroscopeQueryQuery>;
+export type QueryWeeklyHoroscopeQueryLazyQueryHookResult = ReturnType<typeof useQueryWeeklyHoroscopeQueryLazyQuery>;
+export type QueryWeeklyHoroscopeQuerySuspenseQueryHookResult = ReturnType<typeof useQueryWeeklyHoroscopeQuerySuspenseQuery>;
+export type QueryWeeklyHoroscopeQueryQueryResult = Apollo.QueryResult<QueryWeeklyHoroscopeQueryQuery, QueryWeeklyHoroscopeQueryQueryVariables>;
 export const ZodiacQueryDocument = gql`
     query ZodiacQuery {
   zodiac {
@@ -2815,17 +3075,17 @@ export const ZodiacQueryDocument = gql`
  * });
  */
 export function useZodiacQueryQuery(baseOptions?: Apollo.QueryHookOptions<ZodiacQueryQuery, ZodiacQueryQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<ZodiacQueryQuery, ZodiacQueryQueryVariables>(ZodiacQueryDocument, options);
-}
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ZodiacQueryQuery, ZodiacQueryQueryVariables>(ZodiacQueryDocument, options);
+      }
 export function useZodiacQueryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ZodiacQueryQuery, ZodiacQueryQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<ZodiacQueryQuery, ZodiacQueryQueryVariables>(ZodiacQueryDocument, options);
-}
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ZodiacQueryQuery, ZodiacQueryQueryVariables>(ZodiacQueryDocument, options);
+        }
 export function useZodiacQuerySuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ZodiacQueryQuery, ZodiacQueryQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useSuspenseQuery<ZodiacQueryQuery, ZodiacQueryQueryVariables>(ZodiacQueryDocument, options);
-}
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ZodiacQueryQuery, ZodiacQueryQueryVariables>(ZodiacQueryDocument, options);
+        }
 export type ZodiacQueryQueryHookResult = ReturnType<typeof useZodiacQueryQuery>;
 export type ZodiacQueryLazyQueryHookResult = ReturnType<typeof useZodiacQueryLazyQuery>;
 export type ZodiacQuerySuspenseQueryHookResult = ReturnType<typeof useZodiacQuerySuspenseQuery>;
@@ -2854,17 +3114,17 @@ export const ProductDocument = gql`
  * });
  */
 export function useProductQuery(baseOptions?: Apollo.QueryHookOptions<ProductQuery, ProductQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<ProductQuery, ProductQueryVariables>(ProductDocument, options);
-}
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ProductQuery, ProductQueryVariables>(ProductDocument, options);
+      }
 export function useProductLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProductQuery, ProductQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<ProductQuery, ProductQueryVariables>(ProductDocument, options);
-}
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ProductQuery, ProductQueryVariables>(ProductDocument, options);
+        }
 export function useProductSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ProductQuery, ProductQueryVariables>) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useSuspenseQuery<ProductQuery, ProductQueryVariables>(ProductDocument, options);
-}
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ProductQuery, ProductQueryVariables>(ProductDocument, options);
+        }
 export type ProductQueryHookResult = ReturnType<typeof useProductQuery>;
 export type ProductLazyQueryHookResult = ReturnType<typeof useProductLazyQuery>;
 export type ProductSuspenseQueryHookResult = ReturnType<typeof useProductSuspenseQuery>;

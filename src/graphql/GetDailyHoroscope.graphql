@@ -1,0 +1,21 @@
+query QueryDailyHoroscope($date: date!, $userId: Int!) {
+  users(where: { _and: { user_id: { _eq: $userId } } }) {
+    zodiac_id
+    zodiac {
+      name_en
+      name_vi
+      daily_horoscopes(where: { _and: { date: { _eq: $date } } }) {
+        daily_career
+        daily_finance
+        daily_health
+        daily_horoscope_id
+        daily_love
+        daily_lucky_colors
+        daily_lucky_message
+        daily_lucky_numbers
+        date
+        horoscope_content
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+query QueryWeeklyHoroscopeQuery($date: date!, $userId: Int!) {
+  users(where: { _and: { user_id: { _eq: $userId } } }) {
+    zodiac_id
+    zodiac {
+      name_en
+      name_vi
+      weekly_horoscopes(
+        where: {
+          _and: {
+            week_start_date: { _lte: $date }
+            week_end_date: { _gte: $date }
+          }
+        }
+      ) {
+        created_at
+        deleted_at
+        horoscope_content
+        updated_at
+        week_end_date
+        week_start_date
+        weekly_career
+        weekly_finance
+        weekly_health
+        weekly_horoscope_id
+        weekly_love
+        weekly_lucky_colors
+        weekly_lucky_message
+        weekly_lucky_numbers
+      }
+    }
+  }
+}

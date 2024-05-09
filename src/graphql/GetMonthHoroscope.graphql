@@ -1,0 +1,25 @@
+query QueryMonthHoroscope($date: Int!, $userId: Int!) {
+  users(where: { _and: { user_id: { _eq: $userId } } }) {
+    zodiac_id
+    zodiac {
+      name_en
+      name_vi
+      monthly_horoscopes(where: { _and: { month: { _eq: $date } } }) {
+        created_at
+        deleted_at
+        horoscope_content
+        month
+        monthly_career
+        monthly_finance
+        monthly_health
+        monthly_horoscope_id
+        monthly_love
+        monthly_lucky_message
+        monthly_lucky_colors
+        monthly_lucky_numbers
+        updated_at
+        year
+      }
+    }
+  }
+}
