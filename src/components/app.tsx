@@ -14,6 +14,7 @@ import DiscoverHoroscope from "./layout/discover-horo/discover-horo";
 import DiscoverToday from "./layout/discover-today/discoverToday";
 import ByBirthdate from "./layout/discovery/byBirthdate";
 import ByTime from "./layout/by-time/byTime";
+import EachZodiacsInfo from "./layout/detail/each-zodiacs-info";
 
 const MyApp = () => {
   return (
@@ -23,7 +24,7 @@ const MyApp = () => {
           <SnackbarProvider>
             <ZMPRouter>
               <AnimationRoutes>
-                <Route path="/" element={<ByTime></ByTime>}></Route>
+                <Route path="/" element={<EachZodiacsInfo></EachZodiacsInfo>}></Route>
                 <Route
                   path="/horo"
                   element={<HoroscopeByDay></HoroscopeByDay>}
