@@ -12,7 +12,7 @@ const Footer = () => {
 
   const { zodiacUserData } = useContext(ZodiacContext);
   const getUsersZodiacID = zodiacUserData.zodiac_id;
-  console.log("user zodiac id from context: ", getUsersZodiacID);
+  console.log("user zodiac id from context (call from footer.tsx): ", getUsersZodiacID);
 
   // Kiểm tra và cập nhật activeIcon dựa trên pathname khi đường dẫn thay đổi
   useEffect(() => {
@@ -38,7 +38,9 @@ const Footer = () => {
 
   return (
     <div>
+
       <div className="flex justify-center text-center color bg-[#F4EEE3] drop-shadow-2xl fixed left-0 bottom-0 z-999  h-auto w-full pb-5">
+
         <div
           className="h-14 w-16 flex justify-center text-center mr-20 pt-0.5 cursor-pointer"
           onClick={() => handleIconClick("discovery", "/discovery")}
@@ -194,7 +196,7 @@ const Footer = () => {
         <div
           className={`h-14 w-16 flex justify-center text-center pt-0.5 cursor-pointer ${activeIcon === "horo" ? "text-[#9F7C34]" : "text-[#AAAAAA]"
             }`}
-          onClick={() => handleIconClick("horo", "/force-input-birthday")}
+          onClick={() => handleIconClick("horo", "/horo")}
         >
           <svg
             width="69"
@@ -229,7 +231,6 @@ const Footer = () => {
             />
           </svg>
         </div>
-
 
         <div
           className="h-14 w-16 flex justify-center text-center ml-20 pt-0.5 cursor-pointer"
@@ -282,6 +283,7 @@ const Footer = () => {
             />
           </svg>
         </div>
+
       </div>
     </div >
   );

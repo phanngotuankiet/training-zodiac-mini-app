@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import CapricornSVG from "./svg-components/CapricornSVG";
 import LuckyColorText from "./svg-components/LuckyColorText";
 import LuckyNumberText from "./svg-components/LuckyNumbertext";
@@ -27,6 +27,7 @@ import {
   useQueryMonthHoroscopeQuery,
 } from "../../../generated/graphql";
 import ZodiacContext from "../../../context/ZodiacContext";
+import ForceInputBirthday from "../force-user-to-input-their-birthday/ForceInputBirthday";
 
 interface MyComponentProps {
   // Add any props you need here
@@ -82,9 +83,11 @@ const arrowIcon = (
 const ByTime: React.FC<MyComponentProps> = () => {
   const today = new Date();
   const currentMonth = today.getMonth() + 1;
-  const { zodiacUserData } = useContext(ZodiacContext);
+  const { zodiacUserData } = useContext(ZodiacContext) as any;
 
-  const userId = zodiacUserData.user_id;
+  const userId = zodiacUserData.user_id || 154;
+  console.log("userId", userId);
+
   const date = new Date().toISOString().split("T")[0];
   const [frequency, setFrequency] = useState(0);
   const { data: dataDaily } = useQueryDailyHoroscopeQuery({
@@ -113,7 +116,12 @@ const ByTime: React.FC<MyComponentProps> = () => {
     setFrequency(idButton);
   };
 
-  if (data.name == " ") {
+  if (dataDaily?.users[0].birthdate === null) {
+    return (
+      <ForceInputBirthday />
+    )
+  }
+  if (data.name === " ") {
     return (
       <div>
         <Skeleton
@@ -158,7 +166,6 @@ const ByTime: React.FC<MyComponentProps> = () => {
           </p>
         </div>
 
-        {/* top */}
         <div className="mx-auto w-fit relative">
           <Top />
           <div className="w-fit mx-auto left-[50%] -translate-x-[50%] absolute bottom-0 translate-y-[40%]">
@@ -197,7 +204,10 @@ const ByTime: React.FC<MyComponentProps> = () => {
           </button>
         ))}
       </div>
-      <div className=" mx-auto p-4 bg-[#f4eee3] pb-16">{paragraphs}</div>
+
+      <div className=" mx-auto p-4 bg-[#f4eee3] h-[600px] pb-16">           {paragraphs}
+      </div>
+
       <Footer />
     </Page>
   );

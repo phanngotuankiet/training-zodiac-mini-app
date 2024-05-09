@@ -1,6 +1,7 @@
 query QueryMonthHoroscope($date: Int!, $userId: Int!) {
   users(where: { _and: { user_id: { _eq: $userId } } }) {
     zodiac_id
+    birthdate
     zodiac {
       name_en
       name_vi

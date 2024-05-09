@@ -2873,7 +2873,7 @@ export type QueryDailyHoroscopeQueryVariables = Exact<{
 }>;
 
 
-export type QueryDailyHoroscopeQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', zodiac_id?: number | null, zodiac?: { __typename?: 'zodiac', name_en?: string | null, name_vi?: string | null, daily_horoscopes: Array<{ __typename?: 'daily_horoscope', daily_career?: string | null, daily_finance?: string | null, daily_health?: string | null, daily_horoscope_id: number, daily_love?: string | null, daily_lucky_colors?: string | null, daily_lucky_message?: string | null, daily_lucky_numbers?: string | null, date?: any | null, horoscope_content?: string | null }> } | null }> };
+export type QueryDailyHoroscopeQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', zodiac_id?: number | null, birthdate?: any | null, zodiac?: { __typename?: 'zodiac', name_en?: string | null, name_vi?: string | null, daily_horoscopes: Array<{ __typename?: 'daily_horoscope', daily_career?: string | null, daily_finance?: string | null, daily_health?: string | null, daily_horoscope_id: number, daily_love?: string | null, daily_lucky_colors?: string | null, daily_lucky_message?: string | null, daily_lucky_numbers?: string | null, date?: any | null, horoscope_content?: string | null }> } | null }> };
 
 export type QueryMonthHoroscopeQueryVariables = Exact<{
   date: Scalars['Int']['input'];
@@ -2881,7 +2881,7 @@ export type QueryMonthHoroscopeQueryVariables = Exact<{
 }>;
 
 
-export type QueryMonthHoroscopeQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', zodiac_id?: number | null, zodiac?: { __typename?: 'zodiac', name_en?: string | null, name_vi?: string | null, monthly_horoscopes: Array<{ __typename?: 'monthly_horoscope', created_at?: any | null, deleted_at?: any | null, horoscope_content?: string | null, month?: number | null, monthly_career?: string | null, monthly_finance?: string | null, monthly_health?: string | null, monthly_horoscope_id: number, monthly_love?: string | null, monthly_lucky_message?: string | null, monthly_lucky_colors?: string | null, monthly_lucky_numbers?: string | null, updated_at?: any | null, year?: number | null }> } | null }> };
+export type QueryMonthHoroscopeQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', zodiac_id?: number | null, birthdate?: any | null, zodiac?: { __typename?: 'zodiac', name_en?: string | null, name_vi?: string | null, monthly_horoscopes: Array<{ __typename?: 'monthly_horoscope', created_at?: any | null, deleted_at?: any | null, horoscope_content?: string | null, month?: number | null, monthly_career?: string | null, monthly_finance?: string | null, monthly_health?: string | null, monthly_horoscope_id: number, monthly_love?: string | null, monthly_lucky_message?: string | null, monthly_lucky_colors?: string | null, monthly_lucky_numbers?: string | null, updated_at?: any | null, year?: number | null }> } | null }> };
 
 export type QueryWeeklyHoroscopeQueryQueryVariables = Exact<{
   date: Scalars['date']['input'];
@@ -2889,7 +2889,7 @@ export type QueryWeeklyHoroscopeQueryQueryVariables = Exact<{
 }>;
 
 
-export type QueryWeeklyHoroscopeQueryQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', zodiac_id?: number | null, zodiac?: { __typename?: 'zodiac', name_en?: string | null, name_vi?: string | null, weekly_horoscopes: Array<{ __typename?: 'weekly_horoscope', created_at?: any | null, deleted_at?: any | null, horoscope_content?: string | null, updated_at?: any | null, week_end_date?: any | null, week_start_date?: any | null, weekly_career?: string | null, weekly_finance?: string | null, weekly_health?: string | null, weekly_horoscope_id: number, weekly_love?: string | null, weekly_lucky_colors?: string | null, weekly_lucky_message?: string | null, weekly_lucky_numbers?: string | null }> } | null }> };
+export type QueryWeeklyHoroscopeQueryQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', zodiac_id?: number | null, birthdate?: any | null, zodiac?: { __typename?: 'zodiac', name_en?: string | null, name_vi?: string | null, weekly_horoscopes: Array<{ __typename?: 'weekly_horoscope', created_at?: any | null, deleted_at?: any | null, horoscope_content?: string | null, updated_at?: any | null, week_end_date?: any | null, week_start_date?: any | null, weekly_career?: string | null, weekly_finance?: string | null, weekly_health?: string | null, weekly_horoscope_id: number, weekly_love?: string | null, weekly_lucky_colors?: string | null, weekly_lucky_message?: string | null, weekly_lucky_numbers?: string | null }> } | null }> };
 
 export type QueryZodiacQueryVariables = Exact<{
   date: Scalars['date']['input'];
@@ -2957,6 +2957,7 @@ export const QueryDailyHoroscopeDocument = gql`
     query QueryDailyHoroscope($date: date!, $userId: Int!) {
   users(where: {_and: {user_id: {_eq: $userId}}}) {
     zodiac_id
+    birthdate
     zodiac {
       name_en
       name_vi
@@ -3014,6 +3015,7 @@ export const QueryMonthHoroscopeDocument = gql`
     query QueryMonthHoroscope($date: Int!, $userId: Int!) {
   users(where: {_and: {user_id: {_eq: $userId}}}) {
     zodiac_id
+    birthdate
     zodiac {
       name_en
       name_vi
@@ -3075,6 +3077,7 @@ export const QueryWeeklyHoroscopeQueryDocument = gql`
     query QueryWeeklyHoroscopeQuery($date: date!, $userId: Int!) {
   users(where: {_and: {user_id: {_eq: $userId}}}) {
     zodiac_id
+    birthdate
     zodiac {
       name_en
       name_vi

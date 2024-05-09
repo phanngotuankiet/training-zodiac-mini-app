@@ -27,7 +27,7 @@ interface MyComponentProps {
 const ContainerForEachSign = ({ zodiacSVG, zodiacName, key }) => (
   <div
     key={key}
-    className="h-[130px] w-[100px] rounded-lg border-2 border-[#9f7c35]"
+    className="h-[130px] poppins w-[100px] rounded-lg border-2 border-[#9f7c35]"
   >
     <div className="flex justify-center text-center p-3">{zodiacSVG}</div>
     <div className="flex justify-center text-center mt-2 text-[#9f7c35]">
@@ -54,15 +54,14 @@ const ZodiacSVGs = {
 
 const HoroscopeByDay: React.FC<MyComponentProps> = () => {
   const currentDate = new Date();
-  const formattedDate = `${currentDate.getDate()} - ${
-    currentDate.getMonth() + 1
-  } - ${currentDate.getFullYear()}`;
+  const formattedDate = `${currentDate.getDate()} - ${currentDate.getMonth() + 1
+    } - ${currentDate.getFullYear()}`;
 
   const { id } = useParams();
   console.log("hello", id);
   return (
     <Page>
-      <div className="w-full h-full bg-[#f4eee3] overflow-x-scroll scrollbar-hide">
+      <div className="w-full h-[870px] bg-[#f4eee3] overflow-x-scroll scrollbar-hide">
         {/* <div
           className="flex bg-[#F1E6D3] items-center h-9 mb-5"
           style={{ boxShadow: "0 1px 0 0 rgba(0, 0, 0, 0.3)" }}

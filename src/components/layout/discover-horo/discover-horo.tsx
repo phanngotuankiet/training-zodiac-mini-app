@@ -1,4 +1,4 @@
-import React, { startTransition, useContext } from "react";
+import React, { startTransition, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import Top from "./svg-components/Top";
@@ -51,7 +51,8 @@ const arrowIcon = (
 
 const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
   const navigate = useNavigate();
-  const { zodiacUserData } = useContext(ZodiacContext) as any;
+  // const { zodiacUserData } = useContext(ZodiacContext) as any;
+  const [hienMotLan, setHienMotLan] = useState(false);
 
   const handleHoroByDay = () => {
     startTransition(() => {
@@ -78,11 +79,24 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
       navigate("/update-birthdate");
     });
   };
+
+  useEffect(() => {
+    // Check if the modal has been shown before
+    const hasShownModal = localStorage.getItem('hasShown');
+
+    if (!hasShownModal) {
+      // Show the modal
+      setHienMotLan(true);
+      // Set localStorage to indicate the modal has been shown
+      localStorage.setItem('hasShown', 'true');
+    }
+  }, []);
+
   return (
     <Page>
       <div className="w-full h-full bg-[#f4eee3] overflow-x-scroll scrollbar-hide">
-        {!zodiacUserData?.zodiac_id && <AskBirthdate />}
-        {/* top */}
+        {hienMotLan && <AskBirthdate />}
+
         <div className="mx-auto w-fit mt-4">
           <Top />
         </div>
@@ -135,10 +149,10 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
             <span>{arrowIcon}</span>
           </div>
 
-          <div className="flex items-center tracking-wider space-x-2 svn-seiston text-[#9f7c35] w-fit mx-auto">
+          {/* <div className="flex items-center tracking-wider space-x-2 svn-seiston text-[#9f7c35] w-fit mx-auto">
             <span className="text-base">Xem thông tin tổng hợp</span>
             <span>{arrowIcon}</span>
-          </div>
+          </div> */}
 
           <div className="flex items-center tracking-wider space-x-2 svn-seiston text-[#9f7c35] w-fit mx-auto"
             onClick={handleSettingsUpdateBirthdate}>

@@ -214,14 +214,15 @@ const ByBirthdate: React.FC<MyComponentProps> = () => {
   const [yourBirthDay, setYourBirthDay] = useState<Date | undefined>();
   const [showDataUI, setShowDataUI] = useState(0);
   const date = yourBirthDay ? new Date(yourBirthDay) : undefined;
-  const formattedDate = date ? date.toISOString().split("T")[0] : "";
+  // const formattedDate = date ? date.toISOString().split("T")[0] : "";
+  const formattedDate = `${date?.getFullYear()}-${(date?.getMonth() + 1) < 10 ? `0${date?.getMonth() + 1}` : date?.getMonth() + 1}-${date?.getDate() < 10 ? `0${date?.getDate()}` : date?.getDate()}`;
 
   const [getBirthday, { data: DataBirthdayRes }] = useQueryByBirthDayLazyQuery({
     fetchPolicy: "no-cache",
   });
 
   const handleBackButtonClick = () => {
-    if (formattedDate) {
+    if (formattedDate && yourBirthDay !== undefined) {
       getBirthday({ variables: { date: formattedDate } });
       setShowDataUI(1);
     }

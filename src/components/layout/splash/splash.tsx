@@ -31,18 +31,42 @@ const Splash = () => {
     fetchPolicy: "no-cache"
   });
 
+  const checkIfExpired = () => {
+    // Lấy từ localstorage cái biến expiry
+    // Nếu không tìm thấy biến expiry, tạo mới một cái với giá trị là: new Date()
+    // nếu tìm thấy, so sánh nó coi có lớn hơn const currentTime = new Date() hay không, nếu lớn hơn thật thì khỏi chạy hàm try catch đăng nhập mà bao hàm cả getAccessToken()
+    // nếu tìm thấy, mà so sánh thấy biến expiry đó nhỏ hơn const currentTime = new Date() thì gán ghép cái key currentTime đó cho value new Date(), chạy hàm getAccessToken và đăng nhập như thường
+
+    let getExpire = localStorage.getItem("expiry");
+    const currentTime = new Date();
+    // nếu không tìm thấy key 'expiry':
+    if (!getExpire) {
+      const newExpiry = new Date(currentTime.getTime() + 24 * 60 * 60 * 1000).toString();
+      localStorage.setItem('expiry', newExpiry);
+      getExpire = newExpiry;
+      console.log("Thật sự mà nói thì biến expiry không tồn tại, đã set mới");
+      // set xong thì đăng nhập
+      loginActionHasura();
+    } else {
+      const expiryDate = new Date(getExpire);
+      if (expiryDate > currentTime) {
+        console.log('Expiry lớn hơn currentTime');
+        // nghĩa là chưa hết giờ login session
+        startTransition(() => {
+          navigate("/information");
+        });
+      } else {
+        console.log('Expiry nhỏ hơn currentTime');
+        // thực hiện đăng nhập từ zalo
+        loginActionHasura();
+      }
+    }
+    console.log('Kiểm tra thử biến `expiry` trong localStorage:', getExpire);
+  }
+
   const loginActionHasura = async () => {
+    // hàm này là zalo login, chỉ chạy khi hết hạn session login
     try {
-      // Các bước login:
-      // 1. Vào check localstorage, lưu vào context, coi có hết hạn login chưa
-      // 2. Nếu rồi thì làm như ở dưới
-      // 3. Nếu chưa thì khỏi làm ở dưới, chuyển sang trang "/horo"
-
-
-
-
-
-      // nếu hết hạn token:
       const tokenZalo = await getAccessToken();
       const checkData = await loginActionMutation({
         variables: {
@@ -72,10 +96,9 @@ const Splash = () => {
         checkData.data?.actionLogin?.zodiacId === null
       ) {
         console.log(
-          "login data zodiacId: ",
+          "login data zodiacId (từ hàm loginActionHasura): ",
           checkData.data?.actionLogin?.zodiacId,
         );
-        // handleAskBirthdate();
         startTransition(() => {
           navigate("/information");
         });
@@ -102,7 +125,7 @@ const Splash = () => {
 
   // mới vào Splash screen thì thực hiện đăng nhập ở đây
   useEffect(() => {
-    loginActionHasura();
+    checkIfExpired();
   }, []);
 
   return (
