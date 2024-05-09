@@ -1,8 +1,9 @@
-import React, { startTransition } from "react";
+import React, { startTransition, useEffect } from "react";
 import { Header, Page, useNavigate } from "zmp-ui";
 import "./splash.css";
 import OpacityGalaxy from "./OpacityGalaxy";
 import ZodiacCercleSVG from "./ZodiacCercleSVG";
+
 const Splash = () => {
   const navigate = useNavigate();
   const handleHome = () => {
@@ -10,6 +11,19 @@ const Splash = () => {
       navigate("/horo");
     });
   };
+  // useEffect(() => {
+  //   ZaloPay.ready(function () {
+  //     ZaloPay.getUserProfile({
+  //       success: function (response) {
+  //         console.log("User ID: " + response.uid);
+  //         console.log("User Name: " + response.displayName);
+  //       },
+  //       fail: function (err) {
+  //         console.log("Error: " + err.message);
+  //       },
+  //     });
+  //   });
+  // }, []);
 
   return (
     <Page className="bg-[#240E62]">
