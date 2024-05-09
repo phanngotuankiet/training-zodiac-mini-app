@@ -22,9 +22,10 @@ import ByBirthdate from "./layout/discovery/byBirthdate";
 import ByTime from "./layout/by-time/byTime";
 import AskBirthdate from "./layout/modals/AskBirthdate";
 import EachZodiacsInfo from "./layout/detail/each-zodiacs-info";
-import UpdateBirthday from "./layout/update-birthday/UpdateBirthday";
 import ZodiacContext from "../context/ZodiacContext";
 import ZodiacProvider from "../context/provider/ZodiacProvider";
+import UpdateBirthday from "./layout/update-birthday/UpdateBirthday";
+import ForceInputBirthday from "./layout/force-user-to-input-their-birthday/ForceInputBirthday";
 
 const MyApp = () => {
   return (
@@ -36,19 +37,25 @@ const MyApp = () => {
               <ZMPRouter>
                 <AnimationRoutes>
                   <Route path="/" element={<Splash></Splash>}></Route>
-                  <Route path="/horo" element={<ByTime></ByTime>}></Route>
-                  {/* this one asking for birthday */}
+                  <Route
+                    path="/horo"
+                    element={<ByTime></ByTime>}
+                  ></Route>
+                  <Route
+                    path="/force-input-birthday"
+                    element={<ForceInputBirthday></ForceInputBirthday>}
+                  ></Route>
 
                   {/* update birthday */}
                   <Route
                     path="/update-birthdate"
                     element={<UpdateBirthday></UpdateBirthday>}
                   ></Route>
+
                   <Route
                     path="/information"
                     element={<DiscoverHoroscope></DiscoverHoroscope>}
                   ></Route>
-
                   <Route
                     path="/discovery"
                     element={<ByBirthdate></ByBirthdate>}

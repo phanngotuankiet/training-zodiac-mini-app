@@ -9,11 +9,10 @@ import { useLoginActionMutation } from "../../../generated/graphql";
 
 const Splash = () => {
   const navigate = useNavigate();
-  const handleAskBirthdate = () => {
-    startTransition(() => {
-      navigate("/information");
-    });
-  };
+
+  const { zodiacUserData } = useContext(ZodiacContext);
+
+
   // useEffect(() => {
   //   ZaloPay.ready(function () {
   //     ZaloPay.getUserProfile({
@@ -29,22 +28,25 @@ const Splash = () => {
   // }, []);
 
   const [loginActionMutation] = useLoginActionMutation({
-    fetchPolicy: "no-cache",
+    fetchPolicy: "no-cache"
   });
 
   const loginActionHasura = async () => {
     try {
-      // đầu tiên vào function login này thì tìm trong
-      // context coi có user_id, hasura_access_token và zodiac_id (có sinh nhật)
-      // hay không, nếu như có thì vào thẳng mẹ trang
-      // ByTime luôn không cần AskBirthday gì vì có zodiac_id sẵn tờ context rồi thì khỏi
-      // lo, còn không có 2 cái đó thì chạy như ở dưới
+      // Các bước login:
+      // 1. Vào check localstorage, lưu vào context, coi có hết hạn login chưa
+      // 2. Nếu rồi thì làm như ở dưới
+      // 3. Nếu chưa thì khỏi làm ở dưới, chuyển sang trang "/horo"
 
-      // khi không có hasura token từ context
+
+
+
+
+      // nếu hết hạn token:
       const tokenZalo = await getAccessToken();
       const checkData = await loginActionMutation({
         variables: {
-          token: tokenZalo,
+          token: tokenZalo
         },
       });
 
@@ -53,8 +55,8 @@ const Splash = () => {
       const objectData = {
         token: checkData.data?.actionLogin?.token,
         user_id: checkData.data?.actionLogin?.userId,
-        zodiac_id: checkData.data?.actionLogin?.zodiacId,
-      };
+        zodiac_id: checkData.data?.actionLogin?.zodiacId
+      }
       localStorage.setItem("zodiacUserData", JSON.stringify(objectData));
 
       // console.log("Dữ liệu zalo access token: ", tokenZalo);
@@ -64,7 +66,7 @@ const Splash = () => {
       // updateCurrentUserId(checkData.data?.actionLogin?.userId);
       // console.log("Dữ liệu trả về context sau khi lưu vào local và cập nhật context: ", zodiacUserData);
 
-      // nếu như trả về từ hasura zodiac_id là null, thì set hiển thị popup AskBirthdate là true
+      // nếu như trả về từ hasura server cái zodiac_id là null, thì set hiển thị popup AskBirthdate là true
       if (
         checkData.data?.actionLogin?.zodiacId === undefined ||
         checkData.data?.actionLogin?.zodiacId === null
@@ -73,9 +75,12 @@ const Splash = () => {
           "login data zodiacId: ",
           checkData.data?.actionLogin?.zodiacId,
         );
-        handleAskBirthdate();
+        // handleAskBirthdate();
+        startTransition(() => {
+          navigate("/information");
+        });
       } else {
-        // nếu không thì vào thẳng ngay ByTime
+        // nếu đã có lần đăng nhập + đã input ngày sinh rồi thì vào thẳng ngay monthly, weekly, daily
         startTransition(() => {
           navigate("/horo");
         });
@@ -121,6 +126,7 @@ const Splash = () => {
           <div className="svn-seiston flex justify-center text-center text-4xl text-[#F9F6ED]">
             Hằng Ngày
           </div>
+
         </div>
       </div>
     </Page>

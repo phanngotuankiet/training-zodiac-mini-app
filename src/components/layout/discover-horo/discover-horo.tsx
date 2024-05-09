@@ -6,8 +6,8 @@ import Top from "./svg-components/Top";
 import { Page } from "zmp-ui";
 import Footer from "../footer/footer";
 import { useNavigate } from "react-router";
-import AskBirthdate from "../modals/AskBirthdate";
 import ZodiacContext from "../../../context/ZodiacContext";
+import AskBirthdate from "../modals/AskBirthdate";
 
 interface MyComponentProps {
   // Add any props you need here
@@ -73,6 +73,8 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
       navigate("/discovery");
     });
   };
+
+
   return (
     <Page>
       <div className="w-full h-full bg-[#f4eee3] overflow-x-scroll scrollbar-hide">

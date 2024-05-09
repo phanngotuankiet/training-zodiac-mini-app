@@ -63,7 +63,7 @@ const AskBirthdate = () => {
     setTimeout(() => {
       console.log("Dữ liệu nhận được sau khi update sinh nhật: ", dataWhenUpdateBirthdate);
       if (dataWhenUpdateBirthdate.data?.actionUpdateBirthday?.zodiac_id !== null) {
-        updateStorage({zodiac_id: dataWhenUpdateBirthdate.data?.actionUpdateBirthday?.zodiac_id})
+        updateStorage({ zodiac_id: dataWhenUpdateBirthdate.data?.actionUpdateBirthday?.zodiac_id })
         startTransition(() => {
           navigate("/horo");
         });
@@ -139,6 +139,9 @@ const AskBirthdate = () => {
         visible={vDialogVisible}
         className="text-center poppins tracking-wide font-semibold"
         verticalActions
+        onClose={() => {
+          setVDialogVisible(false);
+        }}
         actions={[
           {
             text: "Tiếp tục mà không cần ngày sinh",
@@ -148,7 +151,6 @@ const AskBirthdate = () => {
           {
             text: "OK",
             highLight: true,
-            close: true,
             onClick: () => {
               // check coi đã nhập ngày tháng chưa
               if (date === null) {
