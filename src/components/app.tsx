@@ -24,11 +24,8 @@ const MyApp = () => {
           <SnackbarProvider>
             <ZMPRouter>
               <AnimationRoutes>
-                <Route path="/" element={<EachZodiacsInfo></EachZodiacsInfo>}></Route>
-                <Route
-                  path="/horo"
-                  element={<HoroscopeByDay></HoroscopeByDay>}
-                ></Route>
+                <Route path="/" element={<Splash></Splash>}></Route>
+                <Route path="/horo" element={<ByTime></ByTime>}></Route>
 
                 <Route
                   path="/information"

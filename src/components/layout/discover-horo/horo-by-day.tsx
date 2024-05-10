@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import CapricornSVG from "../../../zodiac-SVGs/Capricorn-SVG";
 import Top from "./svg-components/Top";
 
-import { Page } from "zmp-ui";
+import { Header, Page } from "zmp-ui";
 import LeoSVG from "../../../zodiac-SVGs/Leo-SVG";
 import CancerSVG from "../../../zodiac-SVGs/Cancer-SVG";
 import SagittariusSVG from "../../../zodiac-SVGs/Sagittarius-SVG";
@@ -63,13 +63,10 @@ const HoroscopeByDay: React.FC<MyComponentProps> = () => {
   return (
     <Page>
       <div className="w-full h-full bg-[#f4eee3] overflow-x-scroll scrollbar-hide">
-        <div
+        {/* <div
           className="flex bg-[#F1E6D3] items-center h-9 mb-5"
           style={{ boxShadow: "0 1px 0 0 rgba(0, 0, 0, 0.3)" }}
-        >
-          <Icon className="px-2" icon="zi-chevron-left" size={32} />
-          <p className="text-[16px] ml-2 font-medium">Xem tử vi hàng ngày</p>
-        </div>
+        ></div> */}
 
         {/* top */}
         <div className="mx-auto w-fit">

@@ -4,7 +4,7 @@ import LuckyColorText from "./svg-components/LuckyColorText";
 import LuckyNumberText from "./svg-components/LuckyNumbertext";
 import TextTop from "./svg-components/TextTop";
 import Top from "./svg-components/Top";
-import { Page, Icon } from "zmp-ui";
+import { Page, Icon, Header } from "zmp-ui";
 import CancerSVG from "../../../zodiac-SVGs/Cancer-SVG";
 import SagittariusSVG from "../../../zodiac-SVGs/Sagittarius-SVG";
 import AriesSVG from "../../../zodiac-SVGs/Aries-SVG";
@@ -113,15 +113,20 @@ const DiscoverToday: React.FC<MyComponentProps> = () => {
   return (
     <Page className="">
       <div className="w-full h-[1000px] bg-[#f4eee3] scrollbar-hide">
-        <div
+        {/* <div
           className="flex bg-[#F1E6D3] items-center h-9 mb-4"
           style={{ boxShadow: "0 1px 0 0 rgba(0, 0, 0, 0.3)" }}
         >
-          <Icon className="px-2" icon="zi-chevron-left" size={32} />
-          <p className="text-[16px] ml-2 font-semibold">
-            Xem tử vi ngày {new Date().getDate()} - {new Date().getMonth() + 1}
-          </p>
-        </div>
+          <Header
+            style={{
+              display: "flex",
+              background: "#F1E6D3",
+            }}
+            title={`Xem tử vi ngày ${new Date().getDate()} - ${
+              new Date().getMonth() + 1
+            }`}
+          />
+        </div> */}
 
         {/* top */}
         <div className="mx-auto w-fit">

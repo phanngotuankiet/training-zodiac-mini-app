@@ -230,7 +230,7 @@ const ByBirthdate: React.FC<MyComponentProps> = () => {
     <Page>
       <div className="w-full h-full bg-[#f4eee3] overflow-x-scroll scrollbar-hide">
         {/* header */}
-        <div
+        {/* <div
           className="flex bg-[#f1e6d3] items-center h-9 "
           style={{ boxShadow: "0 1px 0 0 rgba(0, 0, 0, 0.3)" }}
         >
@@ -239,7 +239,7 @@ const ByBirthdate: React.FC<MyComponentProps> = () => {
           <p className="text-[16px] ml-2 font-semibold">
             Tra cứu tử vi qua ngày sinh
           </p>
-        </div>
+        </div> */}
 
         {/* top */}
         <div className="mx-auto w-fit mt-3">
