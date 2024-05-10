@@ -26,7 +26,6 @@ const MyApp = () => {
               <AnimationRoutes>
                 <Route path="/" element={<Splash></Splash>}></Route>
                 <Route path="/horo" element={<ByTime></ByTime>}></Route>
-
                 <Route
                   path="/information"
                   element={<DiscoverHoroscope></DiscoverHoroscope>}

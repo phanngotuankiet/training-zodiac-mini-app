@@ -2915,6 +2915,13 @@ export type QueryZodiacMonthlyQueryVariables = Exact<{
 
 export type QueryZodiacMonthlyQuery = { __typename?: 'query_root', zodiac: Array<{ __typename?: 'zodiac', name_en?: string | null, name_vi?: string | null, monthly_horoscopes: Array<{ __typename?: 'monthly_horoscope', created_at?: any | null, deleted_at?: any | null, horoscope_content?: string | null, month?: number | null, monthly_career?: string | null, monthly_finance?: string | null, monthly_health?: string | null, monthly_horoscope_id: number, monthly_love?: string | null, monthly_lucky_message?: string | null, monthly_lucky_colors?: string | null, monthly_lucky_numbers?: string | null, updated_at?: any | null, year?: number | null, zodiac_id?: number | null }> }> };
 
+export type QueryByBirthDayQueryVariables = Exact<{
+  date: Scalars['String']['input'];
+}>;
+
+
+export type QueryByBirthDayQuery = { __typename?: 'query_root', getZodiacByBirthDay?: { __typename?: 'MyOutput', zodiac_id?: number | null, name_vi?: string | null, description?: string | null, end_date?: string | null, large_image_url?: string | null, name_en?: string | null, small_image_url?: string | null, start_date?: string | null, strengths?: string | null, weaknesses?: string | null } | null };
+
 
 export const QueryDailyHoroscopeDocument = gql`
     query QueryDailyHoroscope($date: date!, $userId: Int!) {
@@ -3275,3 +3282,52 @@ export type QueryZodiacMonthlyQueryHookResult = ReturnType<typeof useQueryZodiac
 export type QueryZodiacMonthlyLazyQueryHookResult = ReturnType<typeof useQueryZodiacMonthlyLazyQuery>;
 export type QueryZodiacMonthlySuspenseQueryHookResult = ReturnType<typeof useQueryZodiacMonthlySuspenseQuery>;
 export type QueryZodiacMonthlyQueryResult = Apollo.QueryResult<QueryZodiacMonthlyQuery, QueryZodiacMonthlyQueryVariables>;
+export const QueryByBirthDayDocument = gql`
+    query QueryByBirthDay($date: String!) {
+  getZodiacByBirthDay(date: $date) {
+    zodiac_id
+    name_vi
+    description
+    end_date
+    large_image_url
+    name_en
+    small_image_url
+    start_date
+    strengths
+    weaknesses
+  }
+}
+    `;
+
+/**
+ * __useQueryByBirthDayQuery__
+ *
+ * To run a query within a React component, call `useQueryByBirthDayQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQueryByBirthDayQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQueryByBirthDayQuery({
+ *   variables: {
+ *      date: // value for 'date'
+ *   },
+ * });
+ */
+export function useQueryByBirthDayQuery(baseOptions: Apollo.QueryHookOptions<QueryByBirthDayQuery, QueryByBirthDayQueryVariables> & ({ variables: QueryByBirthDayQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<QueryByBirthDayQuery, QueryByBirthDayQueryVariables>(QueryByBirthDayDocument, options);
+      }
+export function useQueryByBirthDayLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<QueryByBirthDayQuery, QueryByBirthDayQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<QueryByBirthDayQuery, QueryByBirthDayQueryVariables>(QueryByBirthDayDocument, options);
+        }
+export function useQueryByBirthDaySuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<QueryByBirthDayQuery, QueryByBirthDayQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<QueryByBirthDayQuery, QueryByBirthDayQueryVariables>(QueryByBirthDayDocument, options);
+        }
+export type QueryByBirthDayQueryHookResult = ReturnType<typeof useQueryByBirthDayQuery>;
+export type QueryByBirthDayLazyQueryHookResult = ReturnType<typeof useQueryByBirthDayLazyQuery>;
+export type QueryByBirthDaySuspenseQueryHookResult = ReturnType<typeof useQueryByBirthDaySuspenseQuery>;
+export type QueryByBirthDayQueryResult = Apollo.QueryResult<QueryByBirthDayQuery, QueryByBirthDayQueryVariables>;

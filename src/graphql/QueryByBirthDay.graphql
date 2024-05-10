@@ -1,0 +1,14 @@
+query QueryByBirthDay($date: String!) {
+  getZodiacByBirthDay(date: $date) {
+    zodiac_id
+    name_vi
+    description
+    end_date
+    large_image_url
+    name_en
+    small_image_url
+    start_date
+    strengths
+    weaknesses
+  }
+}

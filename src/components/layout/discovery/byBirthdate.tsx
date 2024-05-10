@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 
 import TextTop from "./svg-components/TextTop";
 import Top from "./svg-components/Top";
 import { Page, Icon, DatePicker } from "zmp-ui";
 import Footer from "../footer/footer";
-import { zmp } from "zmp-framework/react";
-import { useHistory } from "react-router-dom";
+import { useQueryByBirthDayLazyQuery } from "../../../generated/graphql";
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 interface MyComponentProps {
   // Add any props you need here
@@ -209,10 +211,25 @@ const bulletin = (
 );
 
 const ByBirthdate: React.FC<MyComponentProps> = () => {
+  const [yourBirthDay, setYourBirthDay] = useState<Date | undefined>();
+  const [showDataUI, setShowDataUI] = useState(0)
+  const date = yourBirthDay ? new Date(yourBirthDay) : undefined;
+  const formattedDate = date ? date.toISOString().split('T')[0] : ''
+
+  const [getBirthday, { data: DataBirthdayRes }] = useQueryByBirthDayLazyQuery({
+    fetchPolicy: "no-cache"
+  });
+
+  const handleBackButtonClick = () => {
+    if (formattedDate) {
+      getBirthday({ variables: { date: formattedDate } });
+      setShowDataUI(1)
+    }
+  };
+
   // đoạn text này sẽ lấy dữ liệu từ api
   const userZodiacInformation =
-    "Bảo Bình (Aquarius): Bảo Bình là cung hoàng đạo đại diện cho sự sáng tạo, độc lập và cảm nhận. Những người sinh trong cung này thường là sáng tạo, độc lập và sáng tạo. Họ có tư duy tiến bộ và thích thách thức. - Điểm mạnh: Kiên trì, chuyên nghiệp và định hướng. Ma Kết thường là những người kiên trì, có mục tiêu rõ ràng và sẵn lòng làm việc. - Điểm yếu: Kiên trì, chuyên nghiệp và định hướng. Ma Kết thường là những người kiên trì, có mục tiêu rõ ràng và sẵn lòng làm việc";
-
+    `${DataBirthdayRes?.getZodiacByBirthDay?.name_vi || ''} (${DataBirthdayRes?.getZodiacByBirthDay?.name_en || ''}): ${DataBirthdayRes?.getZodiacByBirthDay?.description || ''}- Điểm mạnh: ${DataBirthdayRes?.getZodiacByBirthDay?.strengths || ''} - Điểm yếu: ${DataBirthdayRes?.getZodiacByBirthDay?.weaknesses || ''}`;
   const zodiacInfo = userZodiacInformation
     .split("-")
     .map((lineByLine, index) => (
@@ -224,7 +241,6 @@ const ByBirthdate: React.FC<MyComponentProps> = () => {
       </p>
     ));
 
-  const handleBackButtonClick = () => {};
 
   return (
     <Page>
@@ -254,13 +270,15 @@ const ByBirthdate: React.FC<MyComponentProps> = () => {
           <DatePicker
             mask
             maskClosable
+            value={yourBirthDay}
+            onChange={(value) => setYourBirthDay(value)}
             dateFormat="dd/mm/yyyy"
             title="Chọn ngày sinh"
           />
         </div>
 
         <div className="p-6 -translate-y-32 w-full">
-          <button className="bg-[#9f7c35] w-full mx-auto h-9 text-[14px] text-white rounded-md">
+          <button onClick={handleBackButtonClick} className="bg-[#9f7c35] w-full mx-auto h-9 text-[14px] text-white rounded-md">
             Tìm kiếm
           </button>
         </div>
@@ -268,22 +286,35 @@ const ByBirthdate: React.FC<MyComponentProps> = () => {
         <div className="mx-auto w-fit -translate-y-[136px]">
           {belowSearchBtnSVG}
         </div>
+        {
+          showDataUI == 1 ? (
+            <>
+              {DataBirthdayRes ? (
+                <>
+                  <div className="w-fit mx-auto -translate-y-28">
+                    <p className="svn-seiston text-[#9f7c35] text-[24px]">
+                      {`Bạn thuộc Cung ${DataBirthdayRes?.getZodiacByBirthDay?.name_vi}` || ''}
+                    </p>
+                    <p className="uppercase text-[#240f62] font-semibold text-[30px] w-fit mx-auto my-4">
+                      {DataBirthdayRes?.getZodiacByBirthDay?.name_en || ''}
+                    </p>
+                  </div>
 
-        <div className="w-fit mx-auto -translate-y-28">
-          <p className="svn-seiston text-[#9f7c35] text-[24px]">
-            Bạn là Cung gì đó
-          </p>
-          <p className="uppercase text-[#240f62] font-semibold text-[30px] w-fit mx-auto my-4">
-            aquarius
-          </p>
-        </div>
+                  <div className="max-w-[342px] mx-auto -translate-y-24">
+                    {zodiacInfo}
+                  </div></>
+              ) : (
+                <div className="max-w-[342px] mx-auto -translate-y-24">
+                  <Skeleton count={11} />
+                </div>)}
+            </>
+          ) : ''
 
-        <div className="max-w-[342px] mx-auto -translate-y-24">
-          {zodiacInfo}
-        </div>
+        }
+
       </div>
       <Footer />
-    </Page>
+    </Page >
   );
 };
 
