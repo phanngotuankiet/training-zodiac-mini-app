@@ -36,14 +36,17 @@ const MyApp = () => {
                     path="/askBirthdate"
                     element={<AskBirthdate></AskBirthdate>}
                   ></Route>
+
+                  {/* update birthday */}
+                  <Route
+                    path="/update-birthdate"
+                    element={<UpdateBirthday></UpdateBirthday>}
+                  ></Route>
                   <Route
                     path="/information"
                     element={<DiscoverHoroscope></DiscoverHoroscope>}
                   ></Route>
-                  <Route
-                    path="/askBirthdate"
-                    element={<AskBirthdate></AskBirthdate>}
-                  ></Route>
+
                   <Route
                     path="/discovery"
                     element={<ByBirthdate></ByBirthdate>}
