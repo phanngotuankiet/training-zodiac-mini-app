@@ -25,7 +25,7 @@ const Footer = () => {
 
   const handleIconClick = (
     iconName: "discovery" | "horo" | "information",
-    path: string
+    path: string,
   ) => {
     setActiveIcon(iconName); // Cập nhật trạng thái icon trước khi chuyển trang
     navigate(path);

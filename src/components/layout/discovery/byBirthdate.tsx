@@ -6,8 +6,8 @@ import Top from "./svg-components/Top";
 import { Page, Icon, DatePicker } from "zmp-ui";
 import Footer from "../footer/footer";
 import { useQueryByBirthDayLazyQuery } from "../../../generated/graphql";
-import Skeleton from 'react-loading-skeleton';
-import 'react-loading-skeleton/dist/skeleton.css';
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 interface MyComponentProps {
   // Add any props you need here
@@ -212,24 +212,23 @@ const bulletin = (
 
 const ByBirthdate: React.FC<MyComponentProps> = () => {
   const [yourBirthDay, setYourBirthDay] = useState<Date | undefined>();
-  const [showDataUI, setShowDataUI] = useState(0)
+  const [showDataUI, setShowDataUI] = useState(0);
   const date = yourBirthDay ? new Date(yourBirthDay) : undefined;
-  const formattedDate = date ? date.toISOString().split('T')[0] : ''
+  const formattedDate = date ? date.toISOString().split("T")[0] : "";
 
   const [getBirthday, { data: DataBirthdayRes }] = useQueryByBirthDayLazyQuery({
-    fetchPolicy: "no-cache"
+    fetchPolicy: "no-cache",
   });
 
   const handleBackButtonClick = () => {
     if (formattedDate) {
       getBirthday({ variables: { date: formattedDate } });
-      setShowDataUI(1)
+      setShowDataUI(1);
     }
   };
 
   // đoạn text này sẽ lấy dữ liệu từ api
-  const userZodiacInformation =
-    `${DataBirthdayRes?.getZodiacByBirthDay?.name_vi || ''} (${DataBirthdayRes?.getZodiacByBirthDay?.name_en || ''}): ${DataBirthdayRes?.getZodiacByBirthDay?.description || ''}- Điểm mạnh: ${DataBirthdayRes?.getZodiacByBirthDay?.strengths || ''} - Điểm yếu: ${DataBirthdayRes?.getZodiacByBirthDay?.weaknesses || ''}`;
+  const userZodiacInformation = `${DataBirthdayRes?.getZodiacByBirthDay?.name_vi || ""} (${DataBirthdayRes?.getZodiacByBirthDay?.name_en || ""}): ${DataBirthdayRes?.getZodiacByBirthDay?.description || ""}- Điểm mạnh: ${DataBirthdayRes?.getZodiacByBirthDay?.strengths || ""} - Điểm yếu: ${DataBirthdayRes?.getZodiacByBirthDay?.weaknesses || ""}`;
   const zodiacInfo = userZodiacInformation
     .split("-")
     .map((lineByLine, index) => (
@@ -240,7 +239,6 @@ const ByBirthdate: React.FC<MyComponentProps> = () => {
         {index > 0 && bulletin} {lineByLine}
       </p>
     ));
-
 
   return (
     <Page>
@@ -280,7 +278,10 @@ const ByBirthdate: React.FC<MyComponentProps> = () => {
         </div>
 
         <div className="p-6 -translate-y-32 w-full">
-          <button onClick={handleBackButtonClick} className="bg-[#9f7c35] w-full mx-auto h-9 text-[14px] text-white rounded-md">
+          <button
+            onClick={handleBackButtonClick}
+            className="bg-[#9f7c35] w-full mx-auto h-9 text-[14px] text-white rounded-md"
+          >
             Tìm kiếm
           </button>
         </div>
@@ -288,35 +289,36 @@ const ByBirthdate: React.FC<MyComponentProps> = () => {
         <div className="mx-auto w-fit -translate-y-[136px]">
           {belowSearchBtnSVG}
         </div>
-        {
-          showDataUI == 1 ? (
-            <>
-              {DataBirthdayRes ? (
-                <>
-                  <div className="w-fit mx-auto -translate-y-28">
-                    <p className="svn-seiston text-[#9f7c35] text-[24px]">
-                      {`Bạn thuộc Cung ${DataBirthdayRes?.getZodiacByBirthDay?.name_vi}` || ''}
-                    </p>
-                    <p className="uppercase text-[#240f62] font-semibold text-[30px] w-fit mx-auto my-4">
-                      {DataBirthdayRes?.getZodiacByBirthDay?.name_en || ''}
-                    </p>
-                  </div>
+        {showDataUI == 1 ? (
+          <>
+            {DataBirthdayRes ? (
+              <>
+                <div className="w-fit mx-auto -translate-y-28">
+                  <p className="svn-seiston text-[#9f7c35] text-[24px]">
+                    {`Bạn thuộc Cung ${DataBirthdayRes?.getZodiacByBirthDay?.name_vi}` ||
+                      ""}
+                  </p>
+                  <p className="uppercase text-[#240f62] font-semibold text-[30px] w-fit mx-auto my-4">
+                    {DataBirthdayRes?.getZodiacByBirthDay?.name_en || ""}
+                  </p>
+                </div>
 
-                  <div className="max-w-[342px] mx-auto -translate-y-24">
-                    {zodiacInfo}
-                  </div></>
-              ) : (
                 <div className="max-w-[342px] mx-auto -translate-y-24">
-                  <Skeleton count={11} />
-                </div>)}
-            </>
-          ) : ''
-
-        }
-
+                  {zodiacInfo}
+                </div>
+              </>
+            ) : (
+              <div className="max-w-[342px] mx-auto -translate-y-24">
+                <Skeleton count={11} />
+              </div>
+            )}
+          </>
+        ) : (
+          ""
+        )}
       </div>
       <Footer />
-    </Page >
+    </Page>
   );
 };
 

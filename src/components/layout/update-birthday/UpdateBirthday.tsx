@@ -17,15 +17,15 @@ const UpdateBirthday = () => {
   const dateChangeHandler = (newDate) => {
     setDate(newDate);
 
-    const datePost = `${(newDate.getMonth() + 1) < 10 ? `0${(newDate.getMonth() + 1)}` : newDate.getMonth() + 1}-${newDate.getDate() < 10 ? `0${newDate.getDate()}` : newDate.getDate()}-${newDate.getFullYear()}`;
+    const datePost = `${newDate.getMonth() + 1 < 10 ? `0${newDate.getMonth() + 1}` : newDate.getMonth() + 1}-${newDate.getDate() < 10 ? `0${newDate.getDate()}` : newDate.getDate()}-${newDate.getFullYear()}`;
     setDateToPost(datePost);
     console.log("Date thay đổi: ", datePost);
-  }
+  };
 
   // hàm nhận ngày sinh nhật của user rồi đẩy lên server
   const updateBirthdayHandler = () => {
     setUpdatedMessage(true);
-  }
+  };
 
   useEffect(() => {
     let timeout;
@@ -48,14 +48,12 @@ const UpdateBirthday = () => {
 
   return (
     <Page className="page bg-[#f4eee3] overflow-x-scroll">
-
       <div className="w-fit mx-auto mb-9 relative">
         <div className="">
           <TopUpdateBirthday />
         </div>
 
-        <div
-          className="svn-seiston -translate-y-16 w-full tracking-wider text-3xl text-[#9f7c35]">
+        <div className="svn-seiston -translate-y-16 w-full tracking-wider text-3xl text-[#9f7c35]">
           <p className="w-64 mx-auto text-center">Thông tin cá nhân</p>
         </div>
       </div>
@@ -90,11 +88,10 @@ const UpdateBirthday = () => {
 
         <button
           className="bg-[#9f7c35] w-full py-3 rounded-lg mt-4 poppins text-lg text-white"
-          onClick={updateBirthdayHandler}>
+          onClick={updateBirthdayHandler}
+        >
           Cập nhật
         </button>
-
-
       </div>
 
       <div className="mt-2 w-fit mx-auto">
@@ -103,17 +100,22 @@ const UpdateBirthday = () => {
 
       {/* backend team note: chỗ này thay thế cái ngày tháng bằng ngày tháng trả về từ backend */}
       <div className="mt-4 w-fit mx-auto">
-        {
-          updatedMessage &&
+        {updatedMessage && (
           <p
             className={`px-2 transition-all ease-linear italic mt-4 ${updatedMessage ? "" : "opacity-0"} text-[#9f7c35]`}
-            style={{ animation: updatedMessage ? 'none' : 'fades 11s forwards' }}>Dữ liệu đã được cập nhật với ngày sinh {new Date().getDate().toString().padStart(2, '0')}-{(new Date().getMonth() + 1).toString().padStart(2, '0')}-{new Date().getFullYear()}</p>
-        }
+            style={{
+              animation: updatedMessage ? "none" : "fades 11s forwards",
+            }}
+          >
+            Dữ liệu đã được cập nhật với ngày sinh{" "}
+            {new Date().getDate().toString().padStart(2, "0")}-
+            {(new Date().getMonth() + 1).toString().padStart(2, "0")}-
+            {new Date().getFullYear()}
+          </p>
+        )}
       </div>
-
-
-    </Page >
-  )
-}
+    </Page>
+  );
+};
 
 export default UpdateBirthday;

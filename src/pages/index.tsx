@@ -3,7 +3,13 @@ import { List, Page, Icon, useNavigate } from "zmp-ui";
 import { useRecoilValue } from "recoil";
 import { userState } from "../state";
 import { useProductQuery } from "../generated/graphql";
-import { getUserID, getUserInfo, getAccessToken, closeApp, authorize } from "zmp-sdk/apis";
+import {
+  getUserID,
+  getUserInfo,
+  getAccessToken,
+  closeApp,
+  authorize,
+} from "zmp-sdk/apis";
 import AskBirthdate from "../components/layout/modals/AskBirthdate";
 
 const HomePage: React.FunctionComponent = () => {
@@ -13,11 +19,11 @@ const HomePage: React.FunctionComponent = () => {
   const fetchUser = async (accessToken: any) => {
     const url = "https://graph.zalo.me/v2.0/me?fields=id%2Cname%2Cpicture";
     const headers = {
-      "access_token": accessToken
+      access_token: accessToken,
     };
     try {
       const response = await fetch(url, {
-        method: 'GET',
+        method: "GET",
         headers: headers,
       });
 
@@ -28,7 +34,7 @@ const HomePage: React.FunctionComponent = () => {
     } catch (error) {
       console.log("error when fetch user ID: ", error);
     }
-  }
+  };
 
   // const user = useRecoilValue(userState);
   // const navigate = useNavigate();

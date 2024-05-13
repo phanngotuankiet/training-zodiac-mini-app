@@ -14,7 +14,8 @@
 }
 @font-face {
   font-family: "Seiston";
-  src: url("./SVN-Seiston/SVN-Seiston.otf") format("truetype"),
+  src:
+    url("./SVN-Seiston/SVN-Seiston.otf") format("truetype"),
     url("./SVN-Seiston/STYLEno.1\ Fonts.url") format("truetype");
   font-weight: normal;
   font-style: normal;
@@ -25,11 +26,12 @@
 
 @font-face {
   font-family: "Poppins-vn";
-  src: url("./DesignerVN-Poppins/DesignerVN-Poppins-Regular.ttf") format("truetype");
+  src: url("./DesignerVN-Poppins/DesignerVN-Poppins-Regular.ttf")
+    format("truetype");
 }
 
 .poppins {
-  font-family: 'Poppins-vn', sans-serif;
+  font-family: "Poppins-vn", sans-serif;
 }
 
 /* Custom styles for the pizza component */
@@ -66,17 +68,39 @@
 }
 
 @keyframes fades {
-  0% { opacity: 1; }    /* Start at 100% opacity */
-  10% { opacity: 0.9; } /* 90% opacity */
-  20% { opacity: 0.8; } /* 80% opacity */
-  30% { opacity: 0.7; } /* 70% opacity */
-  40% { opacity: 0.6; } /* and so on... */
-  50% { opacity: 0.5; }
-  60% { opacity: 0.4; }
-  70% { opacity: 0.3; }
-  80% { opacity: 0.2; }
-  90% { opacity: 0.1; }
-  100% { opacity: 0; }  /* End at 0% opacity */
+  0% {
+    opacity: 1;
+  } /* Start at 100% opacity */
+  10% {
+    opacity: 0.9;
+  } /* 90% opacity */
+  20% {
+    opacity: 0.8;
+  } /* 80% opacity */
+  30% {
+    opacity: 0.7;
+  } /* 70% opacity */
+  40% {
+    opacity: 0.6;
+  } /* and so on... */
+  50% {
+    opacity: 0.5;
+  }
+  60% {
+    opacity: 0.4;
+  }
+  70% {
+    opacity: 0.3;
+  }
+  80% {
+    opacity: 0.2;
+  }
+  90% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0;
+  } /* End at 0% opacity */
 }
 
 @keyframes jump-up {
@@ -109,13 +133,30 @@
 }
 
 @keyframes shake {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateX(0);
   }
-  10%, 25%, 30%, 45%, 50%, 65%, 70%, 85%, 90% {
+  10%,
+  25%,
+  30%,
+  45%,
+  50%,
+  65%,
+  70%,
+  85%,
+  90% {
     transform: translateX(-3px);
   }
-  15% ,20%, 35%, 40%, 55%, 60%, 75%, 80%, 95% {
+  15%,
+  20%,
+  35%,
+  40%,
+  55%,
+  60%,
+  75%,
+  80%,
+  95% {
     transform: translateX(3px);
   }
 }

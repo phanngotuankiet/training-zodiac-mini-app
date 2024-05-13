@@ -1,6 +1,4 @@
-
-import React from 'react';
-
+import React from "react";
 
 const TextTop = ({ textOnTop }) => {
   return (
@@ -8,5 +6,5 @@ const TextTop = ({ textOnTop }) => {
       {textOnTop}
     </div>
   );
-}
+};
 export default TextTop;

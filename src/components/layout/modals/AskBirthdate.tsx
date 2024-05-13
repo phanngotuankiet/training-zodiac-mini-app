@@ -1,11 +1,10 @@
 import React, { useState, useEffect, startTransition, useContext } from "react";
 import { Modal, Box, Text, DatePicker } from "zmp-ui";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router";
 import ZodiacContext from "../../../context/ZodiacContext";
 import { useUpdateBirthdateActionMutation } from "../../../generated/graphql";
-
 
 const AskBirthdate = () => {
   const totalTime = 2;
@@ -25,10 +24,10 @@ const AskBirthdate = () => {
   const dateChangeHandler = (newDate) => {
     setDate(newDate);
 
-    const datePost = `${(newDate.getMonth() + 1) < 10 ? `0${newDate.getMonth() + 1}` : `${newDate.getMonth() + 1}`}-${newDate.getDate() < 10 ? `0${newDate.getDate()}` : `${newDate.getDate()}`}-${newDate.getFullYear()}`;
+    const datePost = `${newDate.getMonth() + 1 < 10 ? `0${newDate.getMonth() + 1}` : `${newDate.getMonth() + 1}`}-${newDate.getDate() < 10 ? `0${newDate.getDate()}` : `${newDate.getDate()}`}-${newDate.getFullYear()}`;
     setDateToPost(datePost);
     console.log("Date thay đổi: ", datePost);
-  }
+  };
 
   const { zodiacUserData, updateStorage } = useContext(ZodiacContext) as any;
 
@@ -36,9 +35,8 @@ const AskBirthdate = () => {
 
   const getUSerID = zodiacUserData.user_id;
 
-
   const [updateBirthdateActionMutation] = useUpdateBirthdateActionMutation({
-    fetchPolicy: "no-cache"
+    fetchPolicy: "no-cache",
   });
 
   const navigate = useNavigate();
@@ -56,10 +54,9 @@ const AskBirthdate = () => {
     const dataWhenUpdateBirthdate = await updateBirthdateActionMutation({
       variables: {
         idUser: getUSerID.toString(),
-        birthday: dateToPost.toString()
+        birthday: dateToPost.toString(),
       },
     });
-
 
     showMessageOKButton();
 
@@ -71,15 +68,13 @@ const AskBirthdate = () => {
           navigate("/horo");
         });
       }
-
     }, 3000);
-  }
-
+  };
 
   // this function works when button 'OK' of the modal is clicked
   const showMessageOKButton = () => {
     const interval = setInterval(() => {
-      setSeconds(seconds => {
+      setSeconds((seconds) => {
         if (seconds <= 0) {
           clearInterval(interval); // Stop the interval if the time is up
           return 0;
@@ -91,7 +86,7 @@ const AskBirthdate = () => {
     setConfirmSubmitBirthdate(true);
 
     return () => clearInterval(interval);
-  }
+  };
 
   const percentage = (seconds / totalTime) * 100;
 
@@ -115,24 +110,30 @@ const AskBirthdate = () => {
 
   return (
     <div className="">
-
-      {confirmSubmitBirthdate &&
-        <div className={`flex-col ${percentage === 0 && "jump"} h-16 justify-between mx-auto overflow-hidden w-fit mt-3 max-w-xs p-4 space-x-4 rtl:space-x-reverse text-gray-400 bg-white divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg shadow dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800`} role="alert">
+      {confirmSubmitBirthdate && (
+        <div
+          className={`flex-col ${percentage === 0 && "jump"} h-16 justify-between mx-auto overflow-hidden w-fit mt-3 max-w-xs p-4 space-x-4 rtl:space-x-reverse text-gray-400 bg-white divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg shadow dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800`}
+          role="alert"
+        >
           <div className="flex w-full items-center">
-            <FontAwesomeIcon icon={faCheckCircle}
-              className="text-green-600 text-xl" />
+            <FontAwesomeIcon
+              icon={faCheckCircle}
+              className="text-green-600 text-xl"
+            />
 
-            <div className="ps-4 text-lg font-medium px-3">Đang lưu ngày sinh</div>
+            <div className="ps-4 text-lg font-medium px-3">
+              Đang lưu ngày sinh
+            </div>
           </div>
 
           <div className="w-[216px] absolute translate-y-[12px] rounded-3xl -translate-x-[32px] h-[3px] border-b">
-            <div style={{ width: `${percentage}%` }}
-              className="bg-green-600 h-[3px] -mb-[3px] transition-all ease-linear duration-3000">
-            </div>
+            <div
+              style={{ width: `${percentage}%` }}
+              className="bg-green-600 h-[3px] -mb-[3px] transition-all ease-linear duration-3000"
+            ></div>
           </div>
         </div>
-      }
-
+      )}
 
       <Modal
         visible={vDialogVisible}
@@ -159,9 +160,12 @@ const AskBirthdate = () => {
               }
             },
           },
-        ]}>
+        ]}
+      >
         <Box className="space-y-4">
-          <div className={`font-bold ${shaking && "shake"} text-start text-2xl -mt-3 -mb-2`}>
+          <div
+            className={`font-bold ${shaking && "shake"} text-start text-2xl -mt-3 -mb-2`}
+          >
             Nhập ngày sinh của bạn
           </div>
           <Text className="text-start">
@@ -176,10 +180,10 @@ const AskBirthdate = () => {
             onChange={dateChangeHandler}
             title="Ngày sinh"
           />
-        </Box >
-      </Modal >
+        </Box>
+      </Modal>
     </div>
-  )
-}
+  );
+};
 
 export default AskBirthdate;

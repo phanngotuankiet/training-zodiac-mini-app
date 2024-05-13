@@ -139,7 +139,6 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
             <span className="text-base">Thay đổi thông tin của mình</span>
             <span>{arrowIcon}</span>
           </div>
-
         </div>
         <Footer />
       </div>

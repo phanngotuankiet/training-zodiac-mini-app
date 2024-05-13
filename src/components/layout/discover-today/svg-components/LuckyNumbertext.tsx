@@ -1,6 +1,4 @@
-
-import React from 'react';
-
+import React from "react";
 
 const LuckyNumberText = ({ LuckyNumber }) => {
   return (
@@ -9,5 +7,5 @@ const LuckyNumberText = ({ LuckyNumber }) => {
       <p className="flex justify-center my-2">{LuckyNumber}</p>
     </div>
   );
-}
+};
 export default LuckyNumberText;

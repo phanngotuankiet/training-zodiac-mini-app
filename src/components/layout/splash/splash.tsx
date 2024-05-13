@@ -71,7 +71,7 @@ const Splash = () => {
       ) {
         console.log(
           "login data zodiacId: ",
-          checkData.data?.actionLogin?.zodiacId
+          checkData.data?.actionLogin?.zodiacId,
         );
         handleAskBirthdate();
       } else {
