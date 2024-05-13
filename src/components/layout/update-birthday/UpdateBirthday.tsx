@@ -1,7 +1,7 @@
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect, useContext } from "react";
-import { DatePicker, Page } from "zmp-ui";
+import { DatePicker, Page, useNavigate } from "zmp-ui";
 import BelowButton from "./svg/BelowButton";
 import TopUpdateBirthday from "./svg/TopUpdateBirthday";
 import {
@@ -12,28 +12,24 @@ import {
 import ZodiacContext from "../../../context/ZodiacContext";
 
 const UpdateBirthday = () => {
-  const { zodiacUserData } = useContext(ZodiacContext) as any;
-
+  const navigate = useNavigate();
+  const { zodiacUserData, updateStatusBirthday, hasBirthday } = useContext(
+    ZodiacContext
+  ) as any;
   const getUserID = zodiacUserData.user_id;
-
   const idUser = getUserID;
-  console.log("==========cha", idUser);
-
   const { data: dataUser } = useQueryUserByUpdateQuery({
     variables: { userId: idUser },
     fetchPolicy: "no-cache",
   });
-
   const [updateBirthDay] = useUpdateBirthdateActionMutation({
     fetchPolicy: "no-cache",
   });
   const [updateNameUser] = useMutationUserUpdateNameMutation({
     fetchPolicy: "no-cache",
   });
-
   const [date, setDate] = useState<Date>();
   const [name, setName] = useState<any>();
-
   const dateString = dataUser?.users[0]?.birthdate;
   const nameString = dataUser?.users[0]?.full_name;
   // Tạo một đối tượng Date từ chuỗi
@@ -57,29 +53,34 @@ const UpdateBirthday = () => {
   };
 
   // hàm nhận ngày sinh nhật của user rồi đẩy lên server
-  const updateBirthdayHandler = () => {
+  const updateBirthdayHandler = async () => {
     if (date) {
+      setUpdatedMessage(true);
       const dateUpdate = new Date(date);
       dateUpdate.setUTCDate(dateUpdate.getUTCDate() + 1);
       const month = String(dateUpdate.getUTCMonth() + 1).padStart(2, "0");
       const day = String(dateUpdate.getUTCDate()).padStart(2, "0");
       const year = dateUpdate.getUTCFullYear();
       const formattedDate = `${month}-${day}-${year}`;
-      updateBirthDay({
+      await updateBirthDay({
         variables: {
           idUser: idUser.toString(),
           birthday: formattedDate,
         },
       });
 
-      updateNameUser({
+      await updateNameUser({
         variables: {
           userId: idUser,
           full_name: name,
         },
       });
-      setUpdatedMessage(true);
+      setUpdatedMessage(false);
     }
+
+    localStorage.setItem("hasBirthday", "true");
+    updateStatusBirthday(true);
+    navigate("/horo");
   };
 
   useEffect(() => {

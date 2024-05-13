@@ -24,12 +24,20 @@ const AskBirthdate = () => {
   const dateChangeHandler = (newDate) => {
     setDate(newDate);
 
-    const datePost = `${newDate.getMonth() + 1 < 10 ? `0${newDate.getMonth() + 1}` : `${newDate.getMonth() + 1}`}-${newDate.getDate() < 10 ? `0${newDate.getDate()}` : `${newDate.getDate()}`}-${newDate.getFullYear()}`;
+    const datePost = `${
+      newDate.getMonth() + 1 < 10
+        ? `0${newDate.getMonth() + 1}`
+        : `${newDate.getMonth() + 1}`
+    }-${
+      newDate.getDate() < 10 ? `0${newDate.getDate()}` : `${newDate.getDate()}`
+    }-${newDate.getFullYear()}`;
     setDateToPost(datePost);
     console.log("Date thay đổi: ", datePost);
   };
 
-  const { zodiacUserData, updateStorage } = useContext(ZodiacContext) as any;
+  const { zodiacUserData, updateStorage, updateStatusBirthday } = useContext(
+    ZodiacContext
+  ) as any;
 
   console.log("Hello from AskBirthdate.tsx", zodiacUserData);
 
@@ -58,12 +66,23 @@ const AskBirthdate = () => {
       },
     });
 
+    localStorage.setItem("hasBirthday", "true");
+    updateStatusBirthday(true);
+
     showMessageOKButton();
 
     setTimeout(() => {
-      console.log("Dữ liệu nhận được sau khi update sinh nhật: ", dataWhenUpdateBirthdate);
-      if (dataWhenUpdateBirthdate.data?.actionUpdateBirthday?.zodiac_id !== null) {
-        updateStorage({ zodiac_id: dataWhenUpdateBirthdate.data?.actionUpdateBirthday?.zodiac_id })
+      console.log(
+        "Dữ liệu nhận được sau khi update sinh nhật: ",
+        dataWhenUpdateBirthdate
+      );
+      if (
+        dataWhenUpdateBirthdate.data?.actionUpdateBirthday?.zodiac_id !== null
+      ) {
+        updateStorage({
+          zodiac_id:
+            dataWhenUpdateBirthdate.data?.actionUpdateBirthday?.zodiac_id,
+        });
         startTransition(() => {
           navigate("/horo");
         });
@@ -112,7 +131,9 @@ const AskBirthdate = () => {
     <div className="">
       {confirmSubmitBirthdate && (
         <div
-          className={`flex-col ${percentage === 0 && "jump"} h-16 justify-between mx-auto overflow-hidden w-fit mt-3 max-w-xs p-4 space-x-4 rtl:space-x-reverse text-gray-400 bg-white divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg shadow dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800`}
+          className={`flex-col ${
+            percentage === 0 && "jump"
+          } h-16 justify-between mx-auto overflow-hidden w-fit mt-3 max-w-xs p-4 space-x-4 rtl:space-x-reverse text-gray-400 bg-white divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg shadow dark:text-gray-400 dark:divide-gray-700 space-x dark:bg-gray-800`}
           role="alert"
         >
           <div className="flex w-full items-center">
@@ -146,7 +167,7 @@ const AskBirthdate = () => {
           {
             text: "Tiếp tục mà không cần ngày sinh",
             close: true,
-            onClick: () => setVDialogVisible(false)
+            onClick: () => setVDialogVisible(false),
           },
           {
             text: "OK",
@@ -166,7 +187,9 @@ const AskBirthdate = () => {
       >
         <Box className="space-y-4">
           <div
-            className={`font-bold ${shaking && "shake"} text-start text-2xl -mt-3 -mb-2`}
+            className={`font-bold ${
+              shaking && "shake"
+            } text-start text-2xl -mt-3 -mb-2`}
           >
             Nhập ngày sinh của bạn
           </div>

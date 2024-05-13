@@ -83,7 +83,7 @@ const arrowIcon = (
 const ByTime: React.FC<MyComponentProps> = () => {
   const today = new Date();
   const currentMonth = today.getMonth() + 1;
-  const { zodiacUserData } = useContext(ZodiacContext) as any;
+  const { zodiacUserData, hasBirthday } = useContext(ZodiacContext) as any;
 
   const userId = zodiacUserData.user_id;
 
@@ -115,7 +115,7 @@ const ByTime: React.FC<MyComponentProps> = () => {
     setFrequency(idButton);
   };
 
-  if (!dataDaily?.users[0].birthdate) {
+  if (!hasBirthday) {
     return <ForceInputBirthday />;
   }
 

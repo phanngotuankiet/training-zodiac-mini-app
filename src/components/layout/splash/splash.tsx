@@ -40,9 +40,11 @@ const Splash = () => {
           navigate("/information");
         });
       } else {
-        console.log("Expiry nhỏ hơn currentTime");
+       const newExpiry = new Date(currentTime.getTime() + 24 * 60 * 60 * 1000).toString();
+        localStorage.setItem('expiry', newExpiry);
         // thực hiện đăng nhập từ zalo
         loginActionHasura();
+        console.log('Expiry nhỏ hơn currentTime, đã set mới để đăng nhập lại từ zalo');
       }
     }
     console.log("Kiểm tra thử biến `expiry` trong localStorage:", getExpire);

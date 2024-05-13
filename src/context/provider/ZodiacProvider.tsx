@@ -47,6 +47,13 @@ const ZodiacProvider = ({ children }) => {
   const [storageData, setStorageData] = useState<AuthData>({
     zodiacUserData: JSON.parse(localStorage.getItem("zodiacUserData") || "{}"),
   });
+  const [hasBirthday, setHasBirthday] = useState(
+    JSON.parse(localStorage.getItem("hasBirthday") || "false")
+  );
+
+  const updateStatusBirthday = (value: boolean) => {
+    setHasBirthday(value);
+  };
 
   const updateStorage = (data: User) => {
     // Update the user_id within the zodiacUserData object
@@ -64,7 +71,14 @@ const ZodiacProvider = ({ children }) => {
   }, [storageData.zodiacUserData]);
 
   return (
-    <ZodiacContext.Provider value={{ ...storageData, updateStorage }}>
+    <ZodiacContext.Provider
+      value={{
+        ...storageData,
+        hasBirthday,
+        updateStorage,
+        updateStatusBirthday,
+      }}
+    >
       {children}
     </ZodiacContext.Provider>
   );

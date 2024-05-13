@@ -43,6 +43,11 @@ const MyApp = () => {
                     element={<EachZodiacsInfo></EachZodiacsInfo>}
                   ></Route>
 
+                  <Route
+                    path="/force-input-birthday"
+                    element={<ForceInputBirthday></ForceInputBirthday>}
+                  ></Route>
+
                   {/* this one asking for birthday */}
 
                   {/* update birthday */}
