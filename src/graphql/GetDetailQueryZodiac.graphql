@@ -1,0 +1,10 @@
+query DetailQueryZodiac($zodiacId: Int!) {
+  zodiac(where: { zodiac_id: { _eq: $zodiacId } }) {
+    name_en
+    name_vi
+    strengths
+    weaknesses
+    zodiac_id
+    description
+  }
+}

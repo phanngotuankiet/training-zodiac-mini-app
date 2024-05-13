@@ -37,14 +37,13 @@ const MyApp = () => {
               <ZMPRouter>
                 <AnimationRoutes>
                   <Route path="/" element={<Splash></Splash>}></Route>
+                  <Route path="/horo" element={<ByTime></ByTime>}></Route>
                   <Route
-                    path="/horo"
-                    element={<ByTime></ByTime>}
+                    path="/detail"
+                    element={<EachZodiacsInfo></EachZodiacsInfo>}
                   ></Route>
-                  <Route
-                    path="/force-input-birthday"
-                    element={<ForceInputBirthday></ForceInputBirthday>}
-                  ></Route>
+
+                  {/* this one asking for birthday */}
 
                   {/* update birthday */}
                   <Route

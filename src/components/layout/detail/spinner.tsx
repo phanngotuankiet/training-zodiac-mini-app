@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import "./spinner.css";
 import { List, Page } from "zmp-ui";
 import img from "./icon/Group.png";
@@ -436,18 +436,24 @@ const ListZodiac = [
   },
 ];
 
-const SpinnerRandom = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [intervalId, setIntervalId] = useState(null);
+const SpinnerRandom = ({ onDataClick, data }) => {
+  console.log("data, ", data);
+  const [currentIndex, setCurrentIndex] = useState(data);
+
+  const sendDataToParent = (currentIndex) => {
+    onDataClick(currentIndex);
+  };
 
   const rotateRight = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % ListZodiac.length);
+    sendDataToParent(currentIndex + 1);
   };
 
   const rotateLeft = () => {
     setCurrentIndex(
       (prevIndex) => (prevIndex - 1 + ListZodiac.length) % ListZodiac.length
     );
+    sendDataToParent(currentIndex == 0 ? 11 : currentIndex - 1);
   };
 
   // Calculate the indexes of the visible items

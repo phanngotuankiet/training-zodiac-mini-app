@@ -4,7 +4,11 @@ import React, { useState, useEffect, useContext } from "react";
 import { DatePicker, Page } from "zmp-ui";
 import BelowButton from "./svg/BelowButton";
 import TopUpdateBirthday from "./svg/TopUpdateBirthday";
-import { useQueryUserByUpdateQuery, useUpdateBirthdateActionMutation, useMutationUserUpdateNameMutation } from "../../../generated/graphql"
+import {
+  useQueryUserByUpdateQuery,
+  useUpdateBirthdateActionMutation,
+  useMutationUserUpdateNameMutation,
+} from "../../../generated/graphql";
 import ZodiacContext from "../../../context/ZodiacContext";
 
 const UpdateBirthday = () => {
@@ -13,17 +17,19 @@ const UpdateBirthday = () => {
   const getUserID = zodiacUserData.user_id;
 
   const idUser = getUserID;
+  console.log("==========cha", idUser);
+
   const { data: dataUser } = useQueryUserByUpdateQuery({
     variables: { userId: idUser },
-    fetchPolicy: "no-cache"
+    fetchPolicy: "no-cache",
   });
 
   const [updateBirthDay] = useUpdateBirthdateActionMutation({
-    fetchPolicy: "no-cache"
-  })
+    fetchPolicy: "no-cache",
+  });
   const [updateNameUser] = useMutationUserUpdateNameMutation({
-    fetchPolicy: "no-cache"
-  })
+    fetchPolicy: "no-cache",
+  });
 
   const [date, setDate] = useState<Date>();
   const [name, setName] = useState<any>();
@@ -34,9 +40,9 @@ const UpdateBirthday = () => {
   const dateConvert = new Date(dateString);
 
   useEffect(() => {
-    setDate(dateConvert)
-    setName(nameString)
-  }, [dataUser])
+    setDate(dateConvert);
+    setName(nameString);
+  }, [dataUser]);
 
   // date dưới này để post
 
@@ -44,41 +50,36 @@ const UpdateBirthday = () => {
   const [datepickerIsClicked, setDatepickerIsClicked] = useState(false);
 
   const dateChangeHandler = (value) => {
-    setDate(value)
+    setDate(value);
   };
   const dateChangeNameHandler = (event) => {
-    setName(event.target.value)
-  }
+    setName(event.target.value);
+  };
 
   // hàm nhận ngày sinh nhật của user rồi đẩy lên server
   const updateBirthdayHandler = () => {
     if (date) {
       const dateUpdate = new Date(date);
       dateUpdate.setUTCDate(dateUpdate.getUTCDate() + 1);
-      const month = String(dateUpdate.getUTCMonth() + 1).padStart(2, '0');
-      const day = String(dateUpdate.getUTCDate()).padStart(2, '0');
+      const month = String(dateUpdate.getUTCMonth() + 1).padStart(2, "0");
+      const day = String(dateUpdate.getUTCDate()).padStart(2, "0");
       const year = dateUpdate.getUTCFullYear();
       const formattedDate = `${month}-${day}-${year}`;
-      updateBirthDay(
-        {
-          variables: {
-            idUser: idUser.toString(),
-            birthday: formattedDate,
-          }
-        }
-      )
+      updateBirthDay({
+        variables: {
+          idUser: idUser.toString(),
+          birthday: formattedDate,
+        },
+      });
 
-      updateNameUser(
-        {
-          variables: {
-            userId: idUser,
-            full_name: name,
-          }
-        }
-      )
+      updateNameUser({
+        variables: {
+          userId: idUser,
+          full_name: name,
+        },
+      });
       setUpdatedMessage(true);
     }
-
   };
 
   useEffect(() => {
@@ -158,7 +159,9 @@ const UpdateBirthday = () => {
       <div className="mt-4 w-fit mx-auto">
         {updatedMessage && date && (
           <p
-            className={`px-2 transition-all ease-linear italic mt-4 ${updatedMessage ? "" : "opacity-0"} text-[#9f7c35]`}
+            className={`px-2 transition-all ease-linear italic mt-4 ${
+              updatedMessage ? "" : "opacity-0"
+            } text-[#9f7c35]`}
             style={{
               animation: updatedMessage ? "none" : "fades 11s forwards",
             }}

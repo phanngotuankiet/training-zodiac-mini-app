@@ -2875,6 +2875,13 @@ export type QueryDailyHoroscopeQueryVariables = Exact<{
 
 export type QueryDailyHoroscopeQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', zodiac_id?: number | null, birthdate?: any | null, zodiac?: { __typename?: 'zodiac', name_en?: string | null, name_vi?: string | null, daily_horoscopes: Array<{ __typename?: 'daily_horoscope', daily_career?: string | null, daily_finance?: string | null, daily_health?: string | null, daily_horoscope_id: number, daily_love?: string | null, daily_lucky_colors?: string | null, daily_lucky_message?: string | null, daily_lucky_numbers?: string | null, date?: any | null, horoscope_content?: string | null }> } | null }> };
 
+export type DetailQueryZodiacQueryVariables = Exact<{
+  zodiacId: Scalars['Int']['input'];
+}>;
+
+
+export type DetailQueryZodiacQuery = { __typename?: 'query_root', zodiac: Array<{ __typename?: 'zodiac', name_en?: string | null, name_vi?: string | null, strengths?: string | null, weaknesses?: string | null, zodiac_id: number, description?: string | null }> };
+
 export type QueryMonthHoroscopeQueryVariables = Exact<{
   date: Scalars['Int']['input'];
   userId: Scalars['Int']['input'];
@@ -3011,6 +3018,51 @@ export type QueryDailyHoroscopeQueryHookResult = ReturnType<typeof useQueryDaily
 export type QueryDailyHoroscopeLazyQueryHookResult = ReturnType<typeof useQueryDailyHoroscopeLazyQuery>;
 export type QueryDailyHoroscopeSuspenseQueryHookResult = ReturnType<typeof useQueryDailyHoroscopeSuspenseQuery>;
 export type QueryDailyHoroscopeQueryResult = Apollo.QueryResult<QueryDailyHoroscopeQuery, QueryDailyHoroscopeQueryVariables>;
+export const DetailQueryZodiacDocument = gql`
+    query DetailQueryZodiac($zodiacId: Int!) {
+  zodiac(where: {zodiac_id: {_eq: $zodiacId}}) {
+    name_en
+    name_vi
+    strengths
+    weaknesses
+    zodiac_id
+    description
+  }
+}
+    `;
+
+/**
+ * __useDetailQueryZodiacQuery__
+ *
+ * To run a query within a React component, call `useDetailQueryZodiacQuery` and pass it any options that fit your needs.
+ * When your component renders, `useDetailQueryZodiacQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useDetailQueryZodiacQuery({
+ *   variables: {
+ *      zodiacId: // value for 'zodiacId'
+ *   },
+ * });
+ */
+export function useDetailQueryZodiacQuery(baseOptions: Apollo.QueryHookOptions<DetailQueryZodiacQuery, DetailQueryZodiacQueryVariables> & ({ variables: DetailQueryZodiacQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<DetailQueryZodiacQuery, DetailQueryZodiacQueryVariables>(DetailQueryZodiacDocument, options);
+      }
+export function useDetailQueryZodiacLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<DetailQueryZodiacQuery, DetailQueryZodiacQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<DetailQueryZodiacQuery, DetailQueryZodiacQueryVariables>(DetailQueryZodiacDocument, options);
+        }
+export function useDetailQueryZodiacSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<DetailQueryZodiacQuery, DetailQueryZodiacQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<DetailQueryZodiacQuery, DetailQueryZodiacQueryVariables>(DetailQueryZodiacDocument, options);
+        }
+export type DetailQueryZodiacQueryHookResult = ReturnType<typeof useDetailQueryZodiacQuery>;
+export type DetailQueryZodiacLazyQueryHookResult = ReturnType<typeof useDetailQueryZodiacLazyQuery>;
+export type DetailQueryZodiacSuspenseQueryHookResult = ReturnType<typeof useDetailQueryZodiacSuspenseQuery>;
+export type DetailQueryZodiacQueryResult = Apollo.QueryResult<DetailQueryZodiacQuery, DetailQueryZodiacQueryVariables>;
 export const QueryMonthHoroscopeDocument = gql`
     query QueryMonthHoroscope($date: Int!, $userId: Int!) {
   users(where: {_and: {user_id: {_eq: $userId}}}) {

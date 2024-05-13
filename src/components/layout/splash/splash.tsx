@@ -9,26 +9,9 @@ import { useLoginActionMutation } from "../../../generated/graphql";
 
 const Splash = () => {
   const navigate = useNavigate();
-
-  const { zodiacUserData } = useContext(ZodiacContext);
-
-
-  // useEffect(() => {
-  //   ZaloPay.ready(function () {
-  //     ZaloPay.getUserProfile({
-  //       success: function (response) {
-  //         console.log("User ID: " + response.uid);
-  //         console.log("User Name: " + response.displayName);
-  //       },
-  //       fail: function (err) {
-  //         console.log("Error: " + err.message);
-  //       },
-  //     });
-  //   });
-  // }, []);
-
+  const { zodiacUserData, updateStorage } = useContext(ZodiacContext);
   const [loginActionMutation] = useLoginActionMutation({
-    fetchPolicy: "no-cache"
+    fetchPolicy: "no-cache",
   });
 
   const checkIfExpired = () => {
@@ -36,33 +19,34 @@ const Splash = () => {
     // Nếu không tìm thấy biến expiry, tạo mới một cái với giá trị là: new Date()
     // nếu tìm thấy, so sánh nó coi có lớn hơn const currentTime = new Date() hay không, nếu lớn hơn thật thì khỏi chạy hàm try catch đăng nhập mà bao hàm cả getAccessToken()
     // nếu tìm thấy, mà so sánh thấy biến expiry đó nhỏ hơn const currentTime = new Date() thì gán ghép cái key currentTime đó cho value new Date(), chạy hàm getAccessToken và đăng nhập như thường
-
     let getExpire = localStorage.getItem("expiry");
     const currentTime = new Date();
     // nếu không tìm thấy key 'expiry':
     if (!getExpire) {
-      const newExpiry = new Date(currentTime.getTime() + 24 * 60 * 60 * 1000).toString();
-      localStorage.setItem('expiry', newExpiry);
+      const newExpiry = new Date(
+        currentTime.getTime() + 24 * 60 * 60 * 1000
+      ).toString();
+      localStorage.setItem("expiry", newExpiry);
       getExpire = newExpiry;
-      console.log("Thật sự mà nói thì biến expiry không tồn tại, đã set mới");
+
       // set xong thì đăng nhập
       loginActionHasura();
     } else {
       const expiryDate = new Date(getExpire);
       if (expiryDate > currentTime) {
-        console.log('Expiry lớn hơn currentTime');
+        console.log("Expiry lớn hơn currentTime");
         // nghĩa là chưa hết giờ login session
         startTransition(() => {
           navigate("/information");
         });
       } else {
-        console.log('Expiry nhỏ hơn currentTime');
+        console.log("Expiry nhỏ hơn currentTime");
         // thực hiện đăng nhập từ zalo
         loginActionHasura();
       }
     }
-    console.log('Kiểm tra thử biến `expiry` trong localStorage:', getExpire);
-  }
+    console.log("Kiểm tra thử biến `expiry` trong localStorage:", getExpire);
+  };
 
   const loginActionHasura = async () => {
     // hàm này là zalo login, chỉ chạy khi hết hạn session login
@@ -70,7 +54,7 @@ const Splash = () => {
       const tokenZalo = await getAccessToken();
       const checkData = await loginActionMutation({
         variables: {
-          token: tokenZalo
+          token: tokenZalo,
         },
       });
 
@@ -79,16 +63,10 @@ const Splash = () => {
       const objectData = {
         token: checkData.data?.actionLogin?.token,
         user_id: checkData.data?.actionLogin?.userId,
-        zodiac_id: checkData.data?.actionLogin?.zodiacId
-      }
+        zodiac_id: checkData.data?.actionLogin?.zodiacId,
+      };
       localStorage.setItem("zodiacUserData", JSON.stringify(objectData));
-
-      // console.log("Dữ liệu zalo access token: ", tokenZalo);
-      // console.log("Dữ liệu từ context: ", zodiacUserData);
-      // console.log("Dữ liệu trả về từ call: ", checkData);
-      // console.log("Dữ liệu lưu vào local của thằng user: ", objectData);
-      // updateCurrentUserId(checkData.data?.actionLogin?.userId);
-      // console.log("Dữ liệu trả về context sau khi lưu vào local và cập nhật context: ", zodiacUserData);
+      updateStorage(objectData);
 
       // nếu như trả về từ hasura server cái zodiac_id là null, thì set hiển thị popup AskBirthdate là true
       if (
@@ -97,7 +75,7 @@ const Splash = () => {
       ) {
         console.log(
           "login data zodiacId (từ hàm loginActionHasura): ",
-          checkData.data?.actionLogin?.zodiacId,
+          checkData.data?.actionLogin?.zodiacId
         );
         startTransition(() => {
           navigate("/information");
@@ -149,7 +127,6 @@ const Splash = () => {
           <div className="svn-seiston flex justify-center text-center text-4xl text-[#F9F6ED]">
             Hằng Ngày
           </div>
-
         </div>
       </div>
     </Page>
