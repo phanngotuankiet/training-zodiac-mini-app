@@ -90,7 +90,7 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
               className="flex justify-between -space-x-10 svn-seiston border-2 border-[#9f7c35] rounded-lg w-full p-10 text-[18px]"
               onClick={handleHoroByDay}
             >
-              <span className="ml-8">Xem tử vi hàng ngày</span>{" "}
+              <span className="ml-8 tracking-wider">Xem tử vi hàng ngày</span>{" "}
               <div className="translate-x-4">{arrowAtButton}</div>
             </button>
           </div>
@@ -116,19 +116,25 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
           </div>
         </div>
 
-        <div className="flex-col space-y-4 -translate-y-14">
+        <div className="mb-8 mt-2 flex-col space-y-4 -translate-y-14">
           <div
             className="flex items-center tracking-wider space-x-2 svn-seiston text-[#9f7c35] w-fit mx-auto"
             onClick={handleSearchHoro}
           >
-            <span>Tra cứu tử vi qua ngày sinh</span>
+            <span className="text-base">Tra cứu tử vi qua ngày sinh</span>
             <span>{arrowIcon}</span>
           </div>
 
           <div className="flex items-center tracking-wider space-x-2 svn-seiston text-[#9f7c35] w-fit mx-auto">
-            <span>Xem thông tin tổng hợp</span>
+            <span className="text-base">Xem thông tin tổng hợp</span>
             <span>{arrowIcon}</span>
           </div>
+
+          <div className="flex items-center tracking-wider space-x-2 svn-seiston text-[#9f7c35] w-fit mx-auto">
+            <span className="text-base">Thay đổi thông tin của mình</span>
+            <span>{arrowIcon}</span>
+          </div>
+
         </div>
         <Footer />
       </div>

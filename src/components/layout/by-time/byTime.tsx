@@ -186,9 +186,8 @@ const ByTime: React.FC<MyComponentProps> = () => {
         {Object.values(HoroscopeByDay).map((timeTaken, key) => (
           <button
             id={key.toString()}
-            className={`text-[#9f7c35] poppins text-[16px] mx-1 font-medium px-4 py-3 border border-[#9f7c35] rounded-md ${
-              key === buttonClicked && "text-white bg-[#9f7c35]"
-            }`}
+            className={`text-[#9f7c35] poppins text-[16px] mx-1 font-medium px-4 py-3 border border-[#9f7c35] rounded-md ${key === buttonClicked && "text-white bg-[#9f7c35]"
+              }`}
             onClick={() => handleButtonClicked(key)}
           >
             {timeTaken}

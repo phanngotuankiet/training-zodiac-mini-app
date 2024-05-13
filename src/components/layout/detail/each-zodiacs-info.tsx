@@ -4,6 +4,7 @@ import Aquarius from "./bunch-of-svg/Aquarius";
 import ArrowStrength from "./bunch-of-svg/ArrowStrength";
 import ArrowWeakness from "./bunch-of-svg/ArrowWeakness";
 import VongCung from "./bunch-of-svg/uncopiable/VongCung";
+import Rotating from "./rotating";
 
 const EachZodiacsInfo = () => {
   return (
@@ -34,6 +35,7 @@ const EachZodiacsInfo = () => {
           <ArrowStrength />
         </div>
 
+        {/* đoạn text này là Điểm mạnh truyền từ API vào */}
         <div>
           <p className="text-[#9F7C34] poppins text-[16px] leading-7 font-normal">Điểm mạnh: Kiên trì, chuyên nghiệp và định hướng. Ma Kết thường là những người kiên trì, có mục tiêu rõ ràng và sẵn lòng làm việc</p>
         </div>
@@ -47,6 +49,7 @@ const EachZodiacsInfo = () => {
       </div>
 
       {/* weaknesses */}
+      {/* Đoạn text này là điểm yếu truyền từ API vào */}
       <div className="flex w-[342px] mt-3 mx-auto">
         <div className="mr-2">
           <ArrowWeakness />
@@ -57,8 +60,8 @@ const EachZodiacsInfo = () => {
             Điểm yếu: Cách biệt, không nhất quán và thiếu cam kết. Aquarius có thể trở nên quá cố gắng làm điều đặc biệt hoặc khác biệt đến mức họ cảm thấy xa lạ với những người xung quanh.
           </p>
         </div>
-
       </div>
+
     </Page>
   );
 };

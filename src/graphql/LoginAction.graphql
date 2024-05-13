@@ -1,0 +1,8 @@
+mutation LoginAction($token: String!) {
+  actionLogin(token: $token) {
+    fullName
+    token
+    userId
+    zodiacId
+  }
+}

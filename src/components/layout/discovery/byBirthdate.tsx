@@ -274,6 +274,8 @@ const ByBirthdate: React.FC<MyComponentProps> = () => {
             onChange={(value) => setYourBirthDay(value)}
             dateFormat="dd/mm/yyyy"
             title="Chọn ngày sinh"
+            placeholder="Ngày sinh"
+            inputClass="poppins text-[#a4a4a4]"
           />
         </div>
 

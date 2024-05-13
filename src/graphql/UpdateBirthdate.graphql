@@ -1,0 +1,6 @@
+mutation updateBirthdateAction($idUser: String!, $birthday: date!) {
+  actionUpdateBirthday(arg1: {idUser: $idUser, birthday: $birthday}) {
+    user_id
+    zodiac_id
+  }
+}

@@ -14,39 +14,54 @@ import DiscoverHoroscope from "./layout/discover-horo/discover-horo";
 import DiscoverToday from "./layout/discover-today/discoverToday";
 import ByBirthdate from "./layout/discovery/byBirthdate";
 import ByTime from "./layout/by-time/byTime";
+import AskBirthdate from "./layout/modals/AskBirthdate";
 import EachZodiacsInfo from "./layout/detail/each-zodiacs-info";
+import UpdateBirthday from "./layout/update-birthday/UpdateBirthday";
+import ZodiacContext from "../context/ZodiacContext";
+import ZodiacProvider from "../context/provider/ZodiacProvider";
 
 const MyApp = () => {
   return (
     <RecoilRoot>
       <ApolloProvider client={client}>
-        <App>
-          <SnackbarProvider>
-            <ZMPRouter>
-              <AnimationRoutes>
-                <Route path="/" element={<Splash></Splash>}></Route>
-                <Route path="/horo" element={<ByTime></ByTime>}></Route>
-                <Route
-                  path="/information"
-                  element={<DiscoverHoroscope></DiscoverHoroscope>}
-                ></Route>
-                <Route
-                  path="/discovery"
-                  element={<ByBirthdate></ByBirthdate>}
-                ></Route>
-                <Route
-                  path="/horobyday/:id"
-                  element={<HoroscopeByDay></HoroscopeByDay>}
-                ></Route>
-                <Route
-                  path="/horobyday/:id/:key"
-                  element={<DiscoverToday></DiscoverToday>}
-                ></Route>
-                <Route path="/user" element={<User></User>}></Route>
-              </AnimationRoutes>
-            </ZMPRouter>
-          </SnackbarProvider>
-        </App>
+        <ZodiacProvider>
+          <App>
+            <SnackbarProvider>
+              <ZMPRouter>
+                <AnimationRoutes>
+                  <Route path="/" element={<Splash></Splash>}></Route>
+                  <Route path="/horo" element={<ByTime></ByTime>}></Route>
+                  {/* this one asking for birthday */}
+                  <Route
+                    path="/askBirthdate"
+                    element={<AskBirthdate></AskBirthdate>}
+                  ></Route>
+                  <Route
+                    path="/information"
+                    element={<DiscoverHoroscope></DiscoverHoroscope>}
+                  ></Route>
+                  <Route
+                    path="/askBirthdate"
+                    element={<AskBirthdate></AskBirthdate>}
+                  ></Route>
+                  <Route
+                    path="/discovery"
+                    element={<ByBirthdate></ByBirthdate>}
+                  ></Route>
+                  <Route
+                    path="/horobyday/:id"
+                    element={<HoroscopeByDay></HoroscopeByDay>}
+                  ></Route>
+                  <Route
+                    path="/horobyday/:id/:key"
+                    element={<DiscoverToday></DiscoverToday>}
+                  ></Route>
+                  <Route path="/user" element={<User></User>}></Route>
+                </AnimationRoutes>
+              </ZMPRouter>
+            </SnackbarProvider>
+          </App>
+        </ZodiacProvider>
       </ApolloProvider>
     </RecoilRoot>
   );
