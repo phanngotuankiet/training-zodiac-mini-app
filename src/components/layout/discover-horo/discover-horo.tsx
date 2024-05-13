@@ -1,4 +1,4 @@
-import React, { startTransition } from "react";
+import React, { startTransition, useContext } from "react";
 import { useParams } from "react-router-dom";
 
 import Top from "./svg-components/Top";
@@ -6,6 +6,8 @@ import Top from "./svg-components/Top";
 import { Page } from "zmp-ui";
 import Footer from "../footer/footer";
 import { useNavigate } from "react-router";
+import AskBirthdate from "../modals/AskBirthdate";
+import ZodiacContext from "../../../context/ZodiacContext";
 
 interface MyComponentProps {
   // Add any props you need here
@@ -49,6 +51,8 @@ const arrowIcon = (
 
 const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
   const navigate = useNavigate();
+  const { zodiacUserData } = useContext(ZodiacContext) as any;
+
   const handleHoroByDay = () => {
     startTransition(() => {
       navigate("/horobyday/daily");
@@ -72,6 +76,7 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
   return (
     <Page>
       <div className="w-full h-full bg-[#f4eee3] overflow-x-scroll scrollbar-hide">
+        {!zodiacUserData?.zodiac_id && <AskBirthdate />}
         {/* top */}
         <div className="mx-auto w-fit mt-4">
           <Top />

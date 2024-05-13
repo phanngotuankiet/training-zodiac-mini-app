@@ -32,10 +32,6 @@ const MyApp = () => {
                   <Route path="/" element={<Splash></Splash>}></Route>
                   <Route path="/horo" element={<ByTime></ByTime>}></Route>
                   {/* this one asking for birthday */}
-                  <Route
-                    path="/askBirthdate"
-                    element={<AskBirthdate></AskBirthdate>}
-                  ></Route>
 
                   {/* update birthday */}
                   <Route

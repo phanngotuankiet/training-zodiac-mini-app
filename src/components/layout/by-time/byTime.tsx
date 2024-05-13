@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import CapricornSVG from "./svg-components/CapricornSVG";
 import LuckyColorText from "./svg-components/LuckyColorText";
 import LuckyNumberText from "./svg-components/LuckyNumbertext";
@@ -26,6 +26,7 @@ import {
   useQueryWeeklyHoroscopeQueryQuery,
   useQueryMonthHoroscopeQuery,
 } from "../../../generated/graphql";
+import ZodiacContext from "../../../context/ZodiacContext";
 
 interface MyComponentProps {
   // Add any props you need here
@@ -81,7 +82,9 @@ const arrowIcon = (
 const ByTime: React.FC<MyComponentProps> = () => {
   const today = new Date();
   const currentMonth = today.getMonth() + 1;
-  let userId = 2;
+  const { zodiacUserData } = useContext(ZodiacContext);
+
+  const userId = zodiacUserData.user_id;
   const date = new Date().toISOString().split("T")[0];
   const [frequency, setFrequency] = useState(0);
   const { data: dataDaily } = useQueryDailyHoroscopeQuery({
@@ -186,8 +189,9 @@ const ByTime: React.FC<MyComponentProps> = () => {
         {Object.values(HoroscopeByDay).map((timeTaken, key) => (
           <button
             id={key.toString()}
-            className={`text-[#9f7c35] poppins text-[16px] mx-1 font-medium px-4 py-3 border border-[#9f7c35] rounded-md ${key === buttonClicked && "text-white bg-[#9f7c35]"
-              }`}
+            className={`text-[#9f7c35] poppins text-[16px] mx-1 font-medium px-4 py-3 border border-[#9f7c35] rounded-md ${
+              key === buttonClicked && "text-white bg-[#9f7c35]"
+            }`}
             onClick={() => handleButtonClicked(key)}
           >
             {timeTaken}

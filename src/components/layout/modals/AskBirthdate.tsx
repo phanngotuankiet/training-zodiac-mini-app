@@ -30,7 +30,7 @@ const AskBirthdate = () => {
     console.log("Date thay đổi: ", datePost);
   }
 
-  const { zodiacUserData, updateCurrentUserId } = useContext(ZodiacContext);
+  const { zodiacUserData, updateStorage } = useContext(ZodiacContext) as any;
 
   console.log("++++++", zodiacUserData);
 
@@ -66,7 +66,7 @@ const AskBirthdate = () => {
     setTimeout(() => {
       console.log("Dữ liệu nhận được sau khi update sinh nhật: ", dataWhenUpdateBirthdate);
       if (dataWhenUpdateBirthdate.data?.actionUpdateBirthday?.zodiac_id !== null) {
-
+        updateStorage({zodiac_id: dataWhenUpdateBirthdate.data?.actionUpdateBirthday?.zodiac_id})
         startTransition(() => {
           navigate("/horo");
         });
@@ -142,11 +142,7 @@ const AskBirthdate = () => {
           {
             text: "Tiếp tục mà không cần ngày sinh",
             close: true,
-            onClick: () => {
-              startTransition(() => {
-                navigate("/horo");
-              });
-            }
+            onClick: () => setVDialogVisible(false)
           },
           {
             text: "OK",

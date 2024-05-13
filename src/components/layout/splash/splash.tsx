@@ -11,7 +11,7 @@ const Splash = () => {
   const navigate = useNavigate();
   const handleAskBirthdate = () => {
     startTransition(() => {
-      navigate("/askBirthdate");
+      navigate("/information");
     });
   };
   // useEffect(() => {
@@ -27,8 +27,6 @@ const Splash = () => {
   //     });
   //   });
   // }, []);
-
-  const { zodiacUserData, updateCurrentUserId } = useContext(ZodiacContext);
 
   const [loginActionMutation] = useLoginActionMutation({
     fetchPolicy: "no-cache",
@@ -63,7 +61,7 @@ const Splash = () => {
       // console.log("Dữ liệu từ context: ", zodiacUserData);
       // console.log("Dữ liệu trả về từ call: ", checkData);
       // console.log("Dữ liệu lưu vào local của thằng user: ", objectData);
-      updateCurrentUserId(checkData.data?.actionLogin?.userId);
+      // updateCurrentUserId(checkData.data?.actionLogin?.userId);
       // console.log("Dữ liệu trả về context sau khi lưu vào local và cập nhật context: ", zodiacUserData);
 
       // nếu như trả về từ hasura zodiac_id là null, thì set hiển thị popup AskBirthdate là true
