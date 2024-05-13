@@ -81,7 +81,7 @@ const Splash = () => {
         });
       }
     } catch (error) {
-      console.log(error);
+      console.log("Lỗi khi login: ", error);
     }
   };
 
