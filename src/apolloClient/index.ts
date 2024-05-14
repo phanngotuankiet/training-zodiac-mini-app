@@ -6,13 +6,14 @@ const httpLink = new HttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  const zsData = JSON.parse(localStorage.getItem('zodiacUserData') ?? '') ;
-  if(!zsData) return {}
+  const zsData = JSON.parse(localStorage.getItem('zodiacUserData') ?? '');
+  if (!zsData) return {}
 
   return {
     headers: {
       ...headers,
       Authorization: zsData.token ? `Bearer ${zsData.token}` : "",
+      "x-hasura-admin-secret": "myadminsecretkey",
     }
   };
 });

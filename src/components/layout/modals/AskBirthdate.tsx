@@ -31,7 +31,7 @@ const AskBirthdate = () => {
 
   const { zodiacUserData, updateStorage } = useContext(ZodiacContext) as any;
 
-  console.log("++++++", zodiacUserData);
+  console.log("Hello from AskBirthdate.tsx", zodiacUserData);
 
   const getUSerID = zodiacUserData.user_id;
 

@@ -73,8 +73,11 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
       navigate("/discovery");
     });
   };
-
-
+  const handleSettingsUpdateBirthdate = () => {
+    startTransition(() => {
+      navigate("/update-birthdate");
+    });
+  };
   return (
     <Page>
       <div className="w-full h-full bg-[#f4eee3] overflow-x-scroll scrollbar-hide">
@@ -137,7 +140,8 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
             <span>{arrowIcon}</span>
           </div>
 
-          <div className="flex items-center tracking-wider space-x-2 svn-seiston text-[#9f7c35] w-fit mx-auto">
+          <div className="flex items-center tracking-wider space-x-2 svn-seiston text-[#9f7c35] w-fit mx-auto"
+            onClick={handleSettingsUpdateBirthdate}>
             <span className="text-base">Thay đổi thông tin của mình</span>
             <span>{arrowIcon}</span>
           </div>

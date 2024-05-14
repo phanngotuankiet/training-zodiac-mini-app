@@ -1,0 +1,14 @@
+query QueryUserByUpdate($userId: Int!) {
+  users(where: {user_id: {_eq: $userId}}) {
+    birthdate
+    created_at
+    deleted_at
+    full_name
+    phone_number
+    updated_at
+    user_id
+    username
+    zalo_id
+    zodiac_id
+  }
+}

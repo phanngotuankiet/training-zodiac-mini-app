@@ -1,0 +1,19 @@
+mutation MutationUserUpdateName($userId: Int!, $full_name: String!) {
+  update_users(where: {user_id: {_eq: $userId}}, _set: {full_name: $full_name}) {
+    returning {
+      birthdate
+      created_at
+      deleted_at
+      full_name
+      phone_number
+      zodiac_id
+      zalo_id
+      username
+      user_id
+      updated_at
+      zodiac {
+        name_vi
+      }
+    }
+  }
+}

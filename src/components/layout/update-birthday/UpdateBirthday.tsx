@@ -1,30 +1,84 @@
 import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { DatePicker, Page } from "zmp-ui";
 import BelowButton from "./svg/BelowButton";
 import TopUpdateBirthday from "./svg/TopUpdateBirthday";
+import { useQueryUserByUpdateQuery, useUpdateBirthdateActionMutation, useMutationUserUpdateNameMutation } from "../../../generated/graphql"
+import ZodiacContext from "../../../context/ZodiacContext";
 
 const UpdateBirthday = () => {
-  const [date, setDate] = useState(new Date());
+  const { zodiacUserData } = useContext(ZodiacContext) as any;
+
+  const getUserID = zodiacUserData.user_id;
+
+  const idUser = getUserID;
+  const { data: dataUser } = useQueryUserByUpdateQuery({
+    variables: { userId: idUser },
+    fetchPolicy: "no-cache"
+  });
+
+  const [updateBirthDay] = useUpdateBirthdateActionMutation({
+    fetchPolicy: "no-cache"
+  })
+  const [updateNameUser] = useMutationUserUpdateNameMutation({
+    fetchPolicy: "no-cache"
+  })
+
+  const [date, setDate] = useState<Date>();
+  const [name, setName] = useState<any>();
+
+  const dateString = dataUser?.users[0]?.birthdate;
+  const nameString = dataUser?.users[0]?.full_name;
+  // Tạo một đối tượng Date từ chuỗi
+  const dateConvert = new Date(dateString);
+
+  useEffect(() => {
+    setDate(dateConvert)
+    setName(nameString)
+  }, [dataUser])
 
   // date dưới này để post
-  const [dateToPost, setDateToPost] = useState("");
 
   const [updatedMessage, setUpdatedMessage] = useState(false);
   const [datepickerIsClicked, setDatepickerIsClicked] = useState(false);
 
-  const dateChangeHandler = (newDate) => {
-    setDate(newDate);
-
-    const datePost = `${newDate.getMonth() + 1 < 10 ? `0${newDate.getMonth() + 1}` : newDate.getMonth() + 1}-${newDate.getDate() < 10 ? `0${newDate.getDate()}` : newDate.getDate()}-${newDate.getFullYear()}`;
-    setDateToPost(datePost);
-    console.log("Date thay đổi: ", datePost);
+  const dateChangeHandler = (value) => {
+    setDate(value)
   };
+  const dateChangeNameHandler = (event) => {
+    setName(event.target.value)
+  }
 
   // hàm nhận ngày sinh nhật của user rồi đẩy lên server
   const updateBirthdayHandler = () => {
-    setUpdatedMessage(true);
+    if (date) {
+      const dateUpdate = new Date(date);
+      dateUpdate.setUTCDate(dateUpdate.getUTCDate() + 1);
+      const month = String(dateUpdate.getUTCMonth() + 1).padStart(2, '0');
+      const day = String(dateUpdate.getUTCDate()).padStart(2, '0');
+      const year = dateUpdate.getUTCFullYear();
+      const formattedDate = `${month}-${day}-${year}`;
+      updateBirthDay(
+        {
+          variables: {
+            idUser: idUser.toString(),
+            birthday: formattedDate,
+          }
+        }
+      )
+
+      updateNameUser(
+        {
+          variables: {
+            userId: idUser,
+            full_name: name,
+          }
+        }
+      )
+      setUpdatedMessage(true);
+    }
+
   };
 
   useEffect(() => {
@@ -64,7 +118,7 @@ const UpdateBirthday = () => {
           maskClosable
           placeholder="Ngày sinh"
           title="Thay đổi ngày sinh"
-          value={datepickerIsClicked ? date : undefined}
+          value={date}
           onChange={dateChangeHandler}
           dateFormat="dd/mm/yyyy"
           locale="vi"
@@ -75,7 +129,9 @@ const UpdateBirthday = () => {
           {/* <label className="block mb-2 text-lg font-medium text-[#9f7c35] poppins">Họ và tên</label> */}
           <input
             type="text"
-            className="bg-white h-[50px] text-base poppins border-2  text-[#9f7c35] text-md rounded-lg focus:ring-3 focus:ring-zodiac-gold block w-full p-3"
+            value={name}
+            onChange={dateChangeNameHandler}
+            className="bg-white h-[50px] text-base poppins border-2 text-md rounded-lg focus:ring-3 focus:ring-zodiac-gold block w-full p-3"
             placeholder="Họ và tên"
             required
           />
@@ -100,7 +156,7 @@ const UpdateBirthday = () => {
 
       {/* backend team note: chỗ này thay thế cái ngày tháng bằng ngày tháng trả về từ backend */}
       <div className="mt-4 w-fit mx-auto">
-        {updatedMessage && (
+        {updatedMessage && date && (
           <p
             className={`px-2 transition-all ease-linear italic mt-4 ${updatedMessage ? "" : "opacity-0"} text-[#9f7c35]`}
             style={{
@@ -108,9 +164,9 @@ const UpdateBirthday = () => {
             }}
           >
             Dữ liệu đã được cập nhật với ngày sinh{" "}
-            {new Date().getDate().toString().padStart(2, "0")}-
-            {(new Date().getMonth() + 1).toString().padStart(2, "0")}-
-            {new Date().getFullYear()}
+            {new Date(date).getDate().toString().padStart(2, "0")}-
+            {(new Date(date).getMonth() + 1).toString().padStart(2, "0")}-
+            {new Date(date).getFullYear()}
           </p>
         )}
       </div>
