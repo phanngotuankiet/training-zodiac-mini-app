@@ -1,8 +1,9 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CapricornSVG from "../../../zodiac-SVGs/Capricorn-SVG";
 import Top from "./svg-components/Top";
-import { Page } from "zmp-ui";
+
+import { Header, Page } from "zmp-ui";
 import LeoSVG from "../../../zodiac-SVGs/Leo-SVG";
 import CancerSVG from "../../../zodiac-SVGs/Cancer-SVG";
 import SagittariusSVG from "../../../zodiac-SVGs/Sagittarius-SVG";
@@ -14,6 +15,10 @@ import ScorpioSVG from "../../../zodiac-SVGs/Scorpio-SVG";
 import TaurusSVG from "../../../zodiac-SVGs/Taurus-SVG";
 import VirgoSVG from "../../../zodiac-SVGs/Virgo-SVG";
 import AquariusSVG from "../../../zodiac-SVGs/Aquarius-SVG";
+import { Icon } from "zmp-ui";
+import Footer from "../footer/footer";
+
+import { useParams } from "react-router-dom";
 
 interface MyComponentProps {
   // Add any props you need here
@@ -46,18 +51,58 @@ const ZodiacSVGs = {
   11: { svg: <AquariusSVG />, name: "Bảo Bình" },
   12: { svg: <PiscesSVG />, name: "Song Ngư" },
 };
+function getWeekNumber(d) {
+  const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));
+  const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+  const weekNumber = Math.ceil(((date - yearStart) / 86400000 + 1) / 7);
+  return weekNumber.toString();
+}
+function getWeekDates(year, week) {
+  const firstDayOfYear = new Date(year, 0, 1);
+  const daysOffset = (week - 1) * 7 - firstDayOfYear.getDay() + 1;
+  const weekStart = new Date(year, 0, 1 + daysOffset);
+  const weekEnd = new Date(weekStart);
+  weekEnd.setDate(weekStart.getDate() + 6);
+  return { weekStart, weekEnd };
+}
+function formatDate(date) {
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+  return `${day}-${month}-${year}`;
+}
 
 const HoroscopeByDay: React.FC<MyComponentProps> = () => {
   const currentDate = new Date();
-  const formattedDate = `${currentDate.getDate()} - ${
+  let formattedDate = `${currentDate.getDate()} - ${
     currentDate.getMonth() + 1
   } - ${currentDate.getFullYear()}`;
 
   const { id } = useParams();
-  console.log("hello", id);
+  if (id === "monthly") {
+    formattedDate = ` ${
+      currentDate.getMonth() + 1
+    } - ${currentDate.getFullYear()}`;
+  } else if (id === "weekly") {
+    const currentWeekNumber = getWeekNumber(currentDate);
+    const { weekStart, weekEnd } = getWeekDates(
+      currentDate.getFullYear(),
+      currentWeekNumber
+    );
+    formattedDate = `Tuần ${currentWeekNumber} ( ${formatDate(
+      weekStart
+    )} -> ${formatDate(weekEnd)} )`;
+  }
   return (
     <Page>
       <div className="w-full h-[870px] bg-[#f4eee3] overflow-x-scroll scrollbar-hide">
+        {/* <div
+          className="flex bg-[#F1E6D3] items-center h-9 mb-5"
+          style={{ boxShadow: "0 1px 0 0 rgba(0, 0, 0, 0.3)" }}
+        ></div> */}
+
+        {/* top */}
         <div className="mx-auto w-fit">
           <Top />
         </div>
@@ -76,6 +121,13 @@ const HoroscopeByDay: React.FC<MyComponentProps> = () => {
 
         {/* chọn cung để xem tử vi hàng ngày */}
         <div className="grid grid-cols-3 gap-3 w-fit mx-auto -translate-y-16">
+          {/* {Object.entries(ZodiacSVGs).map(([key, zodiacSVG]) => (
+            <ContainerForEachSign
+              zodiacName={zodiacSVG.name}
+              key={key}
+              zodiacSVG={zodiacSVG.svg}
+            />
+          ))} */}
           {Object.entries(ZodiacSVGs).map(([key, zodiacSVG]) => (
             <div key={key}>
               <Link
@@ -92,6 +144,7 @@ const HoroscopeByDay: React.FC<MyComponentProps> = () => {
             </div>
           ))}
         </div>
+        <Footer />
       </div>
     </Page>
   );

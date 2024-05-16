@@ -1,10 +1,14 @@
-import React, { startTransition, useEffect, useState } from "react";
+import React, { startTransition, useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 import Top from "./svg-components/Top";
 
 import { Page } from "zmp-ui";
+import Footer from "../footer/footer";
 import { useNavigate } from "react-router";
+import ZodiacContext from "../../../context/ZodiacContext";
 import AskBirthdate from "../modals/AskBirthdate";
+import { useQueryUserByUpdateQuery } from "../../../generated/graphql";
 
 interface MyComponentProps {
   // Add any props you need here
@@ -49,7 +53,21 @@ const arrowIcon = (
 const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
   const navigate = useNavigate();
   const [hienMotLan, setHienMotLan] = useState(false);
+  const { zodiacUserData } = useContext(ZodiacContext) as any;
 
+  const userId = zodiacUserData.user_id;
+
+  const { data: dataUserID } = useQueryUserByUpdateQuery({
+    variables: { userId: userId },
+    fetchPolicy: "no-cache",
+  });
+  const zodiacID = dataUserID?.users[0].zodiac_id || 1;
+
+  const handleHoroTotal = () => {
+    startTransition(() => {
+      navigate(`/detail/${zodiacID}`);
+    });
+  };
   const handleHoroByDay = () => {
     startTransition(() => {
       navigate("/horobyday/daily");
@@ -108,6 +126,15 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
           <div className="p-3">
             <button
               className="flex justify-between -space-x-10 svn-seiston border-2 border-[#9f7c35] rounded-lg w-full p-10 text-[18px]"
+              onClick={handleHoroTotal}
+            >
+              <span className="ml-8 tracking-wider">Xem tử vi tổng hợp</span>{" "}
+              <div className="translate-x-4">{arrowAtButton}</div>
+            </button>
+          </div>
+          <div className="p-3">
+            <button
+              className="flex justify-between -space-x-10 svn-seiston border-2 border-[#9f7c35] rounded-lg w-full p-10 text-[18px]"
               onClick={handleHoroByDay}
             >
               <span className="ml-8 tracking-wider">Xem tử vi hàng ngày</span>{" "}
@@ -144,6 +171,7 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
             <span className="text-base">Tra cứu tử vi qua ngày sinh</span>
             <span>{arrowIcon}</span>
           </div>
+
           <div
             className="flex items-center tracking-wider space-x-2 svn-seiston text-[#9f7c35] w-fit mx-auto"
             onClick={handleSettingsUpdateBirthdate}
@@ -152,6 +180,7 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
             <span>{arrowIcon}</span>
           </div>
         </div>
+        <Footer />
       </div>
     </Page>
   );

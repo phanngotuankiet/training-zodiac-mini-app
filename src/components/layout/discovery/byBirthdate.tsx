@@ -275,7 +275,7 @@ const ByBirthdate: React.FC<MyComponentProps> = () => {
         <div className="p-6 -translate-y-32 w-full">
           <button
             onClick={handleBackButtonClick}
-            className="bg-[#9f7c35] w-full mx-auto h-9 text-[14px] text-white rounded-md"
+            className="bg-[#9f7c35] w-full mx-auto h-9 text-[14px] text-white poppins rounded-md"
           >
             Tìm kiếm
           </button>

@@ -38,7 +38,7 @@ const MyApp = () => {
                   ></Route>
                   <Route path="/horo" element={<ByTime></ByTime>}></Route>
                   <Route
-                    path="/detail"
+                    path="/detail/:zodiacId"
                     element={<EachZodiacsInfo></EachZodiacsInfo>}
                   ></Route>
 
