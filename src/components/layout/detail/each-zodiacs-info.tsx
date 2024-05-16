@@ -1,18 +1,12 @@
-import React from "react";
-import { Page, Spinner } from "zmp-ui";
-import Footer from "../footer/footer";
+import React, { useState } from "react";
+import { Page } from "zmp-ui";
 import ArrowStrength from "./bunch-of-svg/ArrowStrength";
 import ArrowWeakness from "./bunch-of-svg/ArrowWeakness";
 import VongCung from "./bunch-of-svg/uncopiable/VongCung";
-import Rotating from "./rotating";
 import SpinnerRandom from "./spinner";
-import ZodiacContext from "../../../context/ZodiacContext";
-import { useState } from "react";
 import { useDetailQueryZodiacQuery } from "../../../generated/graphql";
 import { useParams } from "react-router-dom";
-
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 import Aries from "./bunch-of-svg/Aries";
 import Taurus from "./bunch-of-svg/Taurus";
 import Aquarius from "./bunch-of-svg/Aquarius";
@@ -25,6 +19,7 @@ import Scorpio from "./bunch-of-svg/Scorpio";
 import Sagittarius from "./bunch-of-svg/Sagittarius";
 import Capricorn from "./bunch-of-svg/Capricorn";
 import Pisces from "./bunch-of-svg/Pisces";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const ZodiacSVGs = {
   1: <Aries />,
@@ -41,7 +36,7 @@ const ZodiacSVGs = {
   12: <Pisces />,
 };
 const EachZodiacsInfo = () => {
-  const { zodiacId } = useParams();
+  const { zodiacId } = useParams() as any;
   const [dataFromChild, setDataFromChild] = useState(zodiacId - 1);
 
   const handleDataFromChild = (data) => {
@@ -140,7 +135,6 @@ const EachZodiacsInfo = () => {
           />
         </div>
       </div>
-      <Footer />
     </Page>
   );
 };

@@ -1,10 +1,6 @@
 import React, { startTransition, useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-
 import Top from "./svg-components/Top";
-
 import { Page } from "zmp-ui";
-import Footer from "../footer/footer";
 import { useNavigate } from "react-router";
 import ZodiacContext from "../../../context/ZodiacContext";
 import AskBirthdate from "../modals/AskBirthdate";
@@ -180,7 +176,6 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
             <span>{arrowIcon}</span>
           </div>
         </div>
-        <Footer />
       </div>
     </Page>
   );

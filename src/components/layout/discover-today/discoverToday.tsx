@@ -4,7 +4,7 @@ import LuckyColorText from "./svg-components/LuckyColorText";
 import LuckyNumberText from "./svg-components/LuckyNumbertext";
 import TextTop from "./svg-components/TextTop";
 import Top from "./svg-components/Top";
-import { Page, Icon, Header } from "zmp-ui";
+import { Page } from "zmp-ui";
 import CancerSVG from "../../../zodiac-SVGs/Cancer-SVG";
 import SagittariusSVG from "../../../zodiac-SVGs/Sagittarius-SVG";
 import AriesSVG from "../../../zodiac-SVGs/Aries-SVG";

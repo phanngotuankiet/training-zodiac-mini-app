@@ -1,9 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import CapricornSVG from "../../../zodiac-SVGs/Capricorn-SVG";
 import Top from "./svg-components/Top";
-
-import { Header, Page } from "zmp-ui";
+import { Page } from "zmp-ui";
 import LeoSVG from "../../../zodiac-SVGs/Leo-SVG";
 import CancerSVG from "../../../zodiac-SVGs/Cancer-SVG";
 import SagittariusSVG from "../../../zodiac-SVGs/Sagittarius-SVG";
@@ -15,10 +14,6 @@ import ScorpioSVG from "../../../zodiac-SVGs/Scorpio-SVG";
 import TaurusSVG from "../../../zodiac-SVGs/Taurus-SVG";
 import VirgoSVG from "../../../zodiac-SVGs/Virgo-SVG";
 import AquariusSVG from "../../../zodiac-SVGs/Aquarius-SVG";
-import { Icon } from "zmp-ui";
-import Footer from "../footer/footer";
-
-import { useParams } from "react-router-dom";
 
 interface MyComponentProps {
   // Add any props you need here
@@ -97,16 +92,10 @@ const HoroscopeByDay: React.FC<MyComponentProps> = () => {
   return (
     <Page>
       <div className="w-full h-[870px] bg-[#f4eee3] overflow-x-scroll scrollbar-hide">
-        {/* <div
-          className="flex bg-[#F1E6D3] items-center h-9 mb-5"
-          style={{ boxShadow: "0 1px 0 0 rgba(0, 0, 0, 0.3)" }}
-        ></div> */}
-
         {/* top */}
         <div className="mx-auto w-fit">
           <Top />
         </div>
-
         <div className="mx-auto w-fit -translate-y-[140px]">
           <div className="svn-seiston whitespace-pre-line text-[#9F7C34] text-[36px] w-80 leading-[36px] tracking-wider text-center">
             Tử vi{"\n"}Cung hoàng đạo
@@ -121,13 +110,6 @@ const HoroscopeByDay: React.FC<MyComponentProps> = () => {
 
         {/* chọn cung để xem tử vi hàng ngày */}
         <div className="grid grid-cols-3 gap-3 w-fit mx-auto -translate-y-16">
-          {/* {Object.entries(ZodiacSVGs).map(([key, zodiacSVG]) => (
-            <ContainerForEachSign
-              zodiacName={zodiacSVG.name}
-              key={key}
-              zodiacSVG={zodiacSVG.svg}
-            />
-          ))} */}
           {Object.entries(ZodiacSVGs).map(([key, zodiacSVG]) => (
             <div key={key}>
               <Link
@@ -144,7 +126,6 @@ const HoroscopeByDay: React.FC<MyComponentProps> = () => {
             </div>
           ))}
         </div>
-        <Footer />
       </div>
     </Page>
   );

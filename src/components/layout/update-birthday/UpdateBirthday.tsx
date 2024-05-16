@@ -32,17 +32,9 @@ const UpdateBirthday = () => {
   const nameString = dataUser?.users[0]?.full_name;
   // Tạo một đối tượng Date từ chuỗi
   const dateConvert = new Date(dateString);
-
-  useEffect(() => {
-    setDate(dateConvert);
-    setName(nameString);
-  }, [dataUser]);
-
   // date dưới này để post
-
   const [updatedMessage, setUpdatedMessage] = useState(false);
   const [datepickerIsClicked, setDatepickerIsClicked] = useState(false);
-
   const dateChangeHandler = (value) => {
     setDate(value);
   };
@@ -100,18 +92,21 @@ const UpdateBirthday = () => {
     setDatepickerIsClicked(false);
   }, [date]);
 
+  useEffect(() => {
+    setDate(dateConvert);
+    setName(nameString);
+  }, [dataUser]);
+
   return (
     <Page className="page bg-[#f4eee3] overflow-x-scroll">
       <div className="w-fit mx-auto mb-9 relative">
         <div className="">
           <TopUpdateBirthday />
         </div>
-
         <div className="svn-seiston -translate-y-16 w-full tracking-wider text-3xl text-[#9f7c35]">
           <p className="w-64 mx-auto text-center">Thông tin cá nhân</p>
         </div>
       </div>
-
       <div className="-mt-14">
         <DatePicker
           mask
@@ -124,7 +119,6 @@ const UpdateBirthday = () => {
           locale="vi"
           inputClass="poppins"
         />
-
         <div className="mt-4 flex space-x-4">
           {/* <label className="block mb-2 text-lg font-medium text-[#9f7c35] poppins">Họ và tên</label> */}
           <input
@@ -135,13 +129,7 @@ const UpdateBirthday = () => {
             placeholder="Họ và tên"
             required
           />
-
-          {/* <button
-              className="bg-[#9f7c35] w-[20%] py-4 -translate-y-4 rounded-lg mt-4 poppins text-lg text-white">
-              <FontAwesomeIcon icon={faCheckCircle} />
-            </button> */}
         </div>
-
         <button
           className="bg-[#9f7c35] w-full py-3 rounded-lg mt-4 poppins text-lg text-white"
           onClick={updateBirthdayHandler}
@@ -149,7 +137,6 @@ const UpdateBirthday = () => {
           Cập nhật
         </button>
       </div>
-
       <div className="mt-2 w-fit mx-auto">
         <BelowButton />
       </div>
