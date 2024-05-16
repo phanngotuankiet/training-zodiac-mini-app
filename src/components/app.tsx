@@ -1,16 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route } from "react-router-dom";
-import {
-  App,
-  ZMPRouter,
-  AnimationRoutes,
-  SnackbarProvider,
-  Spinner,
-} from "zmp-ui";
+import { App, ZMPRouter, AnimationRoutes, SnackbarProvider } from "zmp-ui";
 import { RecoilRoot } from "recoil";
-import HomePage from "../pages";
-import About from "../pages/about";
-import Form from "../pages/form";
 import User from "../pages/user";
 import HoroscopeByDay from "./layout/discover-horo/horo-by-day";
 import Splash from "./layout/splash/splash";
@@ -20,14 +11,19 @@ import DiscoverHoroscope from "./layout/discover-horo/discover-horo";
 import DiscoverToday from "./layout/discover-today/discoverToday";
 import ByBirthdate from "./layout/discovery/byBirthdate";
 import ByTime from "./layout/by-time/byTime";
-import AskBirthdate from "./layout/modals/AskBirthdate";
 import EachZodiacsInfo from "./layout/detail/each-zodiacs-info";
-import ZodiacContext from "../context/ZodiacContext";
 import ZodiacProvider from "../context/provider/ZodiacProvider";
 import UpdateBirthday from "./layout/update-birthday/UpdateBirthday";
 import ForceInputBirthday from "./layout/force-user-to-input-their-birthday/ForceInputBirthday";
+import Footer from "./layout/footer/footer";
 
 const MyApp = () => {
+  const [showFooter, setShowFooter] = useState(false);
+
+  const handleFooter = (value: boolean) => {
+    setShowFooter(value);
+  };
+
   return (
     <RecoilRoot>
       <ApolloProvider client={client}>
@@ -36,7 +32,10 @@ const MyApp = () => {
             <SnackbarProvider>
               <ZMPRouter>
                 <AnimationRoutes>
-                  <Route path="/" element={<Splash></Splash>}></Route>
+                  <Route
+                    path="/"
+                    element={<Splash handleFooter={handleFooter}></Splash>}
+                  ></Route>
                   <Route path="/horo" element={<ByTime></ByTime>}></Route>
                   <Route
                     path="/detail"
@@ -74,6 +73,7 @@ const MyApp = () => {
                   ></Route>
                   <Route path="/user" element={<User></User>}></Route>
                 </AnimationRoutes>
+                {showFooter && <Footer />}
               </ZMPRouter>
             </SnackbarProvider>
           </App>

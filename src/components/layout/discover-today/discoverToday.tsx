@@ -164,7 +164,7 @@ const DiscoverToday: React.FC<MyComponentProps> = () => {
           </div>
         </div>
       </div>
-      <div className=" mx-auto p-4 bg-[#f4eee3] pt-12">{paragraphs}</div>
+      <div className=" mx-auto p-4 bg-[#f4eee3] pt-12 pb-28">{paragraphs}</div>
     </Page>
   );
 };

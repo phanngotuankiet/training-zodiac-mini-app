@@ -1,7 +1,6 @@
-import React, { startTransition, useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { BottomNavigation, Icon, useNavigate } from "zmp-ui";
-import ZodiacContext from "../../../context/ZodiacContext";
+import { useNavigate } from "zmp-ui";
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -10,16 +9,9 @@ const Footer = () => {
     "discovery" | "horo" | "information" | null
   >(null);
 
-  const { zodiacUserData } = useContext(ZodiacContext);
-  const getUsersZodiacID = zodiacUserData.zodiac_id;
-  console.log(
-    "user zodiac id from context (call from footer.tsx): ",
-    getUsersZodiacID
-  );
-
-  // Kiểm tra và cập nhật activeIcon dựa trên pathname khi đường dẫn thay đổi
   useEffect(() => {
     const path = location.pathname;
+
     if (path.includes("/discovery")) {
       setActiveIcon("discovery");
     } else if (path.includes("/horo")) {

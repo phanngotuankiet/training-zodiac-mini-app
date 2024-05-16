@@ -1,15 +1,11 @@
-import React from "react";
-import { Page, Spinner } from "zmp-ui";
+import React, { useState } from "react";
+import { Page } from "zmp-ui";
 import Footer from "../footer/footer";
 import ArrowStrength from "./bunch-of-svg/ArrowStrength";
 import ArrowWeakness from "./bunch-of-svg/ArrowWeakness";
 import VongCung from "./bunch-of-svg/uncopiable/VongCung";
-import Rotating from "./rotating";
 import SpinnerRandom from "./spinner";
-import ZodiacContext from "../../../context/ZodiacContext";
-import { useState } from "react";
 import { useDetailQueryZodiacQuery } from "../../../generated/graphql";
-
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Aries from "./bunch-of-svg/Aries";
@@ -137,7 +133,6 @@ const EachZodiacsInfo = () => {
           />
         </div>
       </div>
-      <Footer />
     </Page>
   );
 };

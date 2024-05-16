@@ -1,15 +1,15 @@
-import React, { startTransition, useEffect, useContext, useState } from "react";
-import { Header, Page, useNavigate } from "zmp-ui";
-import "./splash.css";
+import React, { startTransition, useEffect, useContext } from "react";
+import { Page, useNavigate } from "zmp-ui";
 import OpacityGalaxy from "./OpacityGalaxy";
 import ZodiacCercleSVG from "./ZodiacCercleSVG";
-import { getAccessToken, authorize } from "zmp-sdk/apis";
+import { getAccessToken } from "zmp-sdk/apis";
 import ZodiacContext from "../../../context/ZodiacContext";
 import { useLoginActionMutation } from "../../../generated/graphql";
+import "./splash.css";
 
-const Splash = () => {
+const Splash = ({ handleFooter }) => {
   const navigate = useNavigate();
-  const { zodiacUserData, updateStorage } = useContext(ZodiacContext);
+  const { updateStorage } = useContext(ZodiacContext) as any;
   const [loginActionMutation] = useLoginActionMutation({
     fetchPolicy: "no-cache",
   });
@@ -38,13 +38,18 @@ const Splash = () => {
         // nghĩa là chưa hết giờ login session
         startTransition(() => {
           navigate("/information");
+          handleFooter(true);
         });
       } else {
-       const newExpiry = new Date(currentTime.getTime() + 24 * 60 * 60 * 1000).toString();
-        localStorage.setItem('expiry', newExpiry);
+        const newExpiry = new Date(
+          currentTime.getTime() + 24 * 60 * 60 * 1000
+        ).toString();
+        localStorage.setItem("expiry", newExpiry);
         // thực hiện đăng nhập từ zalo
         loginActionHasura();
-        console.log('Expiry nhỏ hơn currentTime, đã set mới để đăng nhập lại từ zalo');
+        console.log(
+          "Expiry nhỏ hơn currentTime, đã set mới để đăng nhập lại từ zalo"
+        );
       }
     }
     console.log("Kiểm tra thử biến `expiry` trong localStorage:", getExpire);
@@ -75,17 +80,15 @@ const Splash = () => {
         checkData.data?.actionLogin?.zodiacId === undefined ||
         checkData.data?.actionLogin?.zodiacId === null
       ) {
-        console.log(
-          "login data zodiacId (từ hàm loginActionHasura): ",
-          checkData.data?.actionLogin?.zodiacId
-        );
         startTransition(() => {
           navigate("/information");
+          handleFooter(true);
         });
       } else {
         // nếu đã có lần đăng nhập + đã input ngày sinh rồi thì vào thẳng ngay monthly, weekly, daily
         startTransition(() => {
           navigate("/horo");
+          handleFooter(true);
         });
       }
     } catch (error) {

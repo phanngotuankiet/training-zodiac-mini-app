@@ -1,12 +1,9 @@
-import React, { startTransition, useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { startTransition, useEffect, useState } from "react";
 
 import Top from "./svg-components/Top";
 
 import { Page } from "zmp-ui";
-import Footer from "../footer/footer";
 import { useNavigate } from "react-router";
-import ZodiacContext from "../../../context/ZodiacContext";
 import AskBirthdate from "../modals/AskBirthdate";
 
 interface MyComponentProps {
@@ -51,7 +48,6 @@ const arrowIcon = (
 
 const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
   const navigate = useNavigate();
-  // const { zodiacUserData } = useContext(ZodiacContext) as any;
   const [hienMotLan, setHienMotLan] = useState(false);
 
   const handleHoroByDay = () => {
@@ -82,13 +78,13 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
 
   useEffect(() => {
     // Check if the modal has been shown before
-    const hasShownModal = localStorage.getItem('hasShown');
+    const hasShownModal = localStorage.getItem("hasShown");
 
     if (!hasShownModal) {
       // Show the modal
       setHienMotLan(true);
       // Set localStorage to indicate the modal has been shown
-      localStorage.setItem('hasShown', 'true');
+      localStorage.setItem("hasShown", "true");
     }
   }, []);
 
@@ -148,19 +144,14 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
             <span className="text-base">Tra cứu tử vi qua ngày sinh</span>
             <span>{arrowIcon}</span>
           </div>
-
-          {/* <div className="flex items-center tracking-wider space-x-2 svn-seiston text-[#9f7c35] w-fit mx-auto">
-            <span className="text-base">Xem thông tin tổng hợp</span>
-            <span>{arrowIcon}</span>
-          </div> */}
-
-          <div className="flex items-center tracking-wider space-x-2 svn-seiston text-[#9f7c35] w-fit mx-auto"
-            onClick={handleSettingsUpdateBirthdate}>
+          <div
+            className="flex items-center tracking-wider space-x-2 svn-seiston text-[#9f7c35] w-fit mx-auto"
+            onClick={handleSettingsUpdateBirthdate}
+          >
             <span className="text-base">Thay đổi thông tin của mình</span>
             <span>{arrowIcon}</span>
           </div>
         </div>
-        <Footer />
       </div>
     </Page>
   );

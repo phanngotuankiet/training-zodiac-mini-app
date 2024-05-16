@@ -204,12 +204,9 @@ const ByTime: React.FC<MyComponentProps> = () => {
         ))}
       </div>
 
-      <div className=" mx-auto p-4 bg-[#f4eee3] h-[600px] pb-16">
-        {" "}
+      <div className=" mx-auto p-4 bg-[#f4eee3] h-[600px] pb-28">
         {paragraphs}
       </div>
-
-      <Footer />
     </Page>
   );
 };

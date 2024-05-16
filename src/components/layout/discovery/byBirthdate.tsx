@@ -1,10 +1,7 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-
+import React, { useState } from "react";
 import TextTop from "./svg-components/TextTop";
 import Top from "./svg-components/Top";
-import { Page, Icon, DatePicker } from "zmp-ui";
-import Footer from "../footer/footer";
+import { Page, DatePicker } from "zmp-ui";
 import { useQueryByBirthDayLazyQuery } from "../../../generated/graphql";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -215,7 +212,11 @@ const ByBirthdate: React.FC<MyComponentProps> = () => {
   const [showDataUI, setShowDataUI] = useState(0);
   const date = yourBirthDay ? new Date(yourBirthDay) : undefined;
   // const formattedDate = date ? date.toISOString().split("T")[0] : "";
-  const formattedDate = `${date?.getFullYear()}-${(date?.getMonth() + 1) < 10 ? `0${date?.getMonth() + 1}` : date?.getMonth() + 1}-${date?.getDate() < 10 ? `0${date?.getDate()}` : date?.getDate()}`;
+  const formattedDate = `${date?.getFullYear()}-${
+    date?.getMonth() + 1 < 10
+      ? `0${date?.getMonth() + 1}`
+      : date?.getMonth() + 1
+  }-${date?.getDate() < 10 ? `0${date?.getDate()}` : date?.getDate()}`;
 
   const [getBirthday, { data: DataBirthdayRes }] = useQueryByBirthDayLazyQuery({
     fetchPolicy: "no-cache",
@@ -229,7 +230,13 @@ const ByBirthdate: React.FC<MyComponentProps> = () => {
   };
 
   // đoạn text này sẽ lấy dữ liệu từ api
-  const userZodiacInformation = `${DataBirthdayRes?.getZodiacByBirthDay?.name_vi || ""} (${DataBirthdayRes?.getZodiacByBirthDay?.name_en || ""}): ${DataBirthdayRes?.getZodiacByBirthDay?.description || ""}- Điểm mạnh: ${DataBirthdayRes?.getZodiacByBirthDay?.strengths || ""} - Điểm yếu: ${DataBirthdayRes?.getZodiacByBirthDay?.weaknesses || ""}`;
+  const userZodiacInformation = `${
+    DataBirthdayRes?.getZodiacByBirthDay?.name_vi || ""
+  } (${DataBirthdayRes?.getZodiacByBirthDay?.name_en || ""}): ${
+    DataBirthdayRes?.getZodiacByBirthDay?.description || ""
+  }- Điểm mạnh: ${
+    DataBirthdayRes?.getZodiacByBirthDay?.strengths || ""
+  } - Điểm yếu: ${DataBirthdayRes?.getZodiacByBirthDay?.weaknesses || ""}`;
   const zodiacInfo = userZodiacInformation
     .split("-")
     .map((lineByLine, index) => (
@@ -244,19 +251,6 @@ const ByBirthdate: React.FC<MyComponentProps> = () => {
   return (
     <Page>
       <div className="w-full h-full bg-[#f4eee3] overflow-x-scroll scrollbar-hide">
-        {/* header */}
-        {/* <div
-          className="flex bg-[#f1e6d3] items-center h-9 "
-          style={{ boxShadow: "0 1px 0 0 rgba(0, 0, 0, 0.3)" }}
-        >
-          <Icon className="px-2" icon="zi-chevron-left" size={32} />
-
-          <p className="text-[16px] ml-2 font-semibold">
-            Tra cứu tử vi qua ngày sinh
-          </p>
-        </div> */}
-
-        {/* top */}
         <div className="mx-auto w-fit mt-3">
           <Top />
         </div>
@@ -318,7 +312,6 @@ const ByBirthdate: React.FC<MyComponentProps> = () => {
           ""
         )}
       </div>
-      <Footer />
     </Page>
   );
 };

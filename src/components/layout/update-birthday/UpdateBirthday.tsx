@@ -1,5 +1,3 @@
-import { faCheckCircle } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect, useContext } from "react";
 import { DatePicker, Page, useNavigate } from "zmp-ui";
 import BelowButton from "./svg/BelowButton";

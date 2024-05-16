@@ -1,7 +1,7 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
+import { List } from "zmp-ui";
 import "./spinner.css";
-import { List, Page } from "zmp-ui";
-import img from "./icon/Group.png";
+
 const { Item } = List;
 const ListZodiac = [
   {
