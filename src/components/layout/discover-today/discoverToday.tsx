@@ -4,7 +4,7 @@ import LuckyColorText from "./svg-components/LuckyColorText";
 import LuckyNumberText from "./svg-components/LuckyNumbertext";
 import TextTop from "./svg-components/TextTop";
 import Top from "./svg-components/Top";
-import { Page, Icon, Header } from "zmp-ui";
+import { Page } from "zmp-ui";
 import CancerSVG from "../../../zodiac-SVGs/Cancer-SVG";
 import SagittariusSVG from "../../../zodiac-SVGs/Sagittarius-SVG";
 import AriesSVG from "../../../zodiac-SVGs/Aries-SVG";
@@ -71,6 +71,27 @@ const ZodiacSVGs = {
   11: <AquariusSVG />,
   12: <PiscesSVG />,
 };
+function getWeekNumber(d) {
+  const date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  date.setUTCDate(date.getUTCDate() + 4 - (date.getUTCDay() || 7));
+  const yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+  const weekNumber = Math.ceil(((date - yearStart) / 86400000 + 1) / 7);
+  return weekNumber.toString();
+}
+function getWeekDates(year, week) {
+  const firstDayOfYear = new Date(year, 0, 1);
+  const daysOffset = (week - 1) * 7 - firstDayOfYear.getDay() + 1;
+  const weekStart = new Date(year, 0, 1 + daysOffset);
+  const weekEnd = new Date(weekStart);
+  weekEnd.setDate(weekStart.getDate() + 6);
+  return { weekStart, weekEnd };
+}
+function formatDate(date) {
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+  return `${day}-${month}-${year}`;
+}
 
 const DiscoverToday: React.FC<MyComponentProps> = () => {
   const { id, key } = useParams();
@@ -91,13 +112,29 @@ const DiscoverToday: React.FC<MyComponentProps> = () => {
       fetchPolicy: "no-cache",
     });
     dataZodiac = normalizeData(dataZodiacWeekly, id);
-    console.log("123weekly", dataZodiac);
   } else if (id === "monthly") {
     const { data: dataZodiacMonth } = useQueryZodiacMonthlyQuery({
       variables: { date: currentMonth, id: keyNumber },
       fetchPolicy: "no-cache",
     });
     dataZodiac = normalizeData(dataZodiacMonth, id);
+  }
+  const currentDate = new Date();
+  let formattedDate = `${currentDate.getDate()} - ${
+    currentDate.getMonth() + 1
+  } - ${currentDate.getFullYear()}`;
+
+  if (id === "monthly") {
+    formattedDate = ` ${
+      currentDate.getMonth() + 1
+    } - ${currentDate.getFullYear()}`;
+  } else if (id === "weekly") {
+    const currentWeekNumber = getWeekNumber(currentDate);
+    const { weekStart, weekEnd } = getWeekDates(
+      currentDate.getFullYear(),
+      currentWeekNumber
+    );
+    formattedDate = `Tuần ${currentWeekNumber}`;
   }
 
   if (dataZodiac.name == " ") {
@@ -138,8 +175,7 @@ const DiscoverToday: React.FC<MyComponentProps> = () => {
           <div className="mx-auto w-fit absolute top-14 px-5 w-full">
             <div className="mb-2">
               <p className="tracking-wider text-center svn-seiston text-[#9f7c35] font-normal text-[20px]">
-                {new Date().getDate()} - {new Date().getMonth() + 1} -{" "}
-                {new Date().getFullYear()}
+                {formattedDate}
               </p>
               {/* breaker */}
               <p className="w-64 h-[1px] bg-[#AAAAAA] mx-auto mt-2"></p>

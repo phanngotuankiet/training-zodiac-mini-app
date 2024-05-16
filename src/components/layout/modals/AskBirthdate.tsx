@@ -11,13 +11,11 @@ const AskBirthdate = () => {
   const [seconds, setSeconds] = useState(totalTime);
   const [vDialogVisible, setVDialogVisible] = useState(true);
   const [confirmSubmitBirthdate, setConfirmSubmitBirthdate] = useState(false);
-
   const [date, setDate] = useState(null);
   const [datepickerIsClicked, setDatepickerIsClicked] = useState(false);
   // date dưới này để post
   const [dateToPost, setDateToPost] = useState("");
   const [shaking, setShaking] = useState(false);
-
   // hàm này là để xác nhận user không bỏ trống ô nhập ngày tháng sinh nhật
   const [confirmEnteredDate, setConfirmEnteredDate] = useState(false);
 

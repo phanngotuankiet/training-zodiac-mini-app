@@ -437,7 +437,6 @@ const ListZodiac = [
 ];
 
 const SpinnerRandom = ({ onDataClick, data }) => {
-  console.log("data, ", data);
   const [currentIndex, setCurrentIndex] = useState(data);
 
   const sendDataToParent = (currentIndex) => {

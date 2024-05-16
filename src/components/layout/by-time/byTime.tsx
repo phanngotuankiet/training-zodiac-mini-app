@@ -1,11 +1,10 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import CapricornSVG from "./svg-components/CapricornSVG";
 import LuckyColorText from "./svg-components/LuckyColorText";
 import LuckyNumberText from "./svg-components/LuckyNumbertext";
 import TextTop from "./svg-components/TextTop";
 import Top from "./svg-components/Top";
-import { Header, Page } from "zmp-ui";
-import Footer from "../footer/footer";
+import { Page } from "zmp-ui";
 import CancerSVG from "../../../zodiac-SVGs/Cancer-SVG";
 import SagittariusSVG from "../../../zodiac-SVGs/Sagittarius-SVG";
 import AriesSVG from "../../../zodiac-SVGs/Aries-SVG";
