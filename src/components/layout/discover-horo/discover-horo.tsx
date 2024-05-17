@@ -57,7 +57,7 @@ const DiscoverHoroscope: React.FC<MyComponentProps> = () => {
     variables: { userId: userId },
     fetchPolicy: "no-cache",
   });
-  const zodiacID = dataUserID?.users[0].zodiac_id || 1;
+  const zodiacID = dataUserID?.users[0]?.zodiac_id || 1;
 
   const handleHoroTotal = () => {
     startTransition(() => {
