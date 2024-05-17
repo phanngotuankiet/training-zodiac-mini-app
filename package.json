@@ -1,8 +1,8 @@
 {
-  "name": "cung-hoàng-đạo",
+  "name": "Xem Cung Hoang Dao",
   "private": true,
   "version": "1.0.0",
-  "description": "Cung Hoàng Đạo",
+  "description": "Ứng dụng Zalo Mini Apps về cung hoàng đạo cho người Việt, người dùng có thể xem thông tin cung hoàng đạo của mình hàng ngày, hàng tuần, hàng tháng",
   "repository": "",
   "license": "UNLICENSED",
   "browserslist": [
