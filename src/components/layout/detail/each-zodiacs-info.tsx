@@ -49,6 +49,38 @@ const EachZodiacsInfo = () => {
 
   const dataZodiac = data?.zodiac[0];
 
+  // split strength
+  const splitStrengths = dataZodiac?.strengths?.split(".").map((line, index) => {
+    // Check if the line is not empty and apply the class conditionally
+    if (line.trim()) {
+      return (
+        <li
+          key={index}
+          className={`${index === (dataZodiac?.strengths?.split(".").length ?? 0) - 1 ? "" : "mb-2"}`}
+        >
+          {line}
+        </li>
+      );
+    }
+    return null;
+  });
+
+  // split weaknesses
+  const splitWeaknesses = dataZodiac?.weaknesses?.split(".").map((line, index) => {
+    // Check if the line is not empty and apply the class conditionally
+    if (line.trim()) {
+      return (
+        <li
+          key={index}
+          className={`${index === (dataZodiac?.weaknesses?.split(".").length ?? 0) - 1 ? "" : "mb-2"}`}
+        >
+          {line}
+        </li>
+      );
+    }
+    return null;
+  });
+
   return (
     <Page className="bg-[#f4eee3] overflow-x-scroll scrollbar-hide">
       <div>
@@ -93,9 +125,9 @@ const EachZodiacsInfo = () => {
 
                 {/* đoạn text này là Điểm mạnh truyền từ API vào */}
                 <div>
-                  <p className="text-[#9F7C34] poppins text-[16px] leading-7 font-normal">
-                    Điểm mạnh: {dataZodiac?.strengths}
-                  </p>
+                  <ul className="text-[#9F7C34] list-disc poppins text-[16px] leading-7 font-normal">
+                    <p className="font-bold">Điểm mạnh:</p> {splitStrengths}
+                  </ul>
                 </div>
               </div>
 
@@ -121,7 +153,7 @@ const EachZodiacsInfo = () => {
 
                 <div>
                   <p className="text-[#9F7C34] poppins text-[16px] leading-7 font-normal">
-                    Điểm yếu: {dataZodiac?.weaknesses}
+                  <p className="font-bold">Điểm yếu:</p> {splitWeaknesses}
                   </p>
                 </div>
               </div>

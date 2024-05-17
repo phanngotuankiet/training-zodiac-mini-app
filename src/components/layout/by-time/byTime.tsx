@@ -154,11 +154,12 @@ const ByTime: React.FC<MyComponentProps> = () => {
   return (
     <Page className="">
       <div className="w-full h-auto bg-[#f4eee3] scrollbar-hide">
+        
         <div
-          className="flex bg-[#F1E6D3] items-center h-9 mb-4"
+          className="flex bg-[#F1E6D3] justify-center items-center h-9 mb-4"
           style={{ boxShadow: "0 1px 0 0 rgba(0, 0, 0, 0.3)" }}
         >
-          <p className="text-[16px] ml-2 font-semibold">
+          <p className="text-[16px] w-fit font-semibold">
             Xem tử vi ngày {new Date().getDate()} - {new Date().getMonth() + 1}
           </p>
         </div>
@@ -182,7 +183,7 @@ const ByTime: React.FC<MyComponentProps> = () => {
             </div>
 
             <div className="w-1/2">
-              <div className="mx-auto translate-x-6 w-fit">
+              <div className="mx-auto translate-x-14 w-fit">
                 <LuckyColorText LuckyColor={data.color || "transparent"} />
               </div>
             </div>
@@ -203,7 +204,7 @@ const ByTime: React.FC<MyComponentProps> = () => {
         ))}
       </div>
 
-      <div className=" mx-auto p-4 bg-[#f4eee3] h-[600px] pb-28">
+      <div className=" mx-auto p-4 bg-[#f4eee3] h-auto pb-28">
         {paragraphs}
       </div>
     </Page>
