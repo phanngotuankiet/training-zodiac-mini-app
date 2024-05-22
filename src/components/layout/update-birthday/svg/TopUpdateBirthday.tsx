@@ -3,7 +3,7 @@ import React from "react";
 const TopUpdateBirthday = () => {
   return (
     <svg
-      width="333"
+      width="343"
       height="123"
       viewBox="0 0 343 123"
       fill="none"
