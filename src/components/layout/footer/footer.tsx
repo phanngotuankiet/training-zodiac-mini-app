@@ -18,6 +18,10 @@ const Footer = () => {
       setActiveIcon("horo");
     } else if (path.includes("/information")) {
       setActiveIcon("information");
+    } else if (path.includes("/articles")) {
+      setActiveIcon("information");
+    } else if (path.includes("/update-birthdate")) {
+      setActiveIcon("information");
     } else {
       setActiveIcon(null);
     }
