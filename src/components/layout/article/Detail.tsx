@@ -46,7 +46,7 @@ const ArticleDetail = () => {
             {article.title}
           </h1>
           <div
-            className="prose text-[#686868] mt-4"
+            className="prose text-[#686868] text-justify mt-4"
             dangerouslySetInnerHTML={{ __html: article.html }}
           />
         </div>

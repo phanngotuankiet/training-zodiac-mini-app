@@ -12,17 +12,17 @@ type Meta = {
     pages: number;
     total: number;
   };
-}
+};
 
 type Tag = {
   slug: string;
   name: string;
-}
+};
 
 const tagDefault = {
-  slug: '',
-  name: 'Mới nhất'
-}
+  slug: "",
+  name: "Mới nhất",
+};
 
 const Article = () => {
   const [articles, setArticles] = useState<{
@@ -33,9 +33,11 @@ const Article = () => {
 
   useEffect(() => {
     const fetchArticles = async () => {
-      const url = new URL(`${GHOST_ENDPOINT}/content/posts?key=${GHOST_KEY}&fields=title,slug,feature_image&limit=10`);
+      const url = new URL(
+        `${GHOST_ENDPOINT}/content/posts?key=${GHOST_KEY}&fields=title,slug,feature_image&limit=10`
+      );
       if (selectedFilter?.slug) {
-        url.searchParams.append('filter', `tag:${selectedFilter.slug}`);
+        url.searchParams.append("filter", `tag:${selectedFilter.slug}`);
       }
       const res = await fetch(url.toString());
       setArticles(await res.json());
@@ -47,24 +49,33 @@ const Article = () => {
   const filterPostByTag = (tag: Tag) => {
     setSelectedFilter(tag);
     setArticles(null);
-  }
+  };
 
   return (
     <Page className="page bg-[#f4eee3] overflow-x-scroll">
       <div className="w-fit mx-auto">
-        <TopUpdateBirthday />
+        <div className="w-fit mx-auto">
+          <TopUpdateBirthday />
+        </div>
+
         <div className="svn-seiston mx-auto -translate-y-16 w-full tracking-wider text-2xl text-[#9f7c35]">
           <p className="w-3/4 mx-auto text-center">
             Tổng hợp thông tin tử vi cung hoàng đạo
           </p>
-          <BelowButton />
+
+          <div className="w-fit mt-2 mx-auto">
+            <BelowButton />
+          </div>
         </div>
       </div>
-      <Filter
-        selectedFilter={selectedFilter}
-        filterPostByTag={filterPostByTag}
-      />
-      <ArticleCards posts={articles?.posts} />
+
+      <div className="-mt-6">
+        <Filter
+          selectedFilter={selectedFilter}
+          filterPostByTag={filterPostByTag}
+        />
+        <ArticleCards posts={articles?.posts} />
+      </div>
     </Page>
   );
 };
@@ -80,7 +91,9 @@ const Filter = ({
 
   useEffect(() => {
     const fetchTags = async () => {
-      const res = await fetch(`${GHOST_ENDPOINT}/content/tags?key=${GHOST_KEY}`);
+      const res = await fetch(
+        `${GHOST_ENDPOINT}/content/tags?key=${GHOST_KEY}`
+      );
       const data = await res.json();
       setFilters([tagDefault, ...data.tags]);
     };

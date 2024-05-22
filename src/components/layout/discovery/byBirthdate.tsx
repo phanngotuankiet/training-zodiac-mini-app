@@ -240,12 +240,12 @@ const ByBirthdate: React.FC<MyComponentProps> = () => {
   const zodiacInfo = userZodiacInformation
     .split("-")
     .map((lineByLine, index) => (
-      <p
+      <div
         key={index}
-        className="text-[16px] font-normal leading-7 tracking-wide poppins"
+        className="text-[16px] my-3 flex font-normal leading-7 tracking-wide poppins"
       >
-        {index > 0 && bulletin} {lineByLine}
-      </p>
+        <div className="w-6">{index > 0 && bulletin}</div> <div className="">{lineByLine}</div>
+      </div>
     ));
 
   return (
