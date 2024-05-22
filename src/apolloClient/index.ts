@@ -13,7 +13,6 @@ const authLink = setContext((_, { headers }) => {
     headers: {
       ...headers,
       Authorization: zsData.token ? `Bearer ${zsData.token}` : "",
-      "x-hasura-admin-secret": "myadminsecretkey",
     }
   };
 });
