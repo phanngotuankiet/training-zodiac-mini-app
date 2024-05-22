@@ -183,7 +183,7 @@ const ByTime: React.FC<MyComponentProps> = () => {
             </div>
 
             <div className="w-1/2">
-              <div className="mx-auto translate-x-14 w-fit">
+              <div className="mx-auto translate-x-8 w-fit">
                 <LuckyColorText LuckyColor={data.color || "transparent"} />
               </div>
             </div>
