@@ -50,41 +50,53 @@ const EachZodiacsInfo = () => {
   const dataZodiac = data?.zodiac[0];
 
   // split strength
-  const splitStrengths = dataZodiac?.strengths?.split(".").map((line, index) => {
-    // Check if the line is not empty and apply the class conditionally
-    if (line.trim()) {
-      return (
-        <li
-          key={index}
-          className={`${index === (dataZodiac?.strengths?.split(".").length ?? 0) - 1 ? "" : "mb-2"}`}
-        >
-          {line}
-        </li>
-      );
-    }
-    return null;
-  });
+  const splitStrengths = dataZodiac?.strengths
+    ?.split(".")
+    .map((line, index) => {
+      // Check if the line is not empty and apply the class conditionally
+      if (line.trim()) {
+        return (
+          <li
+            key={index}
+            className={`${
+              index === (dataZodiac?.strengths?.split(".").length ?? 0) - 1
+                ? ""
+                : "mb-2"
+            }`}
+          >
+            {line}
+          </li>
+        );
+      }
+      return null;
+    });
 
   // split weaknesses
-  const splitWeaknesses = dataZodiac?.weaknesses?.split(".").map((line, index) => {
-    // Check if the line is not empty and apply the class conditionally
-    if (line.trim()) {
-      return (
-        <li
-          key={index}
-          className={`${index === (dataZodiac?.weaknesses?.split(".").length ?? 0) - 1 ? "" : "mb-2"}`}
-        >
-          {line}
-        </li>
-      );
-    }
-    return null;
-  });
+  const splitWeaknesses = dataZodiac?.weaknesses
+    ?.split(".")
+    .map((line, index) => {
+      // Check if the line is not empty and apply the class conditionally
+      if (line.trim()) {
+        return (
+          <li
+            key={index}
+            className={`${
+              index === (dataZodiac?.weaknesses?.split(".").length ?? 0) - 1
+                ? ""
+                : "mb-2"
+            }`}
+          >
+            {line}
+          </li>
+        );
+      }
+      return null;
+    });
 
   return (
     <Page className="bg-[#f4eee3] overflow-x-scroll scrollbar-hide">
       <div>
-        <div className="overflow-y-auto overflow-x-hidden h-[450px]">
+        <div className="overflow-y-auto overflow-x-hidden h-[520px]">
           {dataZodiac?.name_en === undefined ? (
             <div>
               <Skeleton
@@ -153,14 +165,14 @@ const EachZodiacsInfo = () => {
 
                 <div>
                   <p className="text-[#9F7C34] poppins text-[16px] leading-7 font-normal">
-                  <p className="font-bold">Điểm yếu:</p> {splitWeaknesses}
+                    <p className="font-bold">Điểm yếu:</p> {splitWeaknesses}
                   </p>
                 </div>
               </div>
             </>
           )}
         </div>
-        <div className="fixed bottom-[-100px] left-[50%] translate-x-[-50%] ">
+        <div className="fixed  left-[50%] translate-x-[-50%]">
           <SpinnerRandom
             onDataClick={handleDataFromChild}
             data={dataFromChild}

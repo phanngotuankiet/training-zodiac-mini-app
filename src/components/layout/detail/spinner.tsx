@@ -467,8 +467,8 @@ const SpinnerRandom = ({ onDataClick, data }) => {
 
   return (
     <div>
-      <div className="flex justify-between">
-        <div className="ml-3 cursor-pointer" onClick={rotateLeft}>
+      <div className="flex justify-between h-auto">
+        <div className="mr-3 cursor-pointer translate-y-5" onClick={rotateLeft}>
           <svg
             width="45"
             height="45"
@@ -483,7 +483,10 @@ const SpinnerRandom = ({ onDataClick, data }) => {
             <circle cx="29.5" cy="22.5" r="13" stroke="#9F7C34" />
           </svg>
         </div>
-        <div className="mr-3 cursor-pointer" onClick={rotateRight}>
+        <div
+          className="ml-3 cursor-pointer translate-y-5"
+          onClick={rotateRight}
+        >
           <svg
             width="45"
             height="45"
@@ -499,7 +502,7 @@ const SpinnerRandom = ({ onDataClick, data }) => {
           </svg>
         </div>
       </div>
-      <div className="circle">
+      <div className="circle -translate-y-0">
         {visibleItems.map((item, index) => (
           <div className={`item ${index === 0 ? "selected" : ""}`} key={index}>
             <div className={`icon icon-${index + 1}`}>{item.a.svg}</div>
