@@ -72,18 +72,18 @@ const DiscoverHoroscope = () => {
     });
   };
 
-  useEffect(() => {
-    const hasShownModal = localStorage.getItem("hasShown");
-    if (!hasShownModal) {
-      setShowModal(true);
-      localStorage.setItem("hasShown", "true");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const hasShownModal = localStorage.getItem("hasShown");
+  //   if (!hasShownModal) {
+  //     setShowModal(true);
+  //     localStorage.setItem("hasShown", "true");
+  //   }
+  // }, []);
 
   return (
     <Page>
       <div className="w-full h-full bg-[#f4eee3] overflow-x-scroll scrollbar-hide">
-        {showModal && <AskBirthdate />}
+        {/* {showModal && <AskBirthdate />} */}
         <div className="mx-auto w-fit mt-4">
           <Top />
         </div>
