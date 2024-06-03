@@ -114,7 +114,7 @@ const ByTime: React.FC<MyComponentProps> = () => {
     setFrequency(idButton);
   };
 
-  if (!hasBirthday) {
+  if (!hasBirthday && data.name === " ") {
     return <ForceInputBirthday />;
   }
 
