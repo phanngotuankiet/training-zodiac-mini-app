@@ -73,6 +73,8 @@ const Splash = ({ handleFooter }) => {
         zodiac_id: checkData.data?.actionLogin?.zodiacId,
       };
       localStorage.setItem("zodiacUserData", JSON.stringify(objectData));
+
+      // sau khi chạy hàm đăng nhập từ splash screen (nếu user chưa đăng nhập) thì lưu thông tin của user vừa mới đăng nhập từ database hasura vào context gồm các fields: user_id, zodiac_id, token (tạo ra từ hasura)
       updateStorage(objectData);
 
       // nếu như trả về từ hasura server cái zodiac_id là null, thì set hiển thị popup AskBirthdate là true

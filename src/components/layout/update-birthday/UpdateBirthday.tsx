@@ -11,9 +11,8 @@ import ZodiacContext from "../../../context/ZodiacContext";
 
 const UpdateBirthday = () => {
   const navigate = useNavigate();
-  const { zodiacUserData, updateStatusBirthday, hasBirthday } = useContext(
-    ZodiacContext
-  ) as any;
+  const { zodiacUserData, updateStorage, updateStatusBirthday }
+    = useContext(ZodiacContext) as any;
   const getUserID = zodiacUserData.user_id;
   const idUser = getUserID;
   const { data: dataUser } = useQueryUserByUpdateQuery({
@@ -52,12 +51,15 @@ const UpdateBirthday = () => {
       const day = String(dateUpdate.getUTCDate()).padStart(2, "0");
       const year = dateUpdate.getUTCFullYear();
       const formattedDate = `${month}-${day}-${year}`;
-      await updateBirthDay({
+      const getZodiacIDToSaveToLocalstorage = await updateBirthDay({
         variables: {
           idUser: idUser.toString(),
           birthday: formattedDate,
         },
       });
+
+      // update zodiac_id vào context ở đây
+      updateStorage({ zodiac_id: getZodiacIDToSaveToLocalstorage?.data?.actionUpdateBirthday?.zodiac_id });
 
       await updateNameUser({
         variables: {
@@ -145,9 +147,8 @@ const UpdateBirthday = () => {
       <div className="mt-4 w-fit mx-auto">
         {updatedMessage && date && (
           <p
-            className={`px-2 transition-all ease-linear italic mt-4 ${
-              updatedMessage ? "" : "opacity-0"
-            } text-[#9f7c35]`}
+            className={`px-2 transition-all ease-linear italic mt-4 ${updatedMessage ? "" : "opacity-0"
+              } text-[#9f7c35]`}
             style={{
               animation: updatedMessage ? "none" : "fades 11s forwards",
             }}
