@@ -96,8 +96,10 @@ function formatDate(date) {
 const DiscoverToday: React.FC<MyComponentProps> = () => {
   const { id, key } = useParams();
   const keyNumber = key ? parseInt(key, 10) : 1;
-  const date = new Date().toISOString().split("T")[0];
-  const currentMonth = new Date().getMonth() + 1;
+  const today = new Date();
+  today.setHours(today.getHours() + 7);
+  const date = today.toISOString().split("T")[0];
+  const currentMonth = today.getMonth() + 1;
 
   let dataZodiac;
   if (id === "daily") {

@@ -81,13 +81,14 @@ const arrowIcon = (
 
 const ByTime: React.FC<MyComponentProps> = () => {
   const today = new Date();
+  today.setHours(today.getHours() + 7);
+  const date = today.toISOString().split("T")[0];
   const currentMonth = today.getMonth() + 1;
   const { zodiacUserData } = useContext(ZodiacContext) as any;
 
   const userId = zodiacUserData.user_id;
   const getZodiacIDFromContext = zodiacUserData.zodiac_id || null;
 
-  const date = new Date().toISOString().split("T")[0];
   const [frequency, setFrequency] = useState(0);
   const { data: dataDaily } = useQueryDailyHoroscopeQuery({
     variables: { date, userId: userId },
@@ -155,7 +156,6 @@ const ByTime: React.FC<MyComponentProps> = () => {
   return (
     <Page className="">
       <div className="w-full h-auto bg-[#f4eee3] scrollbar-hide">
-
         <div
           className="flex bg-[#F1E6D3] justify-center items-center h-9 mb-4"
           style={{ boxShadow: "0 1px 0 0 rgba(0, 0, 0, 0.3)" }}
@@ -195,8 +195,9 @@ const ByTime: React.FC<MyComponentProps> = () => {
         {Object.values(HoroscopeByDay).map((timeTaken, key) => (
           <button
             id={key.toString()}
-            className={`text-[#9f7c35] poppins text-[16px] mx-1 font-medium px-4 py-3 border border-[#9f7c35] rounded-md ${key === buttonClicked && "text-white bg-[#9f7c35]"
-              }`}
+            className={`text-[#9f7c35] poppins text-[16px] mx-1 font-medium px-4 py-3 border border-[#9f7c35] rounded-md ${
+              key === buttonClicked && "text-white bg-[#9f7c35]"
+            }`}
             onClick={() => handleButtonClicked(key)}
           >
             {timeTaken}
@@ -204,9 +205,7 @@ const ByTime: React.FC<MyComponentProps> = () => {
         ))}
       </div>
 
-      <div className=" mx-auto p-4 bg-[#f4eee3] h-auto pb-28">
-        {paragraphs}
-      </div>
+      <div className=" mx-auto p-4 bg-[#f4eee3] h-auto pb-28">{paragraphs}</div>
     </Page>
   );
 };
