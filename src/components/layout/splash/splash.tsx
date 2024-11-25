@@ -110,7 +110,10 @@ const Splash = ({ handleFooter }) => {
 
   // mới vào Splash screen thì thực hiện đăng nhập ở đây
   useEffect(() => {
-    checkIfExpired();
+    // this is login function of Zalo mini app
+    setTimeout(() => {
+      checkIfExpired();
+    }, 7000);
   }, []);
 
   return (
